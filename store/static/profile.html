@@ -127,11 +127,10 @@
 </div>
 <!-- End Breadcrumbs -->
 <br>
-<div class="container"
-<div class="col-xl-8">
 
-    <div class="card">
-      <div class="card-body pt-3">
+
+<div class="container" 
+      class="card-body pt-3">
         <!-- Bordered Tabs -->
         <ul class="nav nav-tabs nav-tabs-bordered">
 
@@ -154,41 +153,44 @@
         </ul>
         <div class="tab-content pt-2">
 
-          <div class="tab-pane fade show active profile-overview" id="profile-overview">
-            <h5 class="card-title">About</h5>
-            <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
+          <div class="tab-pane fade show active profile-overview" id="profile-overview"><br>
+            <h5 class="card-title">Profile Details</h5><br>
 
-            <h5 class="card-title">Profile Details</h5>
 
             <div class="row">
               <div class="col-lg-3 col-md-4 label ">Full Name</div>
               <div class="col-lg-9 col-md-8">Kevin Anderson</div>
             </div>
-
+            <br>
             <div class="row">
               <div class="col-lg-3 col-md-4 label">Company</div>
               <div class="col-lg-9 col-md-8">Lueilwitz, Wisoky and Leuschke</div>
             </div>
+            <br>
 
             <div class="row">
               <div class="col-lg-3 col-md-4 label">Job</div>
               <div class="col-lg-9 col-md-8">Web Designer</div>
             </div>
+            <br>
 
             <div class="row">
               <div class="col-lg-3 col-md-4 label">Country</div>
               <div class="col-lg-9 col-md-8">USA</div>
             </div>
+            <br>
 
             <div class="row">
               <div class="col-lg-3 col-md-4 label">Address</div>
               <div class="col-lg-9 col-md-8">A108 Adam Street, New York, NY 535022</div>
             </div>
+            <br>
 
             <div class="row">
               <div class="col-lg-3 col-md-4 label">Phone</div>
               <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
             </div>
+            <br>
 
             <div class="row">
               <div class="col-lg-3 col-md-4 label">Email</div>
@@ -204,10 +206,10 @@
               <div class="row mb-3">
                 <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                 <div class="col-md-8 col-lg-9">
-                  <img src="assets/img/profile-img.jpg" alt="Profile">
+                  <img src="assets/images/blank.jpg" width="50" height="50" alt="Profile">
                   <div class="pt-2">
-                    <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                    <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                    <button type="button" class="btn btn-sm btn-primary">Upload</button>
+                    <button type="button" class="btn btn-sm btn-danger">Delete</button>
                   </div>
                 </div>
               </div>
@@ -215,90 +217,99 @@
               <div class="row mb-3">
                 <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                 <div class="col-md-8 col-lg-9">
-                  <input name="fullName" type="text" class="form-control" id="fullName" value="Kevin Anderson">
+                  <input name="fullName" type="text" class="form-control" id="fullName" value="...">
                 </div>
               </div>
 
               <div class="row mb-3">
-                <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
+                <label for="zip" class="col-md-4 col-lg-3 col-form-label">PLZ</label>
                 <div class="col-md-8 col-lg-9">
-                  <textarea name="about" class="form-control" id="about" style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
+                  <input name="Stadt" type="tel" class="form-control" id="zip" value="...">
                 </div>
               </div>
 
               <div class="row mb-3">
-                <label for="company" class="col-md-4 col-lg-3 col-form-label">Company</label>
+                <label for="Stadt" class="col-md-4 col-lg-3 col-form-label">Stadt</label>
                 <div class="col-md-8 col-lg-9">
-                  <input name="company" type="text" class="form-control" id="company" value="Lueilwitz, Wisoky and Leuschke">
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <label for="Job" class="col-md-4 col-lg-3 col-form-label">Job</label>
-                <div class="col-md-8 col-lg-9">
-                  <input name="job" type="text" class="form-control" id="Job" value="Web Designer">
+                  <input name="Stadt" type="text" class="form-control" id="Stadt" value="...">
                 </div>
               </div>
 
               <div class="row mb-3">
                 <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
                 <div class="col-md-8 col-lg-9">
-                  <input name="country" type="text" class="form-control" id="Country" value="USA">
+                  <select class="form-select" id="country" placeholder="Your email" aria-label="Default select example">
+                    <option selected></option>
+                    <option value="1">Deutschland</option>
+                    <option value="2">Österreich</option>
+                  </select>
                 </div>
               </div>
 
               <div class="row mb-3">
                 <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                 <div class="col-md-8 col-lg-9">
-                  <input name="address" type="text" class="form-control" id="Address" value="A108 Adam Street, New York, NY 535022">
+                  <input name="address" type="text" class="form-control" id="Address" value="...">
                 </div>
               </div>
 
               <div class="row mb-3">
                 <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                 <div class="col-md-8 col-lg-9">
-                  <input name="phone" type="text" class="form-control" id="Phone" value="(436) 486-3538 x29071">
+                  <input name="phone" type="text" class="form-control" id="Phone" value="...">
                 </div>
               </div>
 
               <div class="row mb-3">
                 <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                 <div class="col-md-8 col-lg-9">
-                  <input name="email" type="email" class="form-control" id="Email" value="k.anderson@example.com">
+                  <input name="email" type="email" class="form-control" id="Email" value="...">
                 </div>
               </div>
 
-              <div class="row mb-3">
-                <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
-                <div class="col-md-8 col-lg-9">
-                  <input name="twitter" type="text" class="form-control" id="Twitter" value="https://twitter.com/#">
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook Profile</label>
-                <div class="col-md-8 col-lg-9">
-                  <input name="facebook" type="text" class="form-control" id="Facebook" value="https://facebook.com/#">
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram Profile</label>
-                <div class="col-md-8 col-lg-9">
-                  <input name="instagram" type="text" class="form-control" id="Instagram" value="https://instagram.com/#">
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin Profile</label>
-                <div class="col-md-8 col-lg-9">
-                  <input name="linkedin" type="text" class="form-control" id="Linkedin" value="https://linkedin.com/#">
-                </div>
-              </div>
+              
 
               <div class="text-center">
                 <button type="submit" class="btn btn-primary">Save Changes</button>
-              </div>
+              </div><br>
+
+              <div class="row g-6"> 
+                <div class="col-md-12">
+                  <div class="card shadow border-0">
+                    <div class="card-body d-flex align-items-center">
+                       <div>
+                        <h5 class="text-danger mb-2">Deactivate account</h5>
+                        <p class="text-sm text-muted">
+                          Once you delete your account, there is no going back. Please be certain.
+                        </p>
+                      </div>
+                      <div class="ms-auto">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"> Deactivate</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Bist du sicher?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                Hiermit wird dein Account vollständig gelöscht.
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger">Ja</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><br>
+                </div>
+            </div>
+
             </form><!-- End Profile Edit Form -->
 
           </div>
@@ -345,6 +356,8 @@
 
           </div>
 
+          
+
           <div class="tab-pane fade pt-3" id="profile-change-password">
             <!-- Change Password Form -->
             <form>
@@ -380,7 +393,7 @@
         </div><!-- End Bordered Tabs -->
 
       </div>
-    </div></div><br>
+    <br>
   
 
 
