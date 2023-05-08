@@ -4,9 +4,9 @@ $(document).ready(function () {
         e.preventDefault();
 
         var inc_value = $(this).closest('.product_data').find('.qty-input').val();
-        var value = parseInt(inc_value,10);
+        var value = parseInt(inc_value, 10);
         value = isNaN(value) ? 0 : value;
-        if(value < 10) //10 gibt Wert an bis zu welcher Menge bestellt werden kann (nach 10 gehz Zähler nicht weiter hoch)
+        if (value < 10) //10 gibt Wert an bis zu welcher Menge bestellt werden kann (nach 10 gehz Zähler nicht weiter hoch)
         {
             value++;
             $(this).closest('.product_data').find('.qty-input').val(value);
@@ -17,10 +17,9 @@ $(document).ready(function () {
         e.preventDefault();
 
         var dec_value = $(this).closest('.product_data').find('.qty-input').val();
-        var value = parseInt(dec_value,10);
+        var value = parseInt(dec_value, 10);
         value = isNaN(value) ? 0 : value;
-        if(value > 1)
-        {
+        if (value > 1) {
             value--;
             $(this).closest('.product_data').find('.qty-input').val(value);
         }
@@ -42,12 +41,55 @@ $(document).ready(function () {
 
             },
             dataType: "",
-            success: function (response){
+            success: function (response) {
                 alertify.success(response.status)
 
             }
 
-        })
+        });
+    });
 
-    })
+    $('.changeQuantity').click(function (e) {
+        e.preventDefault();
+
+        var product_id = $(this).closest('.product_data').find('.prod_id').val();
+        var product_qty = $(this).closest('.product_data').find('.qty-input').val();
+        var token = $('input[name=csrfmiddlewaretoken]').val()
+        $.ajax({
+            type: "POST",
+            url: "/update-cart",
+            data: {
+                'product_id': product_id,
+                'product_qty': product_qty,
+                csrfmiddlewaretoken: token
+
+            },
+            dataType: "",
+            success: function (response) {
+                // alertify.success(response.status)
+
+            }
+
+        });
+    });
+
+    $('.delete-cart-item').click(function (e) {
+        e.preventDefault();
+
+        var product_id = $(this).closest('.product_data').find('.prod_id').val();
+        var token = $('input[name=csrfmiddlewaretoken]').val()
+        $.ajax({
+            type: "POST",
+            url: "/delete-cart-item",
+            data: {
+                'product_id': product_id,
+                csrfmiddlewaretoken: token
+
+            },
+            success: function (response) {
+                alertify.success(response.status)
+                $('.cartdata').load(location.href + " .cartdata");
+            }
+        });
+    });
 });
