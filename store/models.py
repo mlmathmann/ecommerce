@@ -3,6 +3,7 @@ import datetime
 import os
 from django.contrib.auth.forms import User
 
+
 # Create your models here.
 def get_file_path(request, filename):
     original_filename = filename
@@ -60,3 +61,42 @@ class Wishlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    fname = models.CharField(max_length=150, null=False)
+    lname = models.CharField(max_length=150, null=False)
+    email = models.CharField(max_length=150, null=False)
+    phone = models.CharField(max_length=150, null=False)
+    street = models.CharField(max_length=150, null=False)
+    house_number = models.CharField(max_length=150, null=False)
+    address_info = models.TextField(max_length=150, null=True)
+    postal_code = models.CharField(max_length=150, null=False)
+    city = models.CharField(max_length=150, null=False)
+    total_price = models.FloatField(null=False)
+    payment_mode = models.CharField(max_length=150, null=False)
+    payment_id = models.CharField(max_length=250, null=True)
+    order_statuses = (
+        ('Pending', 'Pending'),
+        ('Out on delivery', 'Out on delivery'),
+        ('Completed', 'Completed')
+    )
+    status = models.CharField(max_length=150, choices=order_statuses, default='Pending')
+    message = models.TextField(null=True)
+    tracking_no = models.CharField(max_length=150, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return '{} - {}'.format(self.id, self.tracking_no)
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    price = models.FloatField(null=False)
+    quantity = models.IntegerField(null=False)
+
+    def __str__(self):
+        return '{} {}'.format(self.order.id, self.order.tracking_no)
