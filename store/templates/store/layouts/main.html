@@ -22,9 +22,11 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
     <style>
+        {% comment %}  Font type, achtung manche supporten font weight nicht bis 900 oderso, also passende schrift suchen
         *{
             font-family: 'Roboto', sans-serif;
         }
+        {% endcomment %}
         a{text-decoration: none}
         .product-viewtag{
             background-color: red;
@@ -44,6 +46,10 @@
             background-color: darkgrey;
             font-weight: 600;
             border-radius: 25px;
+        }
+        .thea{
+            font-weight: 900;
+            background-color: darkgrey;
 
         }
     </style>

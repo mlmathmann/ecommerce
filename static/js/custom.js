@@ -4,12 +4,18 @@ $(document).ready(function () {
         e.preventDefault();
 
         var inc_value = $(this).closest('.product_data').find('.qty-input').val();
+        var max_inc_value = $(this).closest('.product_data').find('.max-qty').val();
         var value = parseInt(inc_value, 10);
+        var max_value = parseInt(max_inc_value, 10);
         value = isNaN(value) ? 0 : value;
-        if (value < 10) //10 gibt Wert an bis zu welcher Menge bestellt werden kann (nach 10 gehz Zähler nicht weiter hoch)
+        if (value < max_value) //10 gibt Wert an bis zu welcher Menge bestellt werden kann (nach 10 gehz Zähler nicht weiter hoch)
         {
             value++;
             $(this).closest('.product_data').find('.qty-input').val(value);
+        }
+        else {
+            alertify.error("Not more products in stock")
+
         }
     });
 
@@ -89,6 +95,7 @@ $(document).ready(function () {
             success: function (response) {
                 alertify.success(response.status)
                 $('.cartdata').load(location.href + " .cartdata");
+                // window.location.reload();
             }
         });
     });
@@ -114,6 +121,7 @@ $(document).ready(function () {
 
         });
     });
+
     $(document).on('click', '.delete-wishlist-item', function (e)  {
         e.preventDefault();
 
