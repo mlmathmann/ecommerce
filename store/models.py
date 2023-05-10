@@ -68,12 +68,13 @@ class Order(models.Model):
     fname = models.CharField(max_length=150, null=False)
     lname = models.CharField(max_length=150, null=False)
     email = models.CharField(max_length=150, null=False)
-    phone = models.CharField(max_length=150, null=False)
+    phone = models.CharField(max_length=50, null=False)
     street = models.CharField(max_length=150, null=False)
     house_number = models.CharField(max_length=150, null=False)
     address_info = models.TextField(max_length=150, null=True)
     postal_code = models.CharField(max_length=150, null=False)
     city = models.CharField(max_length=150, null=False)
+    country = models.CharField(max_length=150, null=False, default='kack-stadt')
     total_price = models.FloatField(null=False)
     payment_mode = models.CharField(max_length=150, null=False)
     payment_id = models.CharField(max_length=250, null=True)
@@ -100,3 +101,16 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return '{} {}'.format(self.order.id, self.order.tracking_no)
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=50, null=False)
+    street = models.CharField(max_length=150, null=False)
+    house_number = models.CharField(max_length=150, null=False)
+    address_info = models.TextField(max_length=150, null=True)
+    postal_code = models.CharField(max_length=150, null=False)
+    city = models.CharField(max_length=150, null=False)
+    country = models.CharField(max_length=150, null=False, default='kack-stadt')
+    created_at = models.DateTimeField(auto_now_add=True)
+

@@ -1,7 +1,8 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from store.models import Cart, Order, OrderItem, Product
+from django.contrib.auth.models import User
+from store.models import Cart, Order, OrderItem, Product, Profile
 
 import random
 
@@ -20,14 +21,38 @@ def index(request):
         number_str = format_str.format(total_price)
         new_total_price = number_str.replace(',', 'X').replace('.', ',').replace('X', '.')
 
+    userprofile = Profile.objects.filter(user=request.user).first()
+
     context = {'cartitems': cartitems,
-               'total_price': new_total_price}
+               'total_price': new_total_price,
+               'userprofile': userprofile}
     return render(request, 'store/checkout.html', context)
 
 
 @login_required(login_url='loginpage')
 def placeorder(request):
     if request.method == 'POST':
+
+        currentuser = User.objects.filter(id=request.user.id).first()
+
+        if not currentuser.first_name:
+            currentuser.first_name = request.POST.get('fname')
+            currentuser.last_name = request.POST.get('lname')
+            currentuser.save()
+
+        if not Profile.objects.filter(user=request.user):
+            userprofile = Profile()
+            userprofile.user = request.user
+            userprofile.email = request.POST.get('email')
+            userprofile.phone = request.POST.get('phone')
+            userprofile.street = request.POST.get('street')
+            userprofile.house_number = request.POST.get('house_number')
+            userprofile.address_info = request.POST.get('address_info')
+            userprofile.postal_code = request.POST.get('postal_code')
+            userprofile.city = request.POST.get('city')
+            userprofile.country = request.POST.get('country')
+            userprofile.save()
+
         neworder = Order()
         neworder.user = request.user
         neworder.fname = request.POST.get('fname')
@@ -39,6 +64,7 @@ def placeorder(request):
         neworder.address_info = request.POST.get('address_info')
         neworder.postal_code = request.POST.get('postal_code')
         neworder.city = request.POST.get('city')
+        neworder.country = request.POST.get('country')
 
         # neworder.total_price = request.POST.get('total_price')
 
