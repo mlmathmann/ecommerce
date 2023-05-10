@@ -25,6 +25,7 @@ def index(request):
 
     context = {'cartitems': cartitems,
                'total_price': new_total_price,
+               'total_price_calc': total_price,
                'userprofile': userprofile}
     return render(request, 'store/checkout.html', context)
 
