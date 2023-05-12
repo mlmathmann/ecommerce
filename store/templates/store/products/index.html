@@ -10,21 +10,34 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container master">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 data-div">
                 <h1> {{ category.name }} </h1>
                 <hr>
-                <form method="GET" action="{% url 'collectionsview' category.slug %}">{{ form.as_p }}<input
-                        type="submit" value="Sus" class="btn btn-primary">
-                <div class="row">
+                {% csrf_token %}
+                <input class="prod_" type="hidden" value="{{ products }}">
+                <input class="cat_slug" type="hidden" value="{{ category.slug }}">
+                <select id="select1">
+                    <option></option>
+                    <option value="A">ARISTOCRATIC</option>
+                    <option value="I">IMAGINATIVE</option>
+                    <option value="F">FUTURISTIC</option>
+                    <option value="B">BRUTALISTIC</option>
+                    <option value="M">MINIMALISTIC</option>
+                </select>
+                <input type="submit" value="Sus" class="btn btn-primary">
+                <input type="text" readonly="readonly" id="result">
+                <br>
+                <div class="row prod-row">
                     {% for item in products %}
                         <div class="col-md-3">
                             <div class="card">
                                 <a href="{% url 'productview' item.category.slug item.slug %}">
                                     <div class="card-body">
                                         <div class="category-image">
-                                            <img src="{{ item.product_image.url }}" alt="Product Image" class="w-100"/>
+                                            <img src="{{ item.product_image.url }}" alt="Product Image"
+                                                 class="w-100"/>
                                         </div>
                                         <hr>
                                         <h4 class="text-center"> {{ item.name }} </h4>
@@ -36,7 +49,7 @@
                         </div>
                     {% endfor %}
                 </div>
-                </form>
+
             </div>
         </div>
     </div>

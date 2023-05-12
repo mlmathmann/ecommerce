@@ -30,9 +30,9 @@ class Category(models.Model):
 
 class Product(models.Model):
     class StyleChoices(models.TextChoices):
-        STANDARD = 'S'
+        ALL = 'S'
         ARISTROCRATIC = 'A'
-        IMAGINITIVE = 'I'
+        IMAGINATIVE = 'I'
         FUTURISTIC = 'F'
         BRUTALISTIC = 'B'
         MINIMALISTIC = 'M'

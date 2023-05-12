@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from .models import *
 from .forms import ProductStyleFilterForm
+import time
 
 
 # Create your views here.
@@ -15,14 +16,33 @@ def collections(request):
     return render(request, "store/collections.html", context)
 
 
+style_way = ''
+
+
 def collectionsview(request, slug):
     if Category.objects.filter(slug=slug, status=0):
         products = Product.objects.filter(category__slug=slug)
         category = Category.objects.filter(slug=slug).first()
-        style_way = request.GET.get('name')
-        if style_way:
-            products = Product.objects.filter(category__slug=slug, style_way=style_way)
-        context = {'products': products, 'category': category, 'form': ProductStyleFilterForm()}
+        print(request.path, request.body)
+        global style_way
+        if request.method == 'POST':
+            style_way = request.POST.get('option_value')
+            print('POST', style_way)
+        if style_way != '':
+            print(f"POST NO NONE \"{style_way}\"")
+            if style_way == 'ARISTROCRATIC':
+                style_way = Product.StyleChoices.ARISTROCRATIC
+            elif style_way == 'IMAGINATIVE':
+                style_way = Product.StyleChoices.IMAGINATIVE
+            elif style_way == 'FUTURISTIC':
+                style_way = Product.StyleChoices.FUTURISTIC
+            elif style_way == 'BRUTALISTIC':
+                style_way = Product.StyleChoices.BRUTALISTIC
+            elif style_way == 'MINIMALISTIC':
+                style_way = Product.StyleChoices.MINIMALISTIC
+            print(style_way)
+            products = products.filter(style_way=style_way)
+        context = {'products': products, 'category': category}
         return render(request, 'store/products/index.html', context)
     else:
         messages.warning(request, "No such category found")
@@ -40,5 +60,3 @@ def productview(request, cate_slug, prod_slug):
     else:
         messages.error(request, "No such category found")
     return render(request, "store/products/view.html", context)
-
-

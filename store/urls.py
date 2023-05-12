@@ -2,7 +2,6 @@ from django.urls import path
 from . import views
 from store.controller import authview, cart, wishlist, checkout
 
-
 urlpatterns = [
     path('', views.home, name="home"),
     path('collections', views.collections, name="collections"),
