@@ -148,6 +148,7 @@ $(document).ready(function () {
         var cat_slug = $(this).closest('.data-div').find('.cat_slug').val();
         console.log(cat_slug)
         var token = $('input[name=csrfmiddlewaretoken]').val()
+        var filter = option_value.toLowerCase()
 
         $.ajax({
             type: "POST",
@@ -155,7 +156,7 @@ $(document).ready(function () {
             data: {
                 'option_value': option_value,
                 csrfmiddlewaretoken: token,
-                'call': "ajax-call"
+                'filter': filter,
             },
             success: function (response) {
                 alertify.success(response.status)
