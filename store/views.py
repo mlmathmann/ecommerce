@@ -7,7 +7,10 @@ import time
 
 # Create your views here.
 def home(request):
-    return render(request, "store/index.html")
+    categories = Category.objects.all()
+    products = Product.objects.all()
+    context = {'category': categories, 'products': products}
+    return render(request, "store/index.html", context)
 
 
 def collections(request):
