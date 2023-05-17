@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from store.controller import authview, cart, wishlist, checkout
+from store.controller import authview, cart, wishlist, checkout, dashboard
 
 urlpatterns = [
     path('', views.home, name="home"),
@@ -11,6 +11,9 @@ urlpatterns = [
     path('register/', authview.register, name="register"),
     path('login/', authview.loginpage, name="loginpage"),
     path('logout/', authview.logoutpage, name="logout"),
+
+    path('myprofile/<str:user>', dashboard.profile, name="profile"),
+    path('myprofile/<str:user>/details', dashboard.details, name="details"),
 
     path('add-to-cart', cart.addtocart, name="addtocart"),
     path('cart', cart.viewcart, name="cart"),

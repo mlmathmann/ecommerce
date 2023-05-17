@@ -1,8 +1,8 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from .models import *
-from .forms import ProductStyleFilterForm
-import time
+
+
 
 
 # Create your views here.
@@ -41,7 +41,7 @@ def collectionsview(request, slug):
                 style_way = Product.StyleChoices.FUTURISTIC
             elif style_way == 'BRUTALISTIC':
                 style_way = Product.StyleChoices.BRUTALISTIC
-            elif style_way == 'MINIMALISTIC':
+            elif style_way == 'SIMPLICITY':
                 style_way = Product.StyleChoices.MINIMALISTIC
             print(style_way)
             products = products.filter(style_way=style_way)

@@ -74,7 +74,7 @@
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Dashboard</li>
-                                                    <li class="nav-item"><a href="../../../static/profile.html">My
+                                                    <li class="nav-item"><a href="{% url 'profile' user %}">My
                                                         Profile</a></li>
                                                     <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
                                                 </ul>
@@ -106,7 +106,7 @@
                                                 {{ request.user }}
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#">Dashboard?</a></li>
+                                                <li><a class="dropdown-item" href="{% url 'profile' request.user%}">My Profile</a></li>
                                                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                                             </ul>
                                         </li>
@@ -121,10 +121,10 @@
                                         </li>
                                     {% endif %}
                                     <li>
-                                        <a href="wishlist.html"><i class="lni lni-cart"></i>Wunschliste</a>
+                                        <a href="{% url 'wishlist' %}"><i class="lni lni-cart"></i>Wunschliste</a>
                                     </li>
                                     <li>
-                                        <a href="../../../static/checkout.html"><i
+                                        <a href="{% url 'cart' %}"><i
                                                 class="lni lni-cart"></i>Warenkorb</a>
                                     </li>
 
@@ -288,8 +288,10 @@
                 </div>
 
                 <div class="col-lg-4 ">
+                    <a href="#" style="display: block">
                     <div class="single-work"><span class="serial">02</span>
                         <h3>Generiere ein Möbelstück</h3></div>
+                    </a>
                 </div>
 
                 <div class="col-lg-4 ">
