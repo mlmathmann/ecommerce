@@ -76,6 +76,7 @@ def profile(request, user):
 
 @login_required(login_url='loginpage')
 def details(request, user):
+    user_obj = User.objects.filter(id=request.user.id).first()
     user_email = User.objects.filter(username=user).values('email')
     user_fname = User.objects.filter(username=user).values('first_name')
     user_lname = User.objects.filter(username=user).values('last_name')
@@ -136,6 +137,7 @@ def details(request, user):
             user_country = country.get('country')
     else:
         user_country = ''
+    password_length = user_obj.password
     context = {'user': user,
                'user_fname': user_fname,
                'user_lname': user_lname,
@@ -146,5 +148,6 @@ def details(request, user):
                'user_address_info': user_address_info,
                'user_postal_code': user_postal_code,
                'user_city': user_city,
-               'user_country': user_country}
+               'user_country': user_country,
+               'password_length': password_length}
     return render(request, "store/details.html", context)

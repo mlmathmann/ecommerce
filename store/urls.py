@@ -11,6 +11,7 @@ urlpatterns = [
     path('register/', authview.register, name="register"),
     path('login/', authview.loginpage, name="loginpage"),
     path('logout/', authview.logoutpage, name="logout"),
+    path('update-profile', authview.updateprofile, name="updateprofile"),
 
     path('myprofile/<str:user>', dashboard.profile, name="profile"),
     path('myprofile/<str:user>/details', dashboard.details, name="details"),

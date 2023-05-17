@@ -1,7 +1,10 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from store.forms import CustomUserForm
+from store.forms import CustomUserForm, User
+from django.contrib.auth.decorators import login_required
+from store.models import Profile
+from .dashboard import details
 
 
 def register(request):
@@ -44,3 +47,40 @@ def logoutpage(request):
     return redirect("/")
 
 
+@login_required(login_url='loginpage')
+def updateprofile(request):
+    user = request.user
+
+    profile_obj = Profile.objects.filter(id=request.user.id).first()
+    user_obj = User.objects.filter(id=request.user.id).first()
+
+    profile_obj.phone = request.POST.get('phone')
+    profile_obj.street = request.POST.get('street')
+    profile_obj.house_number = request.POST.get('house_number')
+    profile_obj.address_info = request.POST.get('address_info')
+    profile_obj.postal_code = request.POST.get('postal_code')
+    print(request.POST.get('postal_code'))
+    profile_obj.city = request.POST.get('city')
+    profile_obj.save()
+    #profile_obj.country = request.POST.get('country')
+
+    user_obj.email = request.POST.get('email')
+    user_obj.first_name = request.POST.get('fname')
+    user_obj.last_name = request.POST.get('lname')
+    user_obj.save()
+    messages.success(request, "Profile updated successfully!")
+    return details(request, user)
+    #return render(request, "store/profile.html")
+
+
+
+'''
+def updateaccount(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        form = CustomUserForm(request.POST or None, instance=current_user)
+        return render(request, "store/updateprofile.html", {'form': form})
+    else:
+        messages.error(request, "You must login to edit your profile")
+        return redirect('/login')
+'''

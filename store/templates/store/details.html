@@ -184,31 +184,60 @@
                                     </div>
                                 </div>
                                 <div class="ms-auto">
-                                    <button type="button" class="btn btn-sm btn-neutral">Upload</button>
+                                    <button type="button" class="btn btn-sm btn-neutral" data-bs-toggle="modal"
+                                            data-bs-target="#img">Upload
+                                    </button>
+                                    <div class="modal fade" id="#img" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <form action="#">
+                                            <input type="file" id="img" name="img" accept="image/*">
+                                            <input type="submit">
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <br>
                     <!-- Form -->
-                    <div class="mb-4">
-                        <h5 class="mb-2">Contact Information</h5>
-                    </div>
-                    <form action="#" method="POST" class="mb-4">
+
+                    <form action="{% url 'updateprofile' %}" method="POST" class="mb-4">
                         {% csrf_token %}
+                        <div class="mb-4">
+                            <h5 class="mb-2">User Information</h5>
+                        </div>
+                        <div class="row mb-5 g-5">
+                            <div class="col-md-6">
+                                <div class="">
+                                    <label class="form-label" for="email">Username</label>
+                                    <input type="text" class="form-control" id="email" value="{{ user }}"
+                                           name="username">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="">
+                                    <label class="form-label" for="email">Password</label>
+                                    <input type="password" class="form-control" id="email" value="{{ password_length }}"
+                                           name="password" readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="mb-2">Customer Information</h5>
+                        </div>
                         <div class="row mb-5 g-5">
                             <div class="col-md-6">
                                 <div class="">
                                     <label class="form-label" for="first_name">First name</label>
                                     <input type="text" class="form-control" id="first_name"
-                                           placeholder="{{ user_fname }}">
+                                           value="{{ user_fname }}" name="fname">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="">
                                     <label class="form-label" for="last_name">Last name</label>
                                     <input type="text" class="form-control" id="last_name"
-                                           placeholder="{{ user_lname }}">
+                                           value="{{ user_lname }}" name="lname">
                                 </div>
                             </div>
                         </div>
@@ -216,31 +245,36 @@
                             <div class="col-md-6">
                                 <div class="">
                                     <label class="form-label" for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" placeholder="{{ user_email }}">
+                                    <input type="email" class="form-control" id="email" value="{{ user_email }}"
+                                           name="email">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="">
                                     <label class="form-label" for="phone_number">Telefonnummer</label>
-                                    <input type="tel" class="form-control" id="phone_number" placeholder="{{ user_phone }}">
+                                    <input type="tel" class="form-control" id="phone_number"
+                                           value="{{ user_phone }}" name="phone">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="">
                                     <label class="form-label" for="straße">Straße</label>
-                                    <input type="text" class="form-control" id="straße" placeholder="{{ user_street }}">
+                                    <input type="text" class="form-control" id="straße" value="{{ user_street }}"
+                                           name="street">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="">
                                     <label class="form-label" for="hausnummer">Hausnummer</label>
-                                    <input type="text" class="form-control" id="hausnummer" placeholder="{{ user_house_number }}">
+                                    <input type="text" class="form-control" id="hausnummer"
+                                           value="{{ user_house_number }}" name="house_number">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="">
                                     <label class="form-label" for="city">Stadt</label>
-                                    <input type="text" class="form-control" id="city" placeholder="{{ user_city }}">
+                                    <input type="text" class="form-control" id="city" value="{{ user_city }}"
+                                           name="city">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -256,13 +290,16 @@
                             <div class="col-md-2">
                                 <div class="">
                                     <label class="form-label" for="zip">PLZ</label>
-                                    <input type="tel" class="form-control" id="zip" placeholder="{{ user_postal_code }}">
+                                    <input type="text" class="form-control" id="zip"
+                                           value="{{ user_postal_code }}" name="postal_code">
                                 </div>
                             </div>
                         </div>
                         <br>
                         <div class="text-center">
-                            <a href="{% url 'profile' request.user%}"><button type="button" class="btn btn-sm btn-neutral me-2">Cancel</button></a>
+                            <a href="{% url 'profile' request.user %}">
+                                <button type="button" class="btn btn-sm btn-neutral me-2">Cancel</button>
+                            </a>
                             <button type="submit" class="btn btn-sm btn-primary">Save</button>
                         </div>
                     </form>
