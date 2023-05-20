@@ -9,6 +9,7 @@ def profile(request, user):
     user_obj = User.objects.filter(id=request.user.id).first()
     user_fname = User.objects.filter(username=user).values('first_name')
     user_lname = User.objects.filter(username=user).values('last_name')
+    profile = Profile.objects.filter(user=request.user)
     if user_fname:
         for name in user_fname:
             user_fname = name.get('first_name')
@@ -19,6 +20,14 @@ def profile(request, user):
             user_lname = name.get('last_name')
     else:
         user_lname = ''
+    profile_picture = Profile.objects.filter(user=request.user).values('profile_picture')
+    print(profile_picture)
+    if profile_picture:
+        for picture in profile_picture:
+            print(picture)
+            profile_picture = picture.get('profile_picture')
+            print(profile_picture)
+
     user_email = User.objects.filter(username=user).values('email')
     if user_email:
         for email in user_email:
@@ -82,6 +91,7 @@ def profile(request, user):
     context = {'user': user,
                'user_fname': user_fname,
                'user_lname': user_lname,
+               'profile_picture': profile_picture,
                'user_email': user_email,
                'user_phone': user_phone,
                'user_street': user_street,
@@ -91,7 +101,8 @@ def profile(request, user):
                'user_city': user_city,
                'user_country': user_country,
                'user_time': user_time,
-               'user_obj': user_obj}
+               'user_obj': user_obj,
+               'profile': profile}
     return render(request, "store/profile.html", context)
 
 

@@ -133,6 +133,7 @@ class Profile(models.Model):
 
     style_way = models.CharField(max_length=1, choices=StyleChoices.choices, default='S')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_picture = models.ImageField(null=True, blank=True, upload_to=get_file_path)
     phone = models.CharField(max_length=50, null=False)
     street = models.CharField(max_length=150, null=False)
     house_number = models.CharField(max_length=150, null=False)
