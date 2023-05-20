@@ -1,8 +1,10 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.forms import PasswordChangeForm
 from .models import *
-
-
+from django.urls import reverse_lazy
+from .forms import CustomPasswordChangeForm
 
 
 # Create your views here.
@@ -63,3 +65,8 @@ def productview(request, cate_slug, prod_slug):
     else:
         messages.error(request, "No such category found")
     return render(request, "store/products/view.html", context)
+
+
+class PasswordsChangeView(PasswordChangeView):
+    form_class = CustomPasswordChangeForm
+    success_url = reverse_lazy('home')

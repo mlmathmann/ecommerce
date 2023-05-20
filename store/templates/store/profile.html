@@ -75,7 +75,7 @@
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Dashboard</li>
-                                                    <li class="nav-item"><a href="profile.html">My
+                                                    <li class="nav-item"><a href="{% url 'profile' user %}">My
                                                         Profile</a></li>
                                                     <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
                                                 </ul>
@@ -107,7 +107,8 @@
                                                 {{ request.user }}
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#">Dashboard?</a></li>
+                                                <li><a class="dropdown-item" href="{% url 'profile' request.user %}">My
+                                                    Profile</a></li>
                                                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                                             </ul>
                                         </li>
@@ -139,7 +140,6 @@
         </div> <!-- container -->
     </header>
     <!--header-->
-
     <!-- Start Breadcrumbs -->
     <div class="breadcrumbs">
         <div class="container">
@@ -165,29 +165,61 @@
             <div class="row">
                 <div class="col-xl-7 mx-auto">
                     <div class="container mt-5">
-                        <h2>Mein Profil</h2>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h3>Personenbezogene Daten</h3><br>
-                                <p>Name: {{ user }}</p><br>
-                                <p>Email: {{ user_email }}</p><br>
-                                <p>Telefon: {{ user_phone }}</p><br>
-                            </div>
-                            <div class="col-md-6">
-                                <h3>Adresse</h3><br>
-                                <p>Straße: {{ user_street }}</p><br>
-                                <p>Hausnummer: {{ user_house_number }}</p><br>
-                                <p>Addressinfo: {{ user_address_info }}</p><br>
-                                <p>PLZ: {{ user_postal_code }}</p><br>
-                                <p>Ort: {{ user_city }}</p><br>
-                                <p>Land: {{ user_country }}</p><br>
-                                <p>Mitglied seit: {{ user_time }}</p><br>
+                        <div class="card shadow border-0 mt-4 mb-10">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="d-flex align-items-center">
+                                            <a href="#" class="avatar avatar-sm bg-warning rounded-circle text-white">
+                                                <img alt="picture" width="50" height="50"
+                                                     src="../../../static/assets/images/blank.jpg">
+                                            </a>
+                                            <div class="ms-4">
+                                                <span class="h4 d-block mb-0">{{ request.user }}</span>
+                                                <div class="text-sm font-semibold text-muted">{{ user_email }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ms-auto" style="position: relative">
+                                        <div class="mt-2"></div>
+                                        <a href="{% url 'updateuser' %}" title="Change User Info"><img
+                                                style="position: absolute; bottom: 0px; right: 20px"
+                                                src="../../../static/assets/images/pencil.png" width="25px"
+                                                height="25px"></a>
+                                    <div class="modal fade" id="#img" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <form action="#">
+                                            <input type="file" id="img" name="img" accept="image/*">
+                                            <input type="submit">
+                                        </form>
+                                    </div>
+                                </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h3>Kundeninformationen</h3><br>
+                                        <p>Vorname: {{ user_fname }}</p><br>
+                                        <p>Nachname: {{ user_lname }}</p><br>
+                                        <p>Telefon: {{ user_phone }}</p><br>
+                                        <p>Mitglied seit: {{ user_time }}</p><br>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h3>Addresse</h3><br>
+                                        <p>Straße: {{ user_street }}</p><br>
+                                        <p>Hausnummer: {{ user_house_number }}</p><br>
+                                        <p>Addressinfo: {{ user_address_info }}</p><br>
+                                        <p>PLZ: {{ user_postal_code }}</p><br>
+                                        <p>Ort: {{ user_city }}</p><br>
+                                        <p>Land: {{ user_country }}</p><br>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <hr>
                         <p>Hinweis: Stimmt dies nicht mit Ihren Angaben überein?
-                            <a href="{% url 'details' request.user%}" class="btn btn-sm btn-primary">Daten ändern</a></p>
+                            <a href="{% url 'details' request.user %}" class="btn btn-sm btn-primary">Daten ändern</a>
+                        </p>
                     </div>
                     <br>
                 </div>
@@ -288,9 +320,7 @@
         <i class="lni lni-chevron-up">^</i>
     </a>
     <!--scroll-top-->
-
     <!--JS-->
-    <script src="../../../static/assets/js/bootstrap.min.js"></script>
     </body>
     </html>
 {% endblock content %}

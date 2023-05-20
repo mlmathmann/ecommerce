@@ -76,7 +76,7 @@
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Dashboard</li>
-                                                    <li class="nav-item"><a href="{% url 'profile' request.user %}">My
+                                                    <li class="nav-item"><a href="{% url 'profile' user %}">My
                                                         Profile</a></li>
                                                     <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
                                                 </ul>
@@ -108,7 +108,7 @@
                                                 {{ request.user }}
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#">Dashboard?</a></li>
+                                                <li><a class="dropdown-item" href="{% url 'profile' request.user%}">My Profile</a></li>
                                                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                                             </ul>
                                         </li>
@@ -204,32 +204,6 @@
                     <form action="{% url 'updateprofile' %}" method="POST" class="mb-4">
                         {% csrf_token %}
                         <div class="mb-4">
-                            <h5 class="mb-2">User Information</h5>
-                        </div>
-                        <div class="row mb-5 g-5">
-                            <div class="col-md-6">
-                                <div class="">
-                                    <label class="form-label" for="email">Username</label>
-                                    <input type="text" class="form-control" id="email" value="{{ user }}"
-                                           name="username">
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="">
-                                    <label class="form-label" for="email">Password</label>
-                                    <input type="password" class="form-control" id="email" value="{{ password_length }}"
-                                           name="password" readonly="readonly">
-                                </div>
-
-                            </div>
-                            <div class="col-md-1 ms-0 ps-0" style="position: relative">
-                                <div class="mt-2"></div>
-                                <a href="" title="Change Password >"><img style="position: absolute; bottom: 10px" class="icon"
-                                        src="../../../static/assets/images/pencil.png" width="25px"
-                                        height="25px"></a>
-                            </div>
-                        </div>
-                        <div class="mb-4">
                             <h5 class="mb-2">Customer Information</h5>
                         </div>
                         <div class="row mb-5 g-5">
@@ -249,65 +223,69 @@
                             </div>
                         </div>
                         <div class="row g-5">
-                            <div class="col-md-6">
-                                <div class="">
-                                    <label class="form-label" for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" value="{{ user_email }}"
-                                           name="email">
+                            {% if profile_exists is not None %}
+                                <div class="col-md-6">
+                                    <div class="">
+                                        <label class="form-label" for="phone_number">Telefonnummer</label>
+                                        <input type="tel" class="form-control profile-input" id="phone_number"
+                                               value="{{ user_phone }}" name="phone">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="">
-                                    <label class="form-label" for="phone_number">Telefonnummer</label>
-                                    <input type="tel" class="form-control" id="phone_number"
-                                           value="{{ user_phone }}" name="phone">
+                                <div class="col-6">
+                                    <div class="">
+                                        <label class="form-label" for="straße">Straße</label>
+                                        <input type="text" class="form-control" id="straße" value="{{ user_street }}"
+                                               name="street">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="">
-                                    <label class="form-label" for="straße">Straße</label>
-                                    <input type="text" class="form-control" id="straße" value="{{ user_street }}"
-                                           name="street">
+                                <div class="col-6">
+                                    <div class="">
+                                        <label class="form-label" for="hausnummer">Hausnummer</label>
+                                        <input type="text" class="form-control" id="hausnummer"
+                                               value="{{ user_house_number }}" name="house_number">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="">
-                                    <label class="form-label" for="hausnummer">Hausnummer</label>
-                                    <input type="text" class="form-control" id="hausnummer"
-                                           value="{{ user_house_number }}" name="house_number">
+                                <div class="row mb-5 g-5">
+                                    <div class="col-md-14">
+                                        <div class="">
+                                            <label class="form-label" for="address_info">Address Info</label>
+                                            <input type="text" class="form-control" id="address_info"
+                                                   value="{{ user_address_info }}" name="address_info">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="">
-                                    <label class="form-label" for="city">Stadt</label>
-                                    <input type="text" class="form-control" id="city" value="{{ user_city }}"
-                                           name="city">
+                                <div class="col-md-6">
+                                    <div class="">
+                                        <label class="form-label" for="city">Stadt</label>
+                                        <input type="text" class="form-control" id="city" value="{{ user_city }}"
+                                               name="city">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="">
-                                    <label class="form-label" for="country">Land</label>
-                                    <select class="form-select" id="country" aria-label="Default select example">
-                                        <option selected></option>
-                                        <option value="1">Deutschland</option>
-                                        <option value="2">Österreich</option>
-                                    </select>
+                                <div class="col-md-4">
+                                    <div class="">
+                                        <label class="form-label" for="country">Land</label>
+                                        <select class="form-select" id="country" aria-label="Default select example">
+                                            <option selected></option>
+                                            <option value="1">Deutschland</option>
+                                            <option value="2">Österreich</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="">
-                                    <label class="form-label" for="zip">PLZ</label>
-                                    <input type="text" class="form-control" id="zip"
-                                           value="{{ user_postal_code }}" name="postal_code">
+                                <div class="col-md-2">
+                                    <div class="">
+                                        <label class="form-label" for="zip">PLZ</label>
+                                        <input type="text" class="form-control" id="zip"
+                                               value="{{ user_postal_code }}" name="postal_code">
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                                </div>
+                            {% endif %}
                         <br>
                         <div class="text-center">
                             <a href="{% url 'profile' request.user %}">
                                 <button type="button" class="btn btn-sm btn-neutral me-2">Cancel</button>
                             </a>
-                            <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                            <button type="submit" class="btn btn-sm btn-primary save-btn" id="save-btn">Save</button>
                         </div>
                     </form>
                     <hr class="my-10"/>
@@ -375,7 +353,7 @@
                     <div class="col-lg-6 ">
                         <div class="form">
                             <form action="#" method="get" target="_blank" class="newsletter-form">
-                                <input name="EMAIL" placeholder="Your email address" type="email">
+                                <input name="EMAILADDRESS" placeholder="Your email address" type="email">
                                 <div class="button">
                                     <button class="btn">Subscribe<span class="dir-part"></span></button>
                                 </div>

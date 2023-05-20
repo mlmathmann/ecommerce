@@ -6,6 +6,19 @@ from store.forms import *
 
 @login_required(login_url='loginpage')
 def profile(request, user):
+    user_obj = User.objects.filter(id=request.user.id).first()
+    user_fname = User.objects.filter(username=user).values('first_name')
+    user_lname = User.objects.filter(username=user).values('last_name')
+    if user_fname:
+        for name in user_fname:
+            user_fname = name.get('first_name')
+    else:
+        user_fname = ''
+    if user_lname:
+        for name in user_lname:
+            user_lname = name.get('last_name')
+    else:
+        user_lname = ''
     user_email = User.objects.filter(username=user).values('email')
     if user_email:
         for email in user_email:
@@ -62,6 +75,8 @@ def profile(request, user):
         user_time = ''
         # TODO: Ausgabe auf deutsch und nur das Datum/ Jahr
     context = {'user': user,
+               'user_fname': user_fname,
+               'user_lname': user_lname,
                'user_email': user_email,
                'user_phone': user_phone,
                'user_street': user_street,
@@ -70,16 +85,19 @@ def profile(request, user):
                'user_postal_code': user_postal_code,
                'user_city': user_city,
                'user_country': user_country,
-               'user_time': user_time}
+               'user_time': user_time,
+               'user_obj': user_obj}
     return render(request, "store/profile.html", context)
 
 
 @login_required(login_url='loginpage')
 def details(request, user):
-    user_obj = User.objects.filter(id=request.user.id).first()
-    user_email = User.objects.filter(username=user).values('email')
     user_fname = User.objects.filter(username=user).values('first_name')
     user_lname = User.objects.filter(username=user).values('last_name')
+    if Profile.objects.filter(user=request.user).values('country'):
+        profile_exists = Profile.objects.filter(user=request.user).values('country')
+    else:
+        profile_exists = None
     if user_fname:
         for name in user_fname:
             user_fname = name.get('first_name')
@@ -90,11 +108,6 @@ def details(request, user):
             user_lname = name.get('last_name')
     else:
         user_lname = ''
-    if user_email:
-        for email in user_email:
-            user_email = email.get('email')
-    else:
-        user_email = ''
     user_phone = Profile.objects.filter(user=request.user).values('phone')
     if user_phone:
         for phone in user_phone:
@@ -137,11 +150,10 @@ def details(request, user):
             user_country = country.get('country')
     else:
         user_country = ''
-    password_length = user_obj.password
+
     context = {'user': user,
                'user_fname': user_fname,
                'user_lname': user_lname,
-               'user_email': user_email,
                'user_phone': user_phone,
                'user_street': user_street,
                'user_house_number': user_house_number,
@@ -149,5 +161,5 @@ def details(request, user):
                'user_postal_code': user_postal_code,
                'user_city': user_city,
                'user_country': user_country,
-               'password_length': password_length}
+               'profile_exists': profile_exists}
     return render(request, "store/details.html", context)

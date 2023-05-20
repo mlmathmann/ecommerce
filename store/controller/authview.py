@@ -1,10 +1,10 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
-from store.forms import CustomUserForm, User
+from django.contrib.auth import authenticate, login, logout, views
+from store.forms import CustomUserForm, User, CustomUserChangeForm, CustomPasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from store.models import Profile
-from .dashboard import details
+from .dashboard import details, profile
 
 
 def register(request):
@@ -49,38 +49,103 @@ def logoutpage(request):
 
 @login_required(login_url='loginpage')
 def updateprofile(request):
-    user = request.user
+    profile_changes = False
+    if request.method == 'POST':
 
-    profile_obj = Profile.objects.filter(id=request.user.id).first()
-    user_obj = User.objects.filter(id=request.user.id).first()
+        currentuser = User.objects.filter(id=request.user.id).first()
 
-    profile_obj.phone = request.POST.get('phone')
-    profile_obj.street = request.POST.get('street')
-    profile_obj.house_number = request.POST.get('house_number')
-    profile_obj.address_info = request.POST.get('address_info')
-    profile_obj.postal_code = request.POST.get('postal_code')
-    print(request.POST.get('postal_code'))
-    profile_obj.city = request.POST.get('city')
-    profile_obj.save()
-    #profile_obj.country = request.POST.get('country')
+        if request.POST.get('fname') != '':
+            if request.POST.get('fname') != currentuser.__getattribute__('first_name'):
+                currentuser.first_name = request.POST.get('fname')
+                currentuser.save()
+                profile_changes = True
 
-    user_obj.email = request.POST.get('email')
-    user_obj.first_name = request.POST.get('fname')
-    user_obj.last_name = request.POST.get('lname')
-    user_obj.save()
-    messages.success(request, "Profile updated successfully!")
-    return details(request, user)
-    #return render(request, "store/profile.html")
+        if request.POST.get('lname') != '':
+            if request.POST.get('lname') != currentuser.__getattribute__('last_name'):
+                currentuser.last_name = request.POST.get('lname')
+                currentuser.save()
+                profile_changes = True
+
+        profile_obj = Profile.objects.filter(user=request.user)
+
+        if not profile_obj:
+            messages.success(request, "Customer data changed successfully!")
+            return details(request, request.user)
+
+        if request.POST.get('phone') != '':
+            for element in profile_obj.values('phone'):
+                if request.POST.get('phone') != element.get('phone'):
+                    profile_obj.update(phone=request.POST.get('phone'))
+                    profile_changes = True
+
+        if request.POST.get('street') != '':
+            for element in profile_obj.values('street'):
+                if request.POST.get('street') != element.get('street'):
+                    profile_obj.update(street=request.POST.get('street'))
+                    profile_changes = True
+
+        if request.POST.get('house_number') != '':
+            for element in profile_obj.values('house_number'):
+                if request.POST.get('house_number') != element.get('house_number'):
+                    profile_obj.update(house_number=request.POST.get('house_number'))
+                    profile_changes = True
+
+        if request.POST.get('address_info') != '':
+            for element in profile_obj.values('address_info'):
+                if request.POST.get('address_info') != element.get('address_info'):
+                    profile_obj.update(address_info=request.POST.get('address_info'))
+                    profile_changes = True
+
+        if request.POST.get('postal_code') != '':
+            for element in profile_obj.values('postal_code'):
+                if request.POST.get('postal_code') != element.get('postal_code'):
+                    profile_obj.update(postal_code=request.POST.get('postal_code'))
+                    profile_changes = True
+
+        if request.POST.get('city') != '':
+            for element in profile_obj.values('city'):
+                if request.POST.get('city') != element.get('city'):
+                    profile_obj.update(city=request.POST.get('city'))
+                    profile_changes = True
+
+        if profile_changes == True:
+            messages.success(request, "Profile updated successfully!")
+            return details(request, request.user)
+        messages.success(request, "Your profile is already up-to-date!")
+        return details(request, request.user)
 
 
+@login_required(login_url='loginpage')
+def updateuser(request):
+    current_user = User.objects.get(id=request.user.id)
+    form = CustomUserChangeForm(None, instance=current_user)
+    if request.method == "POST":
+        form = CustomUserChangeForm(request.POST, instance=current_user)
+        if request.POST.get('username') == current_user.get_username() and request.POST.get(
+                'email') == current_user.__getattribute__('email'):
+            messages.success(request, "No changes detected!")
+            return render(request, "store/updateuser.html", {'form': form})
+        if form.is_valid():
+            form.save()
+            # login(request, current_user)
+            messages.success(request, "User Info changed successfully!")
+            return redirect("profile", request.POST.get('username'))
+    return render(request, "store/updateuser.html", {'form': form})
 
-'''
-def updateaccount(request):
-    if request.user.is_authenticated:
-        current_user = User.objects.get(id=request.user.id)
-        form = CustomUserForm(request.POST or None, instance=current_user)
-        return render(request, "store/updateprofile.html", {'form': form})
-    else:
-        messages.error(request, "You must login to edit your profile")
-        return redirect('/login')
-'''
+
+@login_required(login_url='loginpage')
+def updatepassword(request):
+    current_user = User.objects.get(id=request.user.id)
+    form = CustomPasswordChangeForm(request.user)
+    if request.method == "POST":
+        form = CustomPasswordChangeForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Password changed successfully!")
+            return profile(request, request.user)
+        else:
+            for error in form.error_messages:
+                msg = form.error_messages.get(f'{error}')
+                messages.warning(request, f"{msg}")
+            return render(request, "store/updatepassword.html", {'form': form})
+    return render(request, "store/updatepassword.html", {'form': form})

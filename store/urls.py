@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 from store.controller import authview, cart, wishlist, checkout, dashboard
+from django.contrib.auth import views as auth_views
+from .views import PasswordsChangeView
 
 urlpatterns = [
     path('', views.home, name="home"),
@@ -11,7 +13,10 @@ urlpatterns = [
     path('register/', authview.register, name="register"),
     path('login/', authview.loginpage, name="loginpage"),
     path('logout/', authview.logoutpage, name="logout"),
-    path('update-profile', authview.updateprofile, name="updateprofile"),
+    path('update-user/', authview.updateuser, name="updateuser"),
+    #path('update-password/', PasswordsChangeView.as_view(template_name="store/updatepassword.html"), name="updatepassword"),
+    path('update-password/', authview.updatepassword, name="updatepassword"),
+    path('update-profile/', authview.updateprofile, name="updateprofile"),
 
     path('myprofile/<str:user>', dashboard.profile, name="profile"),
     path('myprofile/<str:user>/details', dashboard.details, name="details"),
