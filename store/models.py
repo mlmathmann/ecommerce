@@ -72,6 +72,11 @@ class Wishlist(models.Model):
 
 
 class Order(models.Model):
+    class CountryChoices(models.TextChoices):
+        germany = "Deutschland"
+        austria = "Österreich"
+        switzerland = "Schweiz"
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     fname = models.CharField(max_length=150, null=False)
     lname = models.CharField(max_length=150, null=False)
@@ -82,7 +87,8 @@ class Order(models.Model):
     address_info = models.TextField(max_length=150, null=True)
     postal_code = models.CharField(max_length=150, null=False)
     city = models.CharField(max_length=150, null=False)
-    country = models.CharField(max_length=150, null=False, default='kack-stadt')
+    country = models.CharField(max_length=12, choices=CountryChoices.choices, default='Deutschland')
+
     total_price = models.FloatField(null=False)
     payment_mode = models.CharField(max_length=150, null=False)
     payment_id = models.CharField(max_length=250, null=True)
@@ -112,6 +118,20 @@ class OrderItem(models.Model):
 
 
 class Profile(models.Model):
+    class StyleChoices(models.TextChoices):
+        ALL = 'S'
+        ARISTROCRATIC = 'A'
+        IMAGINATIVE = 'I'
+        FUTURISTIC = 'F'
+        BRUTALISTIC = 'B'
+        MINIMALISTIC = 'M'
+
+    class CountryChoices(models.TextChoices):
+        germany = "Deutschland"
+        austria = "Österreich"
+        switzerland = "Schweiz"
+
+    style_way = models.CharField(max_length=1, choices=StyleChoices.choices, default='S')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=50, null=False)
     street = models.CharField(max_length=150, null=False)
@@ -119,6 +139,6 @@ class Profile(models.Model):
     address_info = models.TextField(max_length=150, null=True)
     postal_code = models.CharField(max_length=150, null=False)
     city = models.CharField(max_length=150, null=False)
-    country = models.CharField(max_length=150, null=False, default='kack-stadt')
+    country = models.CharField(max_length=12, choices=CountryChoices.choices, default='Deutschland')
     created_at = models.DateTimeField(auto_now_add=True)
 

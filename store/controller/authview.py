@@ -51,7 +51,7 @@ def logoutpage(request):
 def updateprofile(request):
     profile_changes = False
     if request.method == 'POST':
-
+        print(request.POST)
         currentuser = User.objects.filter(id=request.user.id).first()
 
         if request.POST.get('fname') != '':
@@ -106,6 +106,12 @@ def updateprofile(request):
             for element in profile_obj.values('city'):
                 if request.POST.get('city') != element.get('city'):
                     profile_obj.update(city=request.POST.get('city'))
+                    profile_changes = True
+
+        if request.POST.get('country') != '':
+            for element in profile_obj.values('country'):
+                if request.POST.get('country') != element.get('country'):
+                    profile_obj.update(country=request.POST.get('country'))
                     profile_changes = True
 
         if profile_changes == True:

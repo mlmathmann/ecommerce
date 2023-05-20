@@ -36,11 +36,8 @@
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
 
-                                    <li class="nav-item">
-                                        <a class=" dd-menu collapsed" href="{% url 'home' %}"
-                                           data-bs-toggle="collapse" data-bs-target="#submenu-1-1"
-                                           aria-controls="navbarSupportedContent" aria-expanded="false"
-                                           aria-label="Toggle navigation">Home</a>
+                                    <li class="nav-item" href="{% url 'home' %}">
+                                        <a class=" dd-menu collapsed" href="{% url 'home' %}">Home</a>
                                     </li>
 
                                     <li class="nav-item">
@@ -264,10 +261,11 @@
                                 <div class="col-md-4">
                                     <div class="">
                                         <label class="form-label" for="country">Land</label>
-                                        <select class="form-select" id="country" aria-label="Default select example">
-                                            <option selected></option>
-                                            <option value="1">Deutschland</option>
-                                            <option value="2">Österreich</option>
+                                        <select class="form-select" id="country" name="country" aria-label="Default select example">
+                                            <option {% if user_country == '' %}selected{% endif %}></option>
+                                            <option {% if user_country == 'germany' %}selected{% endif %} value="germany">Deutschland</option>
+                                            <option {% if user_country == 'austria' %}selected{% endif %} value="austria">Österreich</option>
+                                            <option {% if user_country == 'switzerland' %}selected{% endif %} value="switzerland">Schweiz</option>
                                         </select>
                                     </div>
                                 </div>

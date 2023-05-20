@@ -61,12 +61,17 @@ def profile(request, user):
             user_city = city.get('city')
     else:
         user_city = ''
+
     user_country = Profile.objects.filter(user=request.user).values('country')
     if user_country:
         for country in user_country:
             user_country = country.get('country')
+            for choice in Order.CountryChoices.choices:
+                if user_country == choice[1].lower():
+                    user_country = choice[0]
     else:
         user_country = ''
+
     user_time = Profile.objects.filter(user=request.user).values('created_at')
     if user_time:
         for time in user_time:
@@ -145,6 +150,7 @@ def details(request, user):
     else:
         user_city = ''
     user_country = Profile.objects.filter(user=request.user).values('country')
+
     if user_country:
         for country in user_country:
             user_country = country.get('country')
