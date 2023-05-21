@@ -33,15 +33,18 @@
         a {
             text-decoration: none
         }
-        #del-btn{
+
+        #del-btn {
             color: darkred;
 
         }
-        #del-btn:hover{
+
+        #del-btn:hover {
             color: white;
             background-color: darkred;
 
         }
+
         .product-viewtag {
             background-color: red;
             color: #fff;
@@ -55,6 +58,30 @@
             padding: 7px 10px;
             font-weight: 600;
             min-width: 45px;
+        }
+
+        .accordion-button:not(.collapsed) {
+            color: #ffffff !important;
+            background-color: #0d6efd !important;
+        }
+
+
+        .accordion-button:visited, .accordion-button:active {
+            background-color: #ffffff !important;
+            color: #000000 !important;
+            text-decoration: none !important;
+        }
+
+        .accordion-button::after {
+            background-image: initial;
+        }
+
+        .accordion-button:not(.collapsed)::after {
+            background-image: initial;
+        }
+
+        .accordion-toggle::after {
+            content: url("https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/arrow_down2-1024.png");
         }
 
         .active {

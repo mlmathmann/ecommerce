@@ -12,6 +12,7 @@ import random
 def index(request):
     nav_context = get_navbar_context(request)
     rawcart = Cart.objects.filter(user=request.user)
+    cart_item_count = Cart.objects.filter(user=request.user).count()
     for item in rawcart:
         if item.product_quantity > item.product.quantity:
             Cart.objects.delete(id=item.id)
@@ -26,10 +27,23 @@ def index(request):
 
     userprofile = Profile.objects.filter(user=request.user).first()
 
+    user_country = Profile.objects.filter(user=request.user).values('country')
+
+    if user_country:
+        for country in user_country:
+            user_country = country.get('country')
+            for choice in Order.CountryChoices.choices:
+                if user_country == choice[1].lower():
+                    user_country = choice[1].lower()
+    else:
+        user_country = ''
+
     context = {'cartitems': cartitems,
+               'cart_item_count': cart_item_count,
                'total_price': new_total_price,
                'total_price_calc': total_price,
                'userprofile': userprofile,
+               'user_country': user_country,
                'category': nav_context.get('categories'),
                'profile_picture': nav_context.get('profile_picture')
                }

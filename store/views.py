@@ -17,7 +17,6 @@ def get_navbar_context(request):
     else:
         profile_picture = None
     categories = Category.objects.all()
-    print(categories)
     context = {'categories': categories, 'profile_picture': profile_picture}
     return context
 
