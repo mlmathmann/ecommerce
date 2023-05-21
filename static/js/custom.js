@@ -166,5 +166,22 @@ $(document).ready(function () {
             }})
         });
 
+    $('#del-btn').on('click', '.bs.modal', function (e) {
+        e.preventDefault();
+        console.log("Delete pb")
 
+        $.ajax({
+            type: "POST",
+            url: "/delete-profilepicture/",
+            data: {
+                'delete': true,
+            },
+            dataType: "",
+            success: function (response) {
+                alertify.success(response.status)
+
+            }
+
+        });
+    });
     });

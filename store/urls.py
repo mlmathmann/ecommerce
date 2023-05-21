@@ -16,7 +16,7 @@ urlpatterns = [
                   path('login/', authview.loginpage, name="loginpage"),
                   path('logout/', authview.logoutpage, name="logout"),
                   path('update-user/', authview.updateuser, name="updateuser"),
-                  # path('update-password/', PasswordsChangeView.as_view(template_name="store/updatepassword.html"), name="updatepassword"),
+                  path('delete-profilepicture/', authview.deleteprofilepicture, name="deleteprofilepicture"),
                   path('update-password/', authview.updatepassword, name="updatepassword"),
                   path('update-profile/', authview.updateprofile, name="updateprofile"),
 

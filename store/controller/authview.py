@@ -124,10 +124,13 @@ def updateprofile(request):
 @login_required(login_url='loginpage')
 def updateuser(request):
     current_user = User.objects.get(id=request.user.id)
+    profile_picture = Profile.objects.filter(user=request.user).values('profile_picture')
+    if profile_picture:
+        for picture in profile_picture:
+            profile_picture = picture.get('profile_picture')
     profile_user = Profile.objects.get(user__id=request.user.id)
     user_form = CustomUserChangeForm(None, instance=current_user)
     profile_form = ProfilePictureChangeForm(None, request.FILES or None, instance=profile_user)
-    print(request.POST)
     if request.method == "POST":
         user_form = CustomUserChangeForm(request.POST, request.FILES or None, instance=current_user)
         profile_form = ProfilePictureChangeForm(request.POST, request.FILES or None, instance=profile_user)
@@ -140,13 +143,13 @@ def updateuser(request):
             if request.POST.get('username') == current_user.get_username() and request.POST.get(
                     'email') == current_user.__getattribute__('email'):
                 messages.success(request, "No changes detected!")
-                return render(request, "store/updateuser.html", {'user_form': user_form, 'profile_form': profile_form})
+                return render(request, "store/updateuser.html", {'user_form': user_form, 'profile_form': profile_form, 'profile_picture': profile_picture})
             if user_form.is_valid() and profile_form.is_valid():
                 user_form.save()
                 profile_form.save()
                 messages.success(request, "User Info changed successfully!")
                 return redirect("profile", request.POST.get('username'))
-    return render(request, "store/updateuser.html", {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, "store/updateuser.html", {'user_form': user_form, 'profile_form': profile_form, 'profile_picture': profile_picture})
 
 
 @login_required(login_url='loginpage')
@@ -166,3 +169,11 @@ def updatepassword(request):
             return render(request, "store/updatepassword.html", {'form': form})
     return render(request, "store/updatepassword.html", {'form': form})
 
+
+@login_required(login_url='loginpage')
+def deleteprofilepicture(request):
+    current_profile = Profile.objects.get(user__id=request.user.id)
+    current_profile.profile_picture = None
+    current_profile.save()
+    messages.success(request, "Profilepicture removed successfully!")
+    return redirect("profile", request.user)

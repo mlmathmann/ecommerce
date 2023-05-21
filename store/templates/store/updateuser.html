@@ -101,6 +101,10 @@
                                             <a class="nav-link dropdown-toggle" href="#" role="button"
                                                data-bs-toggle="dropdown"
                                                aria-expanded="false">
+                                                {% if profile_picture != '' %}
+                                                    <img alt="picture" width="25" height="25"
+                                                     src="../../../static/{{ profile_picture }}" class="rounded-circle me-1">
+                                                {% endif %}
                                                 {{ request.user }}
                                             </a>
                                             <ul class="dropdown-menu">
@@ -168,8 +172,13 @@
                                     <div>
                                         <div class="d-flex align-items-center">
                                             <a href="#" class="avatar avatar-sm bg-warning rounded-circle text-white">
-                                                <img alt="picture" width="50" height="50"
+                                                {% if profile_picture != '' %}
+                                                    <img alt="picture" width="50" height="50"
+                                                     src="../../../static/{{ profile_picture }}">
+                                                {% else %}
+                                                    <img alt="picture" width="50" height="50"
                                                      src="../../../static/assets/images/blank.jpg">
+                                                {% endif %}
                                             </a>
                                             <div class="ms-4">
                                                 <span class="h4 d-block mb-0">{{ request.user }}</span>
@@ -203,12 +212,14 @@
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
                                                             <div class="col-md-5">
-                                                                <button id="del-btn" type="submit"
-                                                                        class="btn btn-outline-secondary"
-                                                                        style="border-color: darkred"
-                                                                        value="delete_pb">
-                                                                    Profilbild entfernen
-                                                                </button>
+                                                                <a href="{% url 'deleteprofilepicture' %}">
+                                                                    <button id="del-btn" type="button"
+                                                                            class="btn btn-outline-secondary"
+                                                                            style="border-color: darkred"
+                                                                    {% if profile_picture == '' or None %}disabled{% endif %}>
+                                                                        Profilbild entfernen
+                                                                    </button>
+                                                                </a>
                                                             </div>
                                                             <div class="col-md-3 align-right">
                                                                 <button type="button"
