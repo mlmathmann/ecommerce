@@ -179,15 +179,58 @@
                                     </div>
                                     <div class="ms-auto">
                                         <button type="button" class="btn btn-sm btn-outline-secondary"
-                                                style="border-color: slategrey">Upload new Profilepicture
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                style="border-color: slategrey">Edit Profilepicture
                                         </button>
+                                        <form action="" method="POST" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                                Profilbild
+                                                                bearbeiten</h1>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <br>
+                                                            {{ profile_form }}
+                                                            <br>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+
+                                                            <div class="col-md-5">
+                                                                <button id="del-btn" type="button"
+                                                                        class="btn btn-outline-secondary"
+                                                                        style="border-color: darkred">
+                                                                    Profilbild entfernen
+                                                                </button>
+                                                            </div>
+                                                            <div class="col-md-3 align-right">
+                                                                <button type="button"
+                                                                        class="btn btn-secondary align-content-end"
+                                                                        data-bs-dismiss="modal">Close
+                                                                </button>
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary">
+                                                                Save changes
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <form action="" method="POST">
+                                    <form action="" method="POST" enctype="multipart/form-data">
                                         {% csrf_token %}
-                                        {{ form.as_p }}
+                                        {{ user_form.as_p }}
                                         <br>
                                         <div class="text-center">
                                             <a href="{% url 'profile' request.user %}">

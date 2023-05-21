@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, views
-from store.forms import CustomUserForm, User, CustomUserChangeForm, CustomPasswordChangeForm
+from store.forms import CustomUserForm, User, CustomUserChangeForm, CustomPasswordChangeForm, ProfilePictureChangeForm
 from django.contrib.auth.decorators import login_required
 from store.models import Profile
 from .dashboard import details, profile
@@ -51,7 +51,7 @@ def logoutpage(request):
 def updateprofile(request):
     profile_changes = False
     if request.method == 'POST':
-        print(request.POST)
+
         currentuser = User.objects.filter(id=request.user.id).first()
 
         if request.POST.get('fname') != '':
@@ -124,19 +124,28 @@ def updateprofile(request):
 @login_required(login_url='loginpage')
 def updateuser(request):
     current_user = User.objects.get(id=request.user.id)
-    form = CustomUserChangeForm(None, instance=current_user)
+    profile_user = Profile.objects.get(user__id=request.user.id)
+    user_form = CustomUserChangeForm(None, instance=current_user)
+    profile_form = ProfilePictureChangeForm(None, request.FILES or None, instance=profile_user)
     if request.method == "POST":
-        form = CustomUserChangeForm(request.POST, instance=current_user)
-        if request.POST.get('username') == current_user.get_username() and request.POST.get(
-                'email') == current_user.__getattribute__('email'):
-            messages.success(request, "No changes detected!")
-            return render(request, "store/updateuser.html", {'form': form})
-        if form.is_valid():
-            form.save()
-            # login(request, current_user)
-            messages.success(request, "User Info changed successfully!")
-            return redirect("profile", request.POST.get('username'))
-    return render(request, "store/updateuser.html", {'form': form})
+        user_form = CustomUserChangeForm(request.POST, request.FILES or None, instance=current_user)
+        profile_form = ProfilePictureChangeForm(request.POST, request.FILES or None, instance=profile_user)
+        if request.FILES:
+            if profile_form.is_valid():
+                profile_form.save()
+                messages.success(request, "Profilepicture changed successfully!")
+                return redirect("profile", request.user)
+        else:
+            if request.POST.get('username') == current_user.get_username() and request.POST.get(
+                    'email') == current_user.__getattribute__('email'):
+                messages.success(request, "No changes detected!")
+                return render(request, "store/updateuser.html", {'user_form': user_form, 'profile_form': profile_form})
+            if user_form.is_valid() and profile_form.is_valid():
+                user_form.save()
+                profile_form.save()
+                messages.success(request, "User Info changed successfully!")
+                return redirect("profile", request.POST.get('username'))
+    return render(request, "store/updateuser.html", {'user_form': user_form, 'profile_form': profile_form})
 
 
 @login_required(login_url='loginpage')
@@ -155,3 +164,4 @@ def updatepassword(request):
                 messages.warning(request, f"{msg}")
             return render(request, "store/updatepassword.html", {'form': form})
     return render(request, "store/updatepassword.html", {'form': form})
+

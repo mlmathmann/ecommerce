@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
-from .models import User, Product
+from .models import User, Product, Profile
 from django import forms
 
 
@@ -45,7 +45,14 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         fields = ['old_password', 'new_password1', 'new_password2']
 
 
-
 class ProductStyleFilterForm(forms.Form):
     # name = forms.CharField()
     name = forms.ChoiceField(choices=Product.StyleChoices.choices)
+
+
+class ProfilePictureChangeForm(forms.ModelForm):
+    profile_picture = forms.ImageField(label="Profile picture")
+
+    class Meta:
+        model = Profile
+        fields = ('profile_picture', )

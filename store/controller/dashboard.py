@@ -15,18 +15,17 @@ def profile(request, user):
             user_fname = name.get('first_name')
     else:
         user_fname = ''
+
     if user_lname:
         for name in user_lname:
             user_lname = name.get('last_name')
     else:
         user_lname = ''
+
     profile_picture = Profile.objects.filter(user=request.user).values('profile_picture')
-    print(profile_picture)
     if profile_picture:
         for picture in profile_picture:
-            print(picture)
             profile_picture = picture.get('profile_picture')
-            print(profile_picture)
 
     user_email = User.objects.filter(username=user).values('email')
     if user_email:
