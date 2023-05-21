@@ -124,15 +124,15 @@ def updateprofile(request):
 @login_required(login_url='loginpage')
 def updateuser(request):
     current_user = User.objects.get(id=request.user.id)
-    profile_picture = Profile.objects.filter(user=request.user).values('profile_picture').count()
-    if profile_picture > 0:
+    if Profile.objects.filter(user=request.user).values('profile_picture').count() > 0:
+        profile_picture = Profile.objects.filter(user=request.user).values('profile_picture')
         for picture in profile_picture:
             profile_picture = picture.get('profile_picture')
     else:
         profile_picture = None
-    profile_user = Profile.objects.filter(user=request.user)
+    profile_user = Profile.objects.filter(user=request.user).first()
     user_form = CustomUserChangeForm(None, instance=current_user)
-    profile_form = ProfilePictureChangeForm(None, request.FILES or None, instance=profile_user or None)
+    profile_form = ProfilePictureChangeForm(None, request.FILES or None, instance=profile_user)
     if request.method == "POST":
         user_form = CustomUserChangeForm(request.POST, request.FILES or None, instance=current_user)
         profile_form = ProfilePictureChangeForm(request.POST, request.FILES or None, instance=profile_user)

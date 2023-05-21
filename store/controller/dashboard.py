@@ -24,8 +24,8 @@ def profile(request, user):
 
     profile = Profile.objects.filter(user=request.user)
 
-    profile_picture = Profile.objects.filter(user=request.user).values('profile_picture').count()
-    if profile_picture > 0:
+    if Profile.objects.filter(user=request.user).values('profile_picture').count() > 0:
+        profile_picture = Profile.objects.filter(user=request.user).values('profile_picture')
         for picture in profile_picture:
             profile_picture = picture.get('profile_picture')
     else:
