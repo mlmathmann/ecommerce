@@ -8,10 +8,24 @@ from .forms import CustomPasswordChangeForm
 
 
 # Create your views here.
-def home(request):
+#
+def get_navbar_context(request):
+    if Profile.objects.filter(user=request.user).values('profile_picture').count() > 0:
+        profile_picture = Profile.objects.filter(user=request.user).values('profile_picture')
+        for picture in profile_picture:
+            profile_picture = picture.get('profile_picture')
+    else:
+        profile_picture = None
     categories = Category.objects.all()
+    print(categories)
+    context = {'categories': categories, 'profile_picture': profile_picture}
+    return context
+
+
+def home(request):
+    nav_context = get_navbar_context(request)
     products = Product.objects.all()
-    context = {'category': categories, 'products': products}
+    context = {'category': nav_context.get('categories'), 'products': products, 'profile_picture': nav_context.get('profile_picture')}
     return render(request, "store/index.html", context)
 
 
@@ -25,16 +39,14 @@ style_way = ''
 
 
 def collectionsview(request, slug):
+    nav_context = get_navbar_context(request)
     if Category.objects.filter(slug=slug, status=0):
         products = Product.objects.filter(category__slug=slug)
         category = Category.objects.filter(slug=slug).first()
-        print(request.path, request.body)
         global style_way
         if request.method == 'POST':
             style_way = request.POST.get('option_value')
-            print('POST', style_way)
         if style_way != '':
-            print(f"POST NO NONE \"{style_way}\"")
             if style_way == 'ARISTROCRATIC':
                 style_way = Product.StyleChoices.ARISTROCRATIC
             elif style_way == 'IMAGINATIVE':
@@ -45,9 +57,8 @@ def collectionsview(request, slug):
                 style_way = Product.StyleChoices.BRUTALISTIC
             elif style_way == 'SIMPLICITY':
                 style_way = Product.StyleChoices.MINIMALISTIC
-            print(style_way)
             products = products.filter(style_way=style_way)
-        context = {'products': products, 'category': category}
+        context = {'products': products, 'category': category, 'categories': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')}
         return render(request, 'store/products/index.html', context)
     else:
         messages.warning(request, "No such category found")
@@ -55,10 +66,11 @@ def collectionsview(request, slug):
 
 
 def productview(request, cate_slug, prod_slug):
+    nav_context = get_navbar_context(request)
     if Category.objects.filter(slug=cate_slug, status=0):
         if Product.objects.filter(slug=prod_slug, status=0):
             products = Product.objects.filter(slug=prod_slug, status=0).first
-            context = {'products': products}
+            context = {'products': products, 'categories': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')}
         else:
             messages.error(request, "No such product found")
             return redirect('collections')

@@ -102,10 +102,16 @@
                                             <a class="nav-link dropdown-toggle" href="#" role="button"
                                                data-bs-toggle="dropdown"
                                                aria-expanded="false">
+                                                {% if profile_picture != '' and profile_picture != None %}
+                                                    <img alt="picture" width="25" height="25"
+                                                         src="../../../static/{{ profile_picture }}"
+                                                         class="rounded-circle me-1">
+                                                {% endif %}
                                                 {{ request.user }}
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="{% url 'profile' request.user%}">My Profile</a></li>
+                                                <li><a class="dropdown-item" href="{% url 'profile' request.user %}">My
+                                                    Profile</a></li>
                                                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                                             </ul>
                                         </li>
@@ -170,8 +176,13 @@
                                 <div>
                                     <div class="d-flex align-items-center">
                                         <a href="#" class="avatar avatar-sm bg-warning rounded-circle text-white">
-                                            <img alt="picture" width="50" height="50"
-                                                 src="../../../static/assets/images/blank.jpg">
+                                            {% if profile_picture != '' and profile_picture != None %}
+                                                <img alt="picture" width="50" height="50"
+                                                     src="../../../static/{{ profile_picture }}">
+                                            {% else %}
+                                                <img alt="picture" width="50" height="50"
+                                                     src="../../../static/assets/images/blank.jpg">
+                                            {% endif %}
                                         </a>
                                         <div class="ms-4">
                                             <span class="h4 d-block mb-0">{{ user }}</span>
@@ -261,11 +272,18 @@
                                 <div class="col-md-4">
                                     <div class="">
                                         <label class="form-label" for="country">Land</label>
-                                        <select class="form-select" id="country" name="country" aria-label="Default select example">
+                                        <select class="form-select" id="country" name="country"
+                                                aria-label="Default select example">
                                             <option {% if user_country == '' %}selected{% endif %}></option>
-                                            <option {% if user_country == 'germany' %}selected{% endif %} value="germany">Deutschland</option>
-                                            <option {% if user_country == 'austria' %}selected{% endif %} value="austria">Österreich</option>
-                                            <option {% if user_country == 'switzerland' %}selected{% endif %} value="switzerland">Schweiz</option>
+                                            <option {% if user_country == 'germany' %}selected{% endif %}
+                                                    value="germany">Deutschland
+                                            </option>
+                                            <option {% if user_country == 'austria' %}selected{% endif %}
+                                                    value="austria">Österreich
+                                            </option>
+                                            <option {% if user_country == 'switzerland' %}selected{% endif %}
+                                                    value="switzerland">Schweiz
+                                            </option>
                                         </select>
                                     </div>
                                 </div>

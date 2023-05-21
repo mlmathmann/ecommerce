@@ -5,6 +5,7 @@ from store.forms import CustomUserForm, User, CustomUserChangeForm, CustomPasswo
 from django.contrib.auth.decorators import login_required
 from store.models import Profile
 from .dashboard import details, profile
+from store.views import get_navbar_context
 
 
 def register(request):
@@ -123,13 +124,8 @@ def updateprofile(request):
 
 @login_required(login_url='loginpage')
 def updateuser(request):
+    nav_context = get_navbar_context(request)
     current_user = User.objects.get(id=request.user.id)
-    if Profile.objects.filter(user=request.user).values('profile_picture').count() > 0:
-        profile_picture = Profile.objects.filter(user=request.user).values('profile_picture')
-        for picture in profile_picture:
-            profile_picture = picture.get('profile_picture')
-    else:
-        profile_picture = None
     profile_user = Profile.objects.filter(user=request.user).first()
     user_form = CustomUserChangeForm(None, instance=current_user)
     profile_form = ProfilePictureChangeForm(None, request.FILES or None, instance=profile_user)
@@ -145,17 +141,18 @@ def updateuser(request):
             if request.POST.get('username') == current_user.get_username() and request.POST.get(
                     'email') == current_user.__getattribute__('email'):
                 messages.success(request, "No changes detected!")
-                return render(request, "store/updateuser.html", {'user_form': user_form, 'profile_form': profile_form, 'profile_picture': profile_picture})
+                return render(request, "store/updateuser.html", {'user_form': user_form, 'profile_form': profile_form, 'category': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')})
             if user_form.is_valid() and profile_form.is_valid():
                 user_form.save()
                 profile_form.save()
                 messages.success(request, "User Info changed successfully!")
                 return redirect("profile", request.POST.get('username'))
-    return render(request, "store/updateuser.html", {'user_form': user_form, 'profile_form': profile_form, 'profile_picture': profile_picture})
+    return render(request, "store/updateuser.html", {'user_form': user_form, 'profile_form': profile_form, 'category': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')})
 
 
 @login_required(login_url='loginpage')
 def updatepassword(request):
+    nav_context = get_navbar_context(request)
     current_user = User.objects.get(id=request.user.id)
     form = CustomPasswordChangeForm(request.user)
     if request.method == "POST":
@@ -168,8 +165,8 @@ def updatepassword(request):
             for error in form.error_messages:
                 msg = form.error_messages.get(f'{error}')
                 messages.warning(request, f"{msg}")
-            return render(request, "store/updatepassword.html", {'form': form})
-    return render(request, "store/updatepassword.html", {'form': form})
+            return render(request, "store/updatepassword.html", {'form': form, 'category': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')})
+    return render(request, "store/updatepassword.html", {'form': form, 'category': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')})
 
 
 @login_required(login_url='loginpage')

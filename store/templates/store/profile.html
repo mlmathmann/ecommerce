@@ -103,7 +103,8 @@
                                                aria-expanded="false">
                                                 {% if profile_picture != '' and profile_picture != None%}
                                                     <img alt="picture" width="25" height="25"
-                                                     src="../../../static/{{ profile_picture }}" class="rounded-circle me-1">
+                                                         src="../../../static/{{ profile_picture }}"
+                                                         class="rounded-circle me-1">
                                                 {% endif %}
                                                 {{ request.user }}
                                             </a>
@@ -141,6 +142,7 @@
         </div> <!-- container -->
     </header>
     <!--header-->
+
     <!-- Start Breadcrumbs -->
     <div class="breadcrumbs">
         <div class="container">

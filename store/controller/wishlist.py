@@ -1,16 +1,16 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
-
 from django.contrib.auth.decorators import login_required
-
 from store.models import Product, Cart, Wishlist
+from store.views import get_navbar_context
 
 
 @login_required(login_url='loginpage')
 def index(request):
+    nav_context = get_navbar_context(request)
     wishlist = Wishlist.objects.filter(user=request.user)
-    context = {'wishlist': wishlist}
+    context = {'wishlist': wishlist, 'categories': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')}
     return render(request, 'store/wishlist.html', context)
 
 

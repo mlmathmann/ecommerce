@@ -3,11 +3,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from store.models import Cart, Order, OrderItem, Product, Profile
+from store.views import get_navbar_context
 
 import random
 
+
 @login_required(login_url='loginpage')
 def index(request):
+    nav_context = get_navbar_context(request)
     rawcart = Cart.objects.filter(user=request.user)
     for item in rawcart:
         if item.product_quantity > item.product.quantity:
@@ -26,7 +29,10 @@ def index(request):
     context = {'cartitems': cartitems,
                'total_price': new_total_price,
                'total_price_calc': total_price,
-               'userprofile': userprofile}
+               'userprofile': userprofile,
+               'category': nav_context.get('categories'),
+               'profile_picture': nav_context.get('profile_picture')
+               }
     return render(request, 'store/checkout.html', context)
 
 

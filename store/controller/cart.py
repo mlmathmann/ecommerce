@@ -1,10 +1,9 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
-
 from django.contrib.auth.decorators import login_required
-
 from store.models import Product, Cart
+from store.views import get_navbar_context
 
 
 def addtocart(request):
@@ -31,8 +30,9 @@ def addtocart(request):
 
 @login_required(login_url='loginpage')
 def viewcart(request):
+    nav_context = get_navbar_context(request)
     cart = Cart.objects.filter(user=request.user)
-    context = {'cart': cart}
+    context = {'cart': cart, 'category': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')}
     return render(request, 'store/cart.html', context)
 
 
