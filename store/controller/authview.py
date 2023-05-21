@@ -127,6 +127,7 @@ def updateuser(request):
     profile_user = Profile.objects.get(user__id=request.user.id)
     user_form = CustomUserChangeForm(None, instance=current_user)
     profile_form = ProfilePictureChangeForm(None, request.FILES or None, instance=profile_user)
+    print(request.POST)
     if request.method == "POST":
         user_form = CustomUserChangeForm(request.POST, request.FILES or None, instance=current_user)
         profile_form = ProfilePictureChangeForm(request.POST, request.FILES or None, instance=profile_user)
