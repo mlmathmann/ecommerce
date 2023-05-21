@@ -19,6 +19,7 @@ urlpatterns = [
                   path('delete-profilepicture/', authview.deleteprofilepicture, name="deleteprofilepicture"),
                   path('update-password/', authview.updatepassword, name="updatepassword"),
                   path('update-profile/', authview.updateprofile, name="updateprofile"),
+                  path('delete-user/', authview.deleteuser, name="deleteuser"),
 
                   path('myprofile/<str:user>', dashboard.profile, name="profile"),
                   path('myprofile/<str:user>/details', dashboard.details, name="details"),

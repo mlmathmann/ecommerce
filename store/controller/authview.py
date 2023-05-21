@@ -124,13 +124,15 @@ def updateprofile(request):
 @login_required(login_url='loginpage')
 def updateuser(request):
     current_user = User.objects.get(id=request.user.id)
-    profile_picture = Profile.objects.filter(user=request.user).values('profile_picture')
-    if profile_picture:
+    profile_picture = Profile.objects.filter(user=request.user).values('profile_picture').count()
+    if profile_picture > 0:
         for picture in profile_picture:
             profile_picture = picture.get('profile_picture')
-    profile_user = Profile.objects.get(user__id=request.user.id)
+    else:
+        profile_picture = None
+    profile_user = Profile.objects.filter(user=request.user)
     user_form = CustomUserChangeForm(None, instance=current_user)
-    profile_form = ProfilePictureChangeForm(None, request.FILES or None, instance=profile_user)
+    profile_form = ProfilePictureChangeForm(None, request.FILES or None, instance=profile_user or None)
     if request.method == "POST":
         user_form = CustomUserChangeForm(request.POST, request.FILES or None, instance=current_user)
         profile_form = ProfilePictureChangeForm(request.POST, request.FILES or None, instance=profile_user)
@@ -177,3 +179,11 @@ def deleteprofilepicture(request):
     current_profile.save()
     messages.success(request, "Profilepicture removed successfully!")
     return redirect("profile", request.user)
+
+
+@login_required(login_url='loginpage')
+def deleteuser(request):
+    current_user = User.objects.get(id=request.user.id)
+    current_user.delete()
+    messages.success(request, "Account deleted successfully!")
+    return redirect("home")

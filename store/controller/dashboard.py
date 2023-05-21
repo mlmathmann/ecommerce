@@ -9,7 +9,7 @@ def profile(request, user):
     user_obj = User.objects.filter(id=request.user.id).first()
     user_fname = User.objects.filter(username=user).values('first_name')
     user_lname = User.objects.filter(username=user).values('last_name')
-    profile = Profile.objects.filter(user=request.user)
+
     if user_fname:
         for name in user_fname:
             user_fname = name.get('first_name')
@@ -22,10 +22,14 @@ def profile(request, user):
     else:
         user_lname = ''
 
-    profile_picture = Profile.objects.filter(user=request.user).values('profile_picture')
-    if profile_picture:
+    profile = Profile.objects.filter(user=request.user)
+
+    profile_picture = Profile.objects.filter(user=request.user).values('profile_picture').count()
+    if profile_picture > 0:
         for picture in profile_picture:
             profile_picture = picture.get('profile_picture')
+    else:
+        profile_picture = None
 
     user_email = User.objects.filter(username=user).values('email')
     if user_email:
