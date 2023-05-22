@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from store.models import Cart, Order, OrderItem, Product, Profile
 from store.views import get_navbar_context
+from django.http import JsonResponse
+
 
 import random
 
@@ -13,6 +15,10 @@ def index(request):
     nav_context = get_navbar_context(request)
     rawcart = Cart.objects.filter(user=request.user)
     cart_item_count = Cart.objects.filter(user=request.user).count()
+
+    if cart_item_count == 0:
+        new_total_price = None
+
     for item in rawcart:
         if item.product_quantity > item.product.quantity:
             Cart.objects.delete(id=item.id)
@@ -60,6 +66,16 @@ def placeorder(request):
             currentuser.first_name = request.POST.get('fname')
             currentuser.last_name = request.POST.get('lname')
             currentuser.save()
+        else:
+            if request.POST.get('fname') != '':
+                if request.POST.get('fname') != currentuser.__getattribute__('first_name'):
+                    currentuser.first_name = request.POST.get('fname')
+                    currentuser.save()
+
+            if request.POST.get('lname') != '':
+                if request.POST.get('lname') != currentuser.__getattribute__('last_name'):
+                    currentuser.last_name = request.POST.get('lname')
+                    currentuser.save()
 
         if not Profile.objects.filter(user=request.user):
             userprofile = Profile()
@@ -73,6 +89,42 @@ def placeorder(request):
             userprofile.city = request.POST.get('city')
             userprofile.country = request.POST.get('country')
             userprofile.save()
+        else:
+            profile_obj = Profile.objects.filter(user=request.user)
+            if request.POST.get('phone') != '':
+                for element in profile_obj.values('phone'):
+                    if request.POST.get('phone') != element.get('phone'):
+                        profile_obj.update(phone=request.POST.get('phone'))
+
+            if request.POST.get('street') != '':
+                for element in profile_obj.values('street'):
+                    if request.POST.get('street') != element.get('street'):
+                        profile_obj.update(street=request.POST.get('street'))
+
+            if request.POST.get('house_number') != '':
+                for element in profile_obj.values('house_number'):
+                    if request.POST.get('house_number') != element.get('house_number'):
+                        profile_obj.update(house_number=request.POST.get('house_number'))
+
+            if request.POST.get('address_info') != '':
+                for element in profile_obj.values('address_info'):
+                    if request.POST.get('address_info') != element.get('address_info'):
+                        profile_obj.update(address_info=request.POST.get('address_info'))
+
+            if request.POST.get('postal_code') != '':
+                for element in profile_obj.values('postal_code'):
+                    if request.POST.get('postal_code') != element.get('postal_code'):
+                        profile_obj.update(postal_code=request.POST.get('postal_code'))
+
+            if request.POST.get('city') != '':
+                for element in profile_obj.values('city'):
+                    if request.POST.get('city') != element.get('city'):
+                        profile_obj.update(city=request.POST.get('city'))
+
+            if request.POST.get('country') != '':
+                for element in profile_obj.values('country'):
+                    if request.POST.get('country') != element.get('country'):
+                        profile_obj.update(country=request.POST.get('country'))
 
         neworder = Order()
         neworder.user = request.user
@@ -90,6 +142,7 @@ def placeorder(request):
         # neworder.total_price = request.POST.get('total_price')
 
         neworder.payment_mode = request.POST.get('payment_mode')
+        neworder.payment_id = request.POST.get('payment_id')
 
         cart = Cart.objects.filter(user=request.user, )
         cart_total_price = 0
@@ -121,6 +174,11 @@ def placeorder(request):
 
         # Users cart must be cleared
         Cart.objects.filter(user=request.user).delete()
-        messages.success(request, "Your order has been placed successfully")
+
+        payMode = request.POST.get('payment_mode')
+        if payMode == "Paid with PayPal":
+            return JsonResponse({'status': "Your order has been placed successfully"})
+        else:
+            messages.success(request, "Your order has been placed successfully")
 
     return redirect('/')
