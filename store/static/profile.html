@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>MIAGGIO</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+    <!--CSS-->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <!--Header-->
+    <header class="header navbar-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <div class="nav-inner">
+                        <nav class="navbar navbar-expand-lg ">
+                            <a class="navbar-brand" href="index.html">
+                                <img src="assets/images/logo/logo.png" alt="Logo">
+                            </a>
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+
+                                    <li class="nav-item">
+                                        <a class=" dd-menu collapsed" href="index.html"
+                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-1"
+                                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                                            aria-label="Toggle navigation" >Home</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class=" dd-menu collapsed" href="javascript:void(0)"
+                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
+                                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                                            aria-label="Toggle navigation">Categories</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-5">
+                                            <li class="nav-item"><a href="javascript:void(0)">Stuhl</a></li>
+                                            <li class="nav-item"><a href="javascript:void(0)">Tisch</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class=" dd-menu collapsed" href="javascript:void(0)"
+                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
+                                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                                            aria-label="Toggle navigation">Pages</a>
+                                        <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
+                                            <li class="single-block">
+                                                <ul>
+                                                    <li class="mega-menu-title">Essential Pages</li>
+                                                    <li class="nav-item"><a href="about-us.html">About Us</a></li>
+                                                    <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+                                                    <li class="nav-item"><a href="faq.html">FAQ</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="single-block">
+                                                <ul>
+                                                    <li class="mega-menu-title">Dashboard</li>
+                                                    <li class="nav-item"><a href="profile.html">My Profile</a></li>
+                                                    <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class=" dd-menu collapsed" href="javascript:void(0)"
+                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
+                                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                                            aria-label="Toggle navigation">AGB</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-5">
+                                            <li class="nav-item"><a href="agb.html">AGB</a></li>
+                                            <li class="nav-item"><a href="datenschutz.html">Datenschutzrichtlinie</a></li>
+                                            <li class="nav-item"><a href="impressum.html">Impressum</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div> <!-- navbar collapse -->
+                            <div class="login-button">
+                                <ul>
+                                    <li>
+                                        <a href="login.html"><i class="lni lni-enter"></i> Sign in</a>
+                                    </li>
+                                    <li>
+                                        <a href="register.html"><i class="lni lni-user"></i> Register</a>
+                                    </li>
+                                    <li>
+                                        <a href="checkout.html"><i class="lni lni-cart"></i> Warenkorb</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                        </nav> <!-- navbar -->
+                    </div>
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </header>
+    <!--Header -->
+
+<!-- Start Breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+                <div class="breadcrumbs-content">
+                    <h1 class="page-title">My Profile</h1>
+                </div>
+            </div>
+            <div class="col">
+                <ul class="breadcrumb-nav">
+                    <li><a href="index.html">Home</a></li>
+                    <li>My Profile</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Breadcrumbs -->
+<br>
+
+
+<div class="container" 
+      class="card-body pt-3">
+        <!-- Bordered Tabs -->
+        <ul class="nav nav-tabs nav-tabs-bordered">
+
+          <li class="nav-item">
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+          </li>
+
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+          </li>
+
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
+          </li>
+
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+          </li>
+
+        </ul>
+        <div class="tab-content pt-2">
+
+          <div class="tab-pane fade show active profile-overview" id="profile-overview"><br>
+            <h5 class="card-title">Profile Details</h5><br>
+
+
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label ">Full Name</div>
+              <div class="col-lg-9 col-md-8">Kevin Anderson</div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label">Company</div>
+              <div class="col-lg-9 col-md-8">Lueilwitz, Wisoky and Leuschke</div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label">Job</div>
+              <div class="col-lg-9 col-md-8">Web Designer</div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label">Country</div>
+              <div class="col-lg-9 col-md-8">USA</div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label">Address</div>
+              <div class="col-lg-9 col-md-8">A108 Adam Street, New York, NY 535022</div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label">Phone</div>
+              <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label">Email</div>
+              <div class="col-lg-9 col-md-8">k.anderson@example.com</div>
+            </div>
+
+          </div>
+
+          <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+            <!-- Profile Edit Form -->
+            <form>
+              <div class="row mb-3">
+                <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                <div class="col-md-8 col-lg-9">
+                  <img src="assets/images/blank.jpg" width="50" height="50" alt="Profile">
+                  <div class="pt-2">
+                    <button type="button" class="btn btn-sm btn-primary">Upload</button>
+                    <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="fullName" type="text" class="form-control" id="fullName" value="...">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="zip" class="col-md-4 col-lg-3 col-form-label">PLZ</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="Stadt" type="tel" class="form-control" id="zip" value="...">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="Stadt" class="col-md-4 col-lg-3 col-form-label">Stadt</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="Stadt" type="text" class="form-control" id="Stadt" value="...">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
+                <div class="col-md-8 col-lg-9">
+                  <select class="form-select" id="country" placeholder="Your email" aria-label="Default select example">
+                    <option selected></option>
+                    <option value="1">Deutschland</option>
+                    <option value="2">Österreich</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="address" type="text" class="form-control" id="Address" value="...">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="phone" type="text" class="form-control" id="Phone" value="...">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="email" type="email" class="form-control" id="Email" value="...">
+                </div>
+              </div>
+
+              
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </div><br>
+
+              <div class="row g-6"> 
+                <div class="col-md-12">
+                  <div class="card shadow border-0">
+                    <div class="card-body d-flex align-items-center">
+                       <div>
+                        <h5 class="text-danger mb-2">Deactivate account</h5>
+                        <p class="text-sm text-muted">
+                          Once you delete your account, there is no going back. Please be certain.
+                        </p>
+                      </div>
+                      <div class="ms-auto">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"> Deactivate</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Bist du sicher?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                Hiermit wird dein Account vollständig gelöscht.
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger">Ja</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><br>
+                </div>
+            </div>
+
+            </form><!-- End Profile Edit Form -->
+
+          </div>
+
+          <div class="tab-pane fade pt-3" id="profile-settings">
+
+            <!-- Settings Form -->
+            <form>
+
+              <div class="row mb-3">
+                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
+                <div class="col-md-8 col-lg-9">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="changesMade" checked>
+                    <label class="form-check-label" for="changesMade">
+                      Changes made to your account
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="newProducts" checked>
+                    <label class="form-check-label" for="newProducts">
+                      Information on new products and services
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="proOffers">
+                    <label class="form-check-label" for="proOffers">
+                      Marketing and promo offers
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
+                    <label class="form-check-label" for="securityNotify">
+                      Security alerts
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </div>
+            </form><!-- End settings Form -->
+
+          </div>
+
+          
+
+          <div class="tab-pane fade pt-3" id="profile-change-password">
+            <!-- Change Password Form -->
+            <form>
+
+              <div class="row mb-3">
+                <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="password" type="password" class="form-control" id="currentPassword">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="newpassword" type="password" class="form-control" id="newPassword">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Change Password</button>
+              </div>
+            </form><!-- End Change Password Form -->
+
+          </div>
+
+        </div><!-- End Bordered Tabs -->
+
+      </div>
+    <br>
+  
+
+
+    
+    <!--Newsletter-->
+    <div class="newsletter section">
+        <div class="container">
+            <div class="inner-content">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 ">
+                        <div class="title">
+                            <h2>Newsletter</h2>
+                            <p>We don't send spam so don't worry.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 ">
+                        <div class="form">
+                            <form action="#" method="get" target="_blank" class="newsletter-form">
+                                <input name="EMAIL" placeholder="Your email address" type="email">
+                                <div class="button">
+                                    <button class="btn">Subscribe<span class="dir-part"></span></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Newsletter-->
+
+    <!--Footer-->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="single-footer f-link">
+                            <h3>Locations</h3>
+                            <ul>
+                                <li><a href="#">Oelde</a></li>
+                                <li><a href="#">Beckum</a></li>
+                                <li><a href="#">Ahlen</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="single-footer f-link">
+                            <h3>Quick Links</h3>
+                            <ul>
+                                <li><a href="about-us.html">About Us</a></li>
+                                <li><a href="login.html">Login</a></li>
+                                <li><a href="register.html">Signup</a></li>
+                                <li><a href="faq.html">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="single-footer f-contact">
+                            <h3>Contact</h3>
+                            <ul>
+                                <li>MIAGGIO GmbH<br> Musterstr 4<br> 59269 Beckum, DE</li>
+                                <li>Tel. +49 123456 <br> support@miaggio.com</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Footer Bottom-->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="content">
+                                <ul class="footer-bottom-links">
+                                    <li><a href="agb.html">AGB</a></li>
+                                    <li><a href="datenschutz.html">Datenschutzrichtlinie</a></li>
+                                    <li><a href="impressum.html">Impressum</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--Footer-->
+
+    <!--scroll-top-->
+    <a href="#" class="scroll-top btn-hover">
+        <i class="lni lni-chevron-up">^</i>
+    </a>
+    <!--scroll-top-->
+
+    <!--JS-->
+    <script src="assets/js/bootstrap.min.js"></script>
+</body>
+</html>

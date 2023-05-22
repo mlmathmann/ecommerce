@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Portfolio</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+    <!--CSS-->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+
+    <style>
+        .category-button {
+          width: 19%;
+          height: 100px;
+          background-color: #f2f2f2;
+          display: inline-block;
+          text-align: center;
+          line-height: 100px;
+          cursor: pointer;
+          border: none;
+          outline: none;
+        }
+        .category-button.selected {
+          background-color: #007bff;
+          color: #fff;
+        }
+        .subcategory {
+          display: none;
+          margin-top: 10px;
+          padding-left: 20px;
+        }
+        .subcategory.show {
+          display: block;
+        }
+        .subcategory-button.selected {
+          background-color: #007bff;
+          color: #fff;
+        }
+                  
+      </style>
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const categoryButtons = document.querySelectorAll(".category-button");
+          const subcategoryContainers = document.querySelectorAll(".subcategory");
+          const subcategoryButtons = document.querySelectorAll(".subcategory-button");
+          const inputField = document.getElementById("input-field");
+      
+          categoryButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+              // Ausgewählten Button hervorheben
+              categoryButtons.forEach(function (button) {
+                button.classList.remove("selected");
+              });
+              this.classList.add("selected");
+      
+              // Alle Unter-Kategorie-Container ausblenden
+              subcategoryContainers.forEach(function (container) {
+                container.style.display = "none";
+              });
+              subcategoryButtons.forEach(function (button) {
+                button.addEventListener("click", function () {
+              // Ausgewählten Button hervorheben
+              subcategoryButtons.forEach(function (button) {
+                button.classList.remove("selected");
+              });
+              this.classList.add("selected");
+              });
+              });
+
+              // Entsprechenden Unter-Kategorie-Container anzeigen
+              const selectedCategory = this.dataset.category;
+              const selectedSubcategoryContainer = document.getElementById(selectedCategory);
+              selectedSubcategoryContainer.style.display = "block";
+      
+              // Button-Namen in das Textfeld eintragen
+              const categoryButtonName = this.innerText;
+              const subcategoryButtonName = document.querySelector(`#${selectedCategory} .subcategory-button.selected`).innerText;
+              inputField.value = categoryButtonName + " - " + subcategoryButtonName;
+            });
+          });
+      
+          subcategoryButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+              // Button-Namen in das Textfeld eintragen
+              const selectedCategoryButton = document.querySelector(".category-button.selected");
+              const categoryButtonName = selectedCategoryButton ? selectedCategoryButton.innerText : "";
+              const subcategoryButtonName = this.innerText;
+              inputField.value = categoryButtonName + " and " + subcategoryButtonName;
+            });
+          });
+        });
+      </script>
+      
+      
+      
+      
+</head>
+
+<body>
+    <!--Header-->
+    <header class="header navbar-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <div class="nav-inner">
+                        <nav class="navbar navbar-expand-lg ">
+                            <a class="navbar-brand" href="index.html">
+                                <img src="assets/images/logo/logo.png" alt="Logo">
+                            </a>
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+
+                                    <li class="nav-item">
+                                        <a class=" dd-menu collapsed" href="index.html"
+                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-1"
+                                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                                            aria-label="Toggle navigation" >Home</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class=" dd-menu collapsed" href="javascript:void(0)"
+                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
+                                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                                            aria-label="Toggle navigation">Categories</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-5">
+                                            <li class="nav-item"><a href="javascript:void(0)">Stuhl</a></li>
+                                            <li class="nav-item"><a href="javascript:void(0)">Tisch</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class=" dd-menu collapsed" href="javascript:void(0)"
+                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
+                                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                                            aria-label="Toggle navigation">Pages</a>
+                                        <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
+                                            <li class="single-block">
+                                                <ul>
+                                                    <li class="mega-menu-title">Essential Pages</li>
+                                                    <li class="nav-item"><a href="about-us.html">About Us</a></li>
+                                                    <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+                                                    <li class="nav-item"><a href="faq.html">FAQ</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="single-block">
+                                                <ul>
+                                                    <li class="mega-menu-title">Dashboard</li>
+                                                    <li class="nav-item"><a href="profile.html">My Profile</a></li>
+                                                    <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class=" dd-menu collapsed" href="javascript:void(0)"
+                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
+                                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                                            aria-label="Toggle navigation">AGB</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-5">
+                                            <li class="nav-item"><a href="agb.html">AGB</a></li>
+                                            <li class="nav-item"><a href="datenschutz.html">Datenschutzrichtlinie</a></li>
+                                            <li class="nav-item"><a href="impressum.html">Impressum</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div> <!-- navbar collapse -->
+                            <div class="login-button">
+                                <ul>
+                                    <li>
+                                        <a href="login.html"><i class="lni lni-enter"></i> Sign in</a>
+                                    </li>
+                                    <li>
+                                        <a href="register.html"><i class="lni lni-user"></i> Register</a>
+                                    </li>
+                                    <li>
+                                        <a href="checkout.html"><i class="lni lni-cart"></i> Warenkorb</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                        </nav> <!-- navbar -->
+                    </div>
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </header>
+    <!--Header -->
+
+<!-- Start Breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+                <div class="breadcrumbs-content">
+                    <h1 class="page-title">Portfolio</h1>
+                </div>
+            </div>
+            <div class="col">
+                <ul class="breadcrumb-nav">
+                    <li><a href="index.html">Home</a></li>
+                    <li>Portfolio</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Breadcrumbs -->
+
+    <div class="container"><br><br><br>
+        <div class="row">
+            <div class="col-12"><div class="section-title"><h2>Lass deiner Kreativität freien Lauf</h2></div></div>
+        </div>
+        <div class="alert alert-primary text-center" role="alert"><strong>Wähle eine Kategorie aus</strong></div>
+        <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <button class="category-button" data-category="category1">Aristrocratic</button>
+                <button class="category-button" data-category="category2">Imaginative</button>
+                <button class="category-button" data-category="category3">Futuristic</button>
+                <button class="category-button" data-category="category4">Brutalistic</button>
+                <button class="category-button" data-category="category5">Simplistic</button>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-md-12">
+                <div id="category1" class="subcategory">
+                    <h4>Unterkategorie 1</h4><br>
+                    <div class="alert alert-primary text-center" role="alert"><strong>Wähle eine Unterkategorie aus</strong></div>
+                    <ul>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 1.1</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 1.2</button>
+                    </ul><br>
+                  </div>
+                  <div id="category2" class="subcategory">
+                    <h4>Unterkategorie 2</h4><br>
+                    <div class="alert alert-primary text-center" role="alert"><strong>Wähle eine Unterkategorie aus</strong></div>
+                    <ul>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 2.1</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 2.2</button>
+                    </ul><br>
+                  </div>
+                  <div id="category3" class="subcategory">
+                    <h4>Unterkategorie 3</h4><br>
+                    <div class="alert alert-primary text-center" role="alert"><strong>Wähle eine Unterkategorie aus</strong></div>
+                    <ul>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 3.1</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 3.2</button>
+                    </ul><br>
+                  </div>
+                  <div id="category4" class="subcategory">
+                    <h4>Unterkategorie 4</h4><br>
+                    <div class="alert alert-primary text-center" role="alert"><strong>Wähle eine Unterkategorie aus</strong></div>
+                    <ul>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 4.1</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 4.2</button>
+                    </ul><br>
+                  </div>
+                  <div id="category5" class="subcategory">
+                    <h4>Unterkategorie 5</h4><br>
+                    <div class="alert alert-primary text-center" role="alert"><strong>Wähle eine Unterkategorie aus</strong></div>
+                    <ul>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 5.1</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 5.2</button>
+                    </ul><br>
+                  </div>   
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col">
+                <h4>Dein Input</h4><br>
+                <input type="text" id="input-field" class="form-control" readonly>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col">
+                <button type="button" class="btn btn-primary">Generate</button>
+              </div>
+            </div>
+          </div>
+    </div>
+            
+            
+       
+<br><br><br>
+
+    <!--Footer-->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="single-footer f-link">
+                            <h3>Locations</h3>
+                            <ul>
+                                <li><a href="#">Oelde</a></li>
+                                <li><a href="#">Beckum</a></li>
+                                <li><a href="#">Ahlen</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="single-footer f-link">
+                            <h3>Quick Links</h3>
+                            <ul>
+                                <li><a href="about-us.html">About Us</a></li>
+                                <li><a href="login.html">Login</a></li>
+                                <li><a href="register.html">Signup</a></li>
+                                <li><a href="faq.html">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="single-footer f-contact">
+                            <h3>Contact</h3>
+                            <ul>
+                                <li>MIAGGIO GmbH<br> Musterstr 4<br> 59269 Beckum, DE</li>
+                                <li>Tel. +49 123456 <br> support@miaggio.com</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Footer Bottom-->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="content">
+                                <ul class="footer-bottom-links">
+                                    <li><a href="agb.html">AGB</a></li>
+                                    <li><a href="datenschutz.html">Datenschutzrichtlinie</a></li>
+                                    <li><a href="impressum.html">Impressum</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--Footer-->
+
+    <!--scroll-top-->
+    <a href="#" class="scroll-top btn-hover">
+        <i class="lni lni-chevron-up">^</i>
+    </a>
+    <!--scroll-top-->
+
+    <!--JS-->
+    <script src="assets/js/bootstrap.min.js"></script>
+</body>
+</html>
