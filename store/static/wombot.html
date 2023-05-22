@@ -10,6 +10,93 @@
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
     <!--CSS-->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+
+    <style>
+        .category-button {
+          width: 19%;
+          height: 100px;
+          background-color: #f2f2f2;
+          display: inline-block;
+          text-align: center;
+          line-height: 100px;
+          cursor: pointer;
+          border: none;
+          outline: none;
+        }
+        .category-button.selected {
+          background-color: #007bff;
+          color: #fff;
+        }
+        .subcategory {
+          display: none;
+          margin-top: 10px;
+          padding-left: 20px;
+        }
+        .subcategory.show {
+          display: block;
+        }
+        .subcategory-button.selected {
+          background-color: #007bff;
+          color: #fff;
+        }
+                  
+      </style>
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const categoryButtons = document.querySelectorAll(".category-button");
+          const subcategoryContainers = document.querySelectorAll(".subcategory");
+          const subcategoryButtons = document.querySelectorAll(".subcategory-button");
+          const inputField = document.getElementById("input-field");
+      
+          categoryButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+              // Ausgewählten Button hervorheben
+              categoryButtons.forEach(function (button) {
+                button.classList.remove("selected");
+              });
+              this.classList.add("selected");
+      
+              // Alle Unter-Kategorie-Container ausblenden
+              subcategoryContainers.forEach(function (container) {
+                container.style.display = "none";
+              });
+              subcategoryButtons.forEach(function (button) {
+                button.addEventListener("click", function () {
+              // Ausgewählten Button hervorheben
+              subcategoryButtons.forEach(function (button) {
+                button.classList.remove("selected");
+              });
+              this.classList.add("selected");
+              });
+              });
+
+              // Entsprechenden Unter-Kategorie-Container anzeigen
+              const selectedCategory = this.dataset.category;
+              const selectedSubcategoryContainer = document.getElementById(selectedCategory);
+              selectedSubcategoryContainer.style.display = "block";
+      
+              // Button-Namen in das Textfeld eintragen
+              const categoryButtonName = this.innerText;
+              const subcategoryButtonName = document.querySelector(`#${selectedCategory} .subcategory-button.selected`).innerText;
+              inputField.value = categoryButtonName + " - " + subcategoryButtonName;
+            });
+          });
+      
+          subcategoryButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+              // Button-Namen in das Textfeld eintragen
+              const selectedCategoryButton = document.querySelector(".category-button.selected");
+              const categoryButtonName = selectedCategoryButton ? selectedCategoryButton.innerText : "";
+              const subcategoryButtonName = this.innerText;
+              inputField.value = categoryButtonName + " and " + subcategoryButtonName;
+            });
+          });
+        });
+      </script>
+      
+      
+      
+      
 </head>
 
 <body>
@@ -127,171 +214,82 @@
 </div>
 <!-- End Breadcrumbs -->
 
-
-
-
-
-
-
-
-
     <div class="container"><br><br><br>
-        
         <div class="row">
             <div class="col-12"><div class="section-title"><h2>Lass deiner Kreativität freien Lauf</h2></div></div>
         </div>
-        <div class="alert alert-primary text-center" role="alert"><strong>Wähle deine Kategorien aus</strong></div><br><br>
-          <!--
-        <div class="col text-center"><br><br>
-        <button type="reset"  class="btn btn-dark btn-lg">All</button>
-        <button type="button" class="btn btn-dark btn-lg">Stühle</button>
-        <button type="button" class="btn btn-dark btn-lg">Sessel</button>
-        <button type="button" class="btn btn-dark btn-lg">Beistelltische</button>
-        <button type="button" class="btn btn-dark btn-lg">Tische</button>
-        <button type="button" class="btn btn-dark btn-lg">Kunstobjekte</button>
-        </div>
-        <br><br>
-        -->
-        
-        
+        <div class="alert alert-primary text-center" role="alert"><strong>Wähle eine Kategorie aus</strong></div>
         <div class="container">
             <div class="row">
-              <div class="col-12">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th scope="col">Select Day</th>   <th scope="col">Article Name</th>   <th scope="col">Author</th> <th scope="col">Words</th>  <th scope="col">Shares</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                        <td>Kategorie 1</td>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">Default checkbox</label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">Default checkbox</label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">Default checkbox</label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">Default checkbox</label>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Kategorie 1</td>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">Default checkbox</label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">Default checkbox</label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">Default checkbox</label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">Default checkbox</label>
-                            </div>
-                        </td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="col-md-12">
+                <button class="category-button" data-category="category1">Aristrocratic</button>
+                <button class="category-button" data-category="category2">Imaginative</button>
+                <button class="category-button" data-category="category3">Futuristic</button>
+                <button class="category-button" data-category="category4">Brutalistic</button>
+                <button class="category-button" data-category="category5">Simplistic</button>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-md-12">
+                <div id="category1" class="subcategory">
+                    <h4>Unterkategorie 1</h4><br>
+                    <div class="alert alert-primary text-center" role="alert"><strong>Wähle eine Unterkategorie aus</strong></div>
+                    <ul>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 1.1</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 1.2</button>
+                    </ul><br>
+                  </div>
+                  <div id="category2" class="subcategory">
+                    <h4>Unterkategorie 2</h4><br>
+                    <div class="alert alert-primary text-center" role="alert"><strong>Wähle eine Unterkategorie aus</strong></div>
+                    <ul>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 2.1</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 2.2</button>
+                    </ul><br>
+                  </div>
+                  <div id="category3" class="subcategory">
+                    <h4>Unterkategorie 3</h4><br>
+                    <div class="alert alert-primary text-center" role="alert"><strong>Wähle eine Unterkategorie aus</strong></div>
+                    <ul>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 3.1</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 3.2</button>
+                    </ul><br>
+                  </div>
+                  <div id="category4" class="subcategory">
+                    <h4>Unterkategorie 4</h4><br>
+                    <div class="alert alert-primary text-center" role="alert"><strong>Wähle eine Unterkategorie aus</strong></div>
+                    <ul>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 4.1</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 4.2</button>
+                    </ul><br>
+                  </div>
+                  <div id="category5" class="subcategory">
+                    <h4>Unterkategorie 5</h4><br>
+                    <div class="alert alert-primary text-center" role="alert"><strong>Wähle eine Unterkategorie aus</strong></div>
+                    <ul>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 5.1</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 5.2</button>
+                    </ul><br>
+                  </div>   
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col">
+                <h4>Dein Input</h4><br>
+                <input type="text" id="input-field" class="form-control" readonly>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col">
+                <button type="button" class="btn btn-primary">Generate</button>
               </div>
             </div>
           </div>
+    </div>
+            
+            
+       
 <br><br><br>
-
-
-    <div class="row" >
-        <div class="col-lg-3">
-            <div class="form-group">
-                <label for="k1">Antik</label>
-                <select id="k1" class="form-control">
-                    <option>...</option>
-                    <option>Barock</option>
-                    <option>Rokoko</option>
-                    <option>Renaissance</option>
-                    <option>Gotik</option>
-                </select>
-            </div>
-        </div>   
-        <div class="col-lg-3">
-            <div class="form-group">
-                <label for="k2">Modern</label>
-                <select id="k2" class="form-control">
-                    <option>...</option>
-                    <option>Minimalistisch</option>
-                    <option>Skandinavisch</option>
-                    <option>Mid-Century</option>
-                    <option>Futuristisch</option>
-                </select>
-            </div>
-        </div> 
-        <div class="col-lg-3">
-            <div class="form-group">
-                <label for="k3">Rustikal</label>
-                <select id="k3" class="form-control">
-                    <option>...</option>
-                    <option>Bauernhaus</option>
-                    <option>Lodge</option>
-                    <option>Western</option>
-                    <option>Adirondack</option>
-                </select>
-            </div>
-        </div> 
-        <div class="col-lg-3">
-            <div class="form-group">
-                <label for="k4">Industriell</label>
-                <select id="k4" class="form-control">
-                    <option>...</option>
-                    <option>Loft</option>
-                    <option>Fabrik</option>
-                    <option>Maschinell</option>
-                    <option>Urban</option>
-                </select>
-            </div>
-        </div> 
-
-        <div class="button text-center"><br>
-        <button type="button" class="btn">Generate</button>
-        </div>
-        
-    </div>
-          
-    </div>
-    <br><br><br>
-        
-
-
-
-
-
-
 
     <!--Footer-->
     <footer class="footer">
