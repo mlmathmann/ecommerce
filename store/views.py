@@ -69,7 +69,17 @@ def productview(request, cate_slug, prod_slug):
     if Category.objects.filter(slug=cate_slug, status=0):
         if Product.objects.filter(slug=prod_slug, status=0):
             products = Product.objects.filter(slug=prod_slug, status=0).first
-            context = {'products': products, 'categories': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')}
+            product_style = Product.objects.filter(slug=prod_slug, status=0).values('style_way')
+
+            if product_style:
+                for style in product_style:
+                    product_style = style.get('style_way')
+                    for choice in Product.StyleChoices.choices:
+                        if product_style == choice[0]:
+                            product_style = choice[1]
+            else:
+                product_style = ''
+            context = {'products': products, 'categories': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture'), 'product_style': product_style}
         else:
             messages.error(request, "No such product found")
             return redirect('collections')
