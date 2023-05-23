@@ -94,7 +94,6 @@ $(document).ready(function () {
             success: function (response) {
                 alertify.success(response.status)
                 $('.cartdata').load(location.href + " .cartdata");
-                // window.location.reload();
             }
         });
     });

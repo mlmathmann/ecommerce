@@ -24,6 +24,7 @@ def get_navbar_context(request):
 def home(request):
     nav_context = get_navbar_context(request)
     products = Product.objects.all()
+
     context = {'category': nav_context.get('categories'), 'products': products, 'profile_picture': nav_context.get('profile_picture')}
     return render(request, "store/index.html", context)
 

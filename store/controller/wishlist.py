@@ -40,6 +40,7 @@ def deletewishlistitem(request):
             if Wishlist.objects.filter(user=request.user, product_id=prod_id):
                 wishlistitem = Wishlist.objects.get(product_id=prod_id)
                 wishlistitem.delete()
+                index(request)
                 return JsonResponse({'status': "Removed from wishlist successfully"})
             else:
                 Wishlist.objects.create(user=request.user, product_id=prod_id)

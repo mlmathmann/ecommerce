@@ -30,12 +30,11 @@ class Category(models.Model):
 
 class Product(models.Model):
     class StyleChoices(models.TextChoices):
-        ALL = 'S'
         ARISTROCRATIC = 'A'
         IMAGINATIVE = 'I'
         FUTURISTIC = 'F'
         BRUTALISTIC = 'B'
-        MINIMALISTIC = 'M'
+        SIMPLISTIC = 'S'
     style_way = models.CharField(max_length=1, choices=StyleChoices.choices, default='S')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     slug = models.CharField(max_length=150, null=False, blank=False)

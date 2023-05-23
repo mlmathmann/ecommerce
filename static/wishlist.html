@@ -1,72 +1,94 @@
+{% extends 'store/layouts/main.html' %}
+{% load django_bootstrap5 %}
+
+
 <!DOCTYPE html>
 <html lang="en">
+{% block content %}
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+        <title>MIAGGIO</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="shortcut icon" type="image/x-icon" href="../../../static/assets/images/favicon.png"/>
+        <!--CSS-->
+        <link rel="stylesheet" href="../../../static/assets/css/bootstrap.min.css"/>
+    </head>
 
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>MIAGGIO</title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
-    <!--CSS-->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-</head>
-
-<body>
-    <!--Header-->
-    <header class="header navbar-area">
+    <!--header-->
+    <header class="header navbar-area position-sticky">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <div class="nav-inner">
                         <nav class="navbar navbar-expand-lg ">
-                            <a class="navbar-brand" href="index.html">
-                                <img src="assets/images/logo/logo.png" alt="Logo">
+                            <a class="navbar-brand mt-1" style="vertical-align: middle; margin-right: unset"
+                               href="{% url 'home' %}">
+                                <div class="logo-nav-pic"></div>
                             </a>
                             <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
+                                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
 
-                                    <li class="nav-item">
-                                        <a class=" dd-menu collapsed" href="index.html"
-                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-1"
-                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation" >Home</a>
+                                    <li class="nav-item" href="{% url 'home' %}">
+                                        <a class=" dd-menu collapsed" href="{% url 'home' %}">Home</a>
                                     </li>
 
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
-                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
-                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation">Categories</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-5">
-                                            <li class="nav-item"><a href="javascript:void(0)">Stuhl</a></li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Tisch</a></li>
+                                           data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
+                                           aria-controls="navbarSupportedContent" aria-expanded="false"
+                                           aria-label="Toggle navigation">Categories</a>
+                                        <ul class="sub-menu mega-menu collapse" id="submenu-1-5">
+                                            <li class="single-block">
+                                                <ul>
+                                                <li class="mega-menu-title">Categories</li>
+                                                    {% for item in category %}
+                                                        <li class="nav-item"><a
+                                                                href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                            <li class="single-block">
+                                                <ul>
+                                                    <li class="mega-menu-title">Collections</li>
+                                                    <li class="nav-item"><a href="#">ARISTROCRATIC</a></li>
+                                                    <li class="nav-item"><a href="#">IMAGINATIVE</a></li>
+                                                    <li class="nav-item"><a href="#">FUTURISTIC</a></li>
+                                                    <li class="nav-item"><a href="#">BRUTALISTIC</a></li>
+                                                    <li class="nav-item"><a href="#">SIMPLISTIC</a></li>
+                                                </ul>
+                                            </li>
                                         </ul>
                                     </li>
 
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
-                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
-                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation">Pages</a>
+                                           data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
+                                           aria-controls="navbarSupportedContent" aria-expanded="false"
+                                           aria-label="Toggle navigation">Pages</a>
                                         <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Essential Pages</li>
-                                                    <li class="nav-item"><a href="about-us.html">About Us</a></li>
-                                                    <li class="nav-item"><a href="contact.html">Contact Us</a></li>
-                                                    <li class="nav-item"><a href="faq.html">FAQ</a></li>
+                                                    <li class="nav-item"><a href="../../../static/about-us.html">About
+                                                        Us</a></li>
+                                                    <li class="nav-item"><a href="../../../static/contact.html">Contact
+                                                        Us</a></li>
+                                                    <li class="nav-item"><a href="../../../static/faq.html">FAQ</a></li>
                                                 </ul>
                                             </li>
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Dashboard</li>
-                                                    <li class="nav-item"><a href="profile.html">My Profile</a></li>
+                                                    <li class="nav-item"><a href="{% url 'profile' user %}">My
+                                                        Profile</a></li>
                                                     <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
                                                 </ul>
                                             </li>
@@ -74,38 +96,69 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
-                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
-                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation">AGB</a>
+                                           data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
+                                           aria-controls="navbarSupportedContent" aria-expanded="false"
+                                           aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
-                                            <li class="nav-item"><a href="agb.html">AGB</a></li>
-                                            <li class="nav-item"><a href="datenschutz.html">Datenschutzrichtlinie</a></li>
-                                            <li class="nav-item"><a href="impressum.html">Impressum</a></li>
+                                            <li class="nav-item"><a href="../../../static/agb.html">AGB</a></li>
+                                            <li class="nav-item"><a href="../../../static/datenschutz.html">Datenschutzrichtlinie</a>
+                                            </li>
+                                            <li class="nav-item"><a href="../../../static/impressum.html">Impressum</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
                             </div> <!-- navbar collapse -->
                             <div class="login-button">
                                 <ul>
+                                    {% if request.user.is_authenticated %}
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                                               data-bs-toggle="dropdown"
+                                               aria-expanded="false">
+                                                {% if profile_picture != '' and profile_picture != None %}
+                                                    <img alt="picture" width="25" height="25"
+                                                         src="../../../static/{{ profile_picture }}"
+                                                         class="rounded-circle me-1">
+                                                {% endif %}
+                                                {{ request.user }}
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="{% url 'profile' request.user %}">My
+                                                    Profile</a></li>
+                                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                                            </ul>
+                                        </li>
+                                    {% else %}
+                                        <li class="nav-item">
+                                            <a class="nav-link {% if request.resolver_match.url_name == 'loginpage' %}active{% endif %}"
+                                               href="{% url 'loginpage' %}">Login</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link {% if request.resolver_match.url_name == 'register' %}active{% endif %}"
+                                               href="{% url 'register' %}">Register</a>
+                                        </li>
+                                    {% endif %}
                                     <li>
-                                        <a href="login.html"><i class="lni lni-enter"></i> Sign in</a>
+                                        <a href="{% url 'wishlist' %}"><i class="lni lni-cart"></i>Wunschliste</a>
                                     </li>
-                                    <li>
-                                        <a href="register.html"><i class="lni lni-user"></i> Register</a>
+                                    <li class="nav-item" style="vertical-align: middle">
+                                        <a href="{% url 'cart' %}" title="Warenkorb">
+                                            <div class="cart-nav-pic">
+                                            </div>
+                                        </a>
                                     </li>
-                                    <li>
-                                        <a href="checkout.html"><i class="lni lni-cart"></i> Warenkorb</a>
-                                    </li>
+
                                 </ul>
                             </div>
-                            
+
                         </nav> <!-- navbar -->
                     </div>
                 </div>
             </div> <!-- row -->
         </div> <!-- container -->
     </header>
-    <!--Header -->
+    <!--header-->
 
 <!-- Start Breadcrumbs -->
 <div class="breadcrumbs ">
@@ -130,31 +183,45 @@
 
 
 <section class="h-100" style="background-color: #f5f5f5;">
-    <div class="container"><br>
-      <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-10">
-        <h3 class="fw-normal mb-0 text-black">Your Wishlist</h3><br>
-          <div class="card rounded-3 mb-4">
-            <div class="card-body p-4">
-              <div class="row d-flex justify-content-between align-items-center">
-                <div class="col-md-2">
-                  <img
-                    src="assets/images/blank.jpg" class="img-fluid rounded-3" alt="" width="75" height="75">
+    <div class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body wishlistdata">
+                            {% if wishlist %}
+                                {% for item in wishlist %}
+                                    <div class="row product_data">
+                                        <div class="col-md-2 my-auto">
+                                            <img src="{{ item.product.product_image.url }}" height="70px" width="70px" alt="Product image here">
+                                        </div>
+                                        <div class="col-md-3 my-auto">
+                                            <h6>{{ item.product.name }}</h6>
+                                        </div>
+                                        <div class="col-md-2 my-auto">
+                                            <h6>{{ item.product.selling_price }} €</h6>
+                                        </div>
+                                        <div class="col-md-3 my-auto">
+                                            <input type="hidden" class="prod_id" value="{{ item.product_id }}">
+                                            {% csrf_token %}
+                                            <a href="{% url 'productview' item.product.category.slug item.product.slug %}" class="btn btn-primary"> View Product  <i class="fa fa-eye"></i></a>
+                                        </div>
+                                        <div class="col-md-2 my-auto">
+                                            <button class="btn btn-danger delete-wishlist-item"> Remove  <i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                            {% else %}
+                                <h4>Your wishlist is empty</h4>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                  <p class="lead fw-normal mb-2">MÖBELNAME</p>
-                </div>
-                <div class="col text-end">
-                  <p class="btn btn-primary">Add to Cart</p> 
-                  <p class="btn btn-danger">Delete</p>
-                </div>
-                
-              </div>
             </div>
-          </div>
         </div>
     </div>
-  </section>
+</section>
 
     <!--Footer-->
     <footer class="footer">
@@ -223,6 +290,7 @@
     <!--scroll-top-->
 
     <!--JS-->
-    <script src="assets/js/bootstrap.min.js"></script>
+
 </body>
 </html>
+{% endblock content %}
