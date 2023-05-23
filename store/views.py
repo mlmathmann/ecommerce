@@ -44,20 +44,14 @@ def collectionsview(request, slug):
         products = Product.objects.filter(category__slug=slug)
         category = Category.objects.filter(slug=slug).first()
         global style_way
-        if request.method == 'POST':
-            style_way = request.POST.get('option_value')
-        if style_way != '':
-            if style_way == 'ARISTROCRATIC':
-                style_way = Product.StyleChoices.ARISTROCRATIC
-            elif style_way == 'IMAGINATIVE':
-                style_way = Product.StyleChoices.IMAGINATIVE
-            elif style_way == 'FUTURISTIC':
-                style_way = Product.StyleChoices.FUTURISTIC
-            elif style_way == 'BRUTALISTIC':
-                style_way = Product.StyleChoices.BRUTALISTIC
-            elif style_way == 'SIMPLICITY':
-                style_way = Product.StyleChoices.MINIMALISTIC
-            products = products.filter(style_way=style_way)
+        if request.method == 'POST' and request.POST.get('end') == 'ye':
+            style_way = ''
+        else:
+            if request.method == 'POST':
+                style_way = request.POST.get('filter_value')
+            if style_way != '':
+                products = products.filter(style_way=style_way)
+
         context = {'products': products, 'category': category, 'categories': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')}
         return render(request, 'store/products/index.html', context)
     else:

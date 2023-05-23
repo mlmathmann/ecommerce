@@ -151,7 +151,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: '/collections/'+cat_slug,
+            url: '/collections/' + cat_slug,
             data: {
                 'option_value': option_value,
                 csrfmiddlewaretoken: token,
@@ -162,8 +162,9 @@ $(document).ready(function () {
                 $('.prod-row').load(location.href + ' .prod-row');
                 // $('.prod-row').load(location.href);
                 // window.location.reload();
-            }})
-        });
+            }
+        })
+    });
 
     $('#del-btn').on('click', '.bs.modal', function (e) {
         e.preventDefault();
@@ -183,4 +184,5 @@ $(document).ready(function () {
 
         });
     });
-    });
+
+});
