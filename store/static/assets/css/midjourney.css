@@ -12,6 +12,7 @@
     background-size: cover; 
     font-weight: bold; 
     font-size: 18px; 
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.718);
   }
 
   .category-button.selected {
