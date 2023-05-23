@@ -12,11 +12,10 @@
     background-size: cover; 
     font-weight: bold; 
     font-size: 18px; 
-    text-shadow: 2px 2px 4px rgb(255, 255, 255);
   }
 
   .category-button.selected {
-    background-color: #6610f2;
+    background-color: #6710f238;
     color: #fff;
   }
   .subcategory {
