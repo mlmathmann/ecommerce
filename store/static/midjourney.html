@@ -10,98 +10,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
     <!--CSS-->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-
-    <style>
-        .category-button {
-          width: 19.7%;
-          height: 100px;
-          background-color: #f2f2f2;
-          display: inline-block;
-          text-align: center;
-          line-height: 100px;
-          cursor: pointer;
-          border: none;
-          border-radius: 8px;
-          outline: none;
-
-        }
-        .category-button.selected {
-          background-color: #6610f2;
-          color: #fff;
-        }
-        .subcategory {
-          display: none;
-          margin-top: 10px;
-          padding-left: 20px;
-          text-align: center;
-          
-        }
-        .subcategory.show {
-          display: block;
-        }
-        .subcategory-button.selected {
-          background-color: #6610f2;
-          color: #fff;
-        }
-                  
-      </style>
-      <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          const categoryDropdown = document.querySelectorAll(".category-dropdown");
-          const categoryButtons = document.querySelectorAll(".category-button");
-          const subcategoryContainers = document.querySelectorAll(".subcategory");
-          const subcategoryButtons = document.querySelectorAll(".subcategory-button");
-          const inputField = document.getElementById("input-field");
-      
-          
-          
-          categoryButtons.forEach(function (button) {
-            button.addEventListener("click", function () {
-              // Ausgewählten Button hervorheben
-              categoryButtons.forEach(function (button) {
-                button.classList.remove("selected");
-              });
-              this.classList.add("selected");
-      
-              // Alle Unter-Kategorie-Container ausblenden
-              subcategoryContainers.forEach(function (container) {
-                container.style.display = "none";
-              });
-              subcategoryButtons.forEach(function (button) {
-                button.addEventListener("click", function () {
-              // Ausgewählten Button hervorheben
-              subcategoryButtons.forEach(function (button) {
-                button.classList.remove("selected");
-              });
-              this.classList.add("selected");
-              });
-              });
-
-              // Entsprechenden Unter-Kategorie-Container anzeigen
-              const selectedCategory = this.dataset.category;
-              const selectedSubcategoryContainer = document.getElementById(selectedCategory);
-              selectedSubcategoryContainer.style.display = "block";
-            });
-          });
-      
-          subcategoryButtons.forEach(function (button) {
-  button.addEventListener("click", function () {
-    // Button-Namen in das Textfeld eintragen
-    const selectedCategoryButton = document.querySelector(".category-button.selected");
-    const categoryDropdown = document.getElementById("category-dropdown");
-    const categoryDropdownName = categoryDropdown.options[categoryDropdown.selectedIndex].text;
-    const categoryButtonName = selectedCategoryButton ? selectedCategoryButton.innerText : "";
-    const subcategoryButtonName = this.innerText;
-    inputField.value = categoryDropdownName + " and " + categoryButtonName + " and " + subcategoryButtonName;
-  });
-});
-
-        });
-      </script>
-      
-      
-      
-      
+    <link rel="stylesheet" href="assets/css/midjourney.css">
 </head>
 
 <body>
@@ -219,23 +128,18 @@
 </div>
 <!-- End Breadcrumbs -->
 
-<button class="btn btn-primary">
-  <img src="assets/images/blank.jpg" alt="Bildbeschreibung" width="100" height="100">
-  Button mit Bild
-</button>
-
-
+<!-- Start Generator  -->
     <div class="container"><br><br><br>
         <div class="row">
           <!--Überschrift-->
             <div class="col-12"><div class="section-title"><h2>Lass deiner Kreativität freien Lauf</h2></div></div> 
         </div>
         <!--Alert-->
-        <div class="alert alert-secondary text-center" role="alert"><strong>Wähle eine Möbelkategorie und einen Stil aus</strong></div>
+        <div class="alert alert-secondary text-center" role="alert"><strong>Wähle eine Möbelkategorie, einen Stil und einen Style aus</strong></div>
           <div class="row">
             <div class="col-md-12">
               <select id="category-dropdown" class="form-select">
-                <option selected disabled>...</option>
+                <option selected disabled>Wähle eine Möbelkategorie...</option>
                 <option value="category1">Stühle</option>
                 <option value="category2">Tische</option>
                 <option value="category3">Sessel</option>
@@ -247,48 +151,43 @@
         <div class="container">
             <div class="row">
               <div class="col-md-12">
-                <button class="category-button" data-category="category1">Aristrocratic</button>
-                <button class="category-button" data-category="category2">Imaginative</button>
-                <button class="category-button" data-category="category3">Futuristic</button>
-                <button class="category-button" data-category="category4">Brutalistic</button>
-                <button class="category-button" data-category="category5">Simplistic</button>
+                <button class="category-button" data-category="category1" style="background-image: url(assets/images/styles/aris.png);">ARISTROCRATIC</button>
+                <button class="category-button" data-category="category2" style="background-image: url(assets/images/styles/imagine.png);">IMAGINATIVE</button>
+                <button class="category-button" data-category="category3" style="background-image: url(assets/images/styles/future.png);">FUTURISTIC</button>
+                <button class="category-button" data-category="category4" style="background-image: url(assets/images/styles//brutal.png);">BRUTALISTIC</button>
+                <button class="category-button" data-category="category5" style="background-image: url(assets/images/styles/simpl.png);">SIMPLISTIC</button>
               </div>
             </div><br>
             <div class="row">
               <div class="col-md-12">
                 <div id="category1" class="subcategory">
-                    <div class="alert alert-secondary text-center" role="alert"><strong>Wähle eine Unterkategorie aus</strong></div>
                     <ul>
-                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 1.1</button>
-                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 1.2</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Style 1.1</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Style 1.2</button>
                     </ul><br>
                   </div>
                   <div id="category2" class="subcategory">
-                    <div class="alert alert-secondary text-center" role="alert"><strong>Wähle eine Unterkategorie aus</strong></div>
                     <ul>
-                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 2.1</button>
-                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 2.2</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Style 2.1</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Style 2.2</button>
                     </ul><br>
                   </div>
                   <div id="category3" class="subcategory">
-                    <div class="alert alert-secondary text-center" role="alert"><strong>Wähle eine Unterkategorie aus</strong></div>
                     <ul>
-                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 3.1</button>
-                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 3.2</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Style 3.1</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Style 3.2</button>
                     </ul><br>
                   </div>
                   <div id="category4" class="subcategory">
-                    <div class="alert alert-secondary text-center" role="alert"><strong>Wähle eine Unterkategorie aus</strong></div>
                     <ul>
-                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 4.1</button>
-                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 4.2</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Style 4.1</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Style 4.2</button>
                     </ul><br>
                   </div>
                   <div id="category5" class="subcategory">
-                    <div class="alert alert-secondary text-center" role="alert"><strong>Wähle eine Unterkategorie aus</strong></div>
                     <ul>
-                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 5.1</button>
-                      <button class="btn btn-lg btn-light subcategory-button">Unterkategorie 5.2</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Style 5.1</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Style 5.2</button>
                     </ul><br>
                   </div>   
               </div>
@@ -299,14 +198,15 @@
                 <input type="text" id="input-field" class="form-control" readonly>
               </div>
             </div><br>
-            <div class="row">
-              <div class="col">
-                <button type="button" class="btn btn-primary">Generate</button>
+            <div class="col">
+              <div class="form-group button">
+                <button type="button" class="btn">Generate</button>
               </div>
             </div>
           </div>
     </div>
-            
+<!-- End Generator  -->
+
             
        
 <br><br><br>
@@ -379,5 +279,6 @@
 
     <!--JS-->
     <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/midjourney.js"></script>
 </body>
 </html>
