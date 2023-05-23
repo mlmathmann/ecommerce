@@ -47,7 +47,7 @@
                                         <ul class="sub-menu mega-menu collapse" id="submenu-1-5">
                                             <li class="single-block">
                                                 <ul>
-                                                    <li class="mega-menu-title">Categories</li>
+                                                <li class="mega-menu-title">Categories</li>
                                                     {% for item in category %}
                                                         <li class="nav-item"><a
                                                                 href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
@@ -193,10 +193,11 @@
                                         <div class="row m-2 product_data justify-content-between">
                                             <div class="col-md-1 my-auto">
                                                 <img src="{{ item.product.product_image.url }}" height="60px"
-                                                     width="60px" alt="Product image here">
+                                                     width="60px" style="border-radius: 13px" alt="Product image here">
                                             </div>
                                             <div class="col-md-3 my-auto">
                                                 <h6>{{ item.product.name }}</h6>
+                                                <small>{{ item.product.small_description }}</small>
                                             </div>
                                             <div class="col-md-2 ms-1 my-auto" style="text-align: right">
                                                 <h6>{{ item.product.selling_price }} €</h6>

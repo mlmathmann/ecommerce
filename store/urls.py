@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from store.controller import authview, cart, wishlist, checkout, dashboard
+from store.controller import authview, cart, wishlist, checkout, dashboard, midjourney
 from django.contrib.auth import views as auth_views
 from .views import PasswordsChangeView
 from django.conf import settings
@@ -28,6 +28,8 @@ urlpatterns = [
                   path('cart', cart.viewcart, name="cart"),
                   path('update-cart', cart.updatecart, name='updatecart'),
                   path('delete-cart-item', cart.deletecartitem, name="deletecartitem"),
+
+                  path('generate-custom-furniture', midjourney.generatecustomfurniture, name="generatecustomfurniture"),
 
                   path('wishlist', wishlist.index, name="wishlist"),
                   path('add-to-wishlist', wishlist.addtowishlist, name="addtowishlist"),

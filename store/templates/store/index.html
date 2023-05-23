@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="../../../static/assets/css/bootstrap.min.css"/>
     </head>
 
+    <body>
     <!--header-->
     <header class="header navbar-area position-sticky">
         <div class="container">
@@ -47,7 +48,7 @@
                                         <ul class="sub-menu mega-menu collapse" id="submenu-1-5">
                                             <li class="single-block">
                                                 <ul>
-                                                <li class="mega-menu-title">Categories</li>
+                                                    <li class="mega-menu-title">Categories</li>
                                                     {% for item in category %}
                                                         <li class="nav-item"><a
                                                                 href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
@@ -160,8 +161,6 @@
     </header>
     <!--header-->
 
-    <body>
-
     <!-- Carousel -->
     <div id="demo" class="carousel slide" data-bs-ride="carousel">
         <!-- Indicators/dots -->
@@ -225,28 +224,33 @@
                                         src="{{ item.product_image.url }}" alt="#"></a></div>
                                 <div class="content">
                                     <div class="top-content">
-                                        <a class="a-home-item-tag" href="{% url 'collectionsview' item.category.slug %}"><span class="home-item-tag"> {{ item.category }} </span></a>
+                                        <a class="a-home-item-tag"
+                                           href="{% url 'collectionsview' item.category.slug %}"><span
+                                                class="home-item-tag"> {{ item.category }} </span></a>
 
                                         {% if item.style_way == 'A' %}
                                             <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> ARISTROCRATIC </span></a>
-                                            {% elif item.style_way == 'I' %}
+                                        {% elif item.style_way == 'I' %}
                                             <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> IMAGINATIVE </span></a>
-                                            {% elif item.style_way == 'F' %}
+                                        {% elif item.style_way == 'F' %}
                                             <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> FUTURISTIC </span></a>
-                                            {% elif item.style_way == 'B' %}
+                                        {% elif item.style_way == 'B' %}
                                             <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> BRUTALISTIC </span></a>
-                                            {% elif item.style_way == 'I' %}
+                                        {% elif item.style_way == 'I' %}
                                             <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> IMAGINATIVE </span></a>
-                                            {% elif item.style_way == 'S' %}
+                                        {% elif item.style_way == 'S' %}
                                             <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> SIMPLISTIC </span></a>
                                         {% endif %}
 
                                         <h3 class="title"><a
-                                                href="{% url 'productview' item.category.slug item.slug %}"> {{ item.name }} </a></h3>
+                                                href="{% url 'productview' item.category.slug item.slug %}"> {{ item.name }} </a>
+                                        </h3>
                                         <p> "{{ item.small_description }}" </p>
                                     </div>
                                     <div class="bottom-content">
-                                        <a class="a-home-item-tag" href="{% url 'productview' item.category.slug item.slug %}"><p>Mehr erfahren ></p></a>
+                                        <a class="a-home-item-tag"
+                                           href="{% url 'productview' item.category.slug item.slug %}"><p>Mehr erfahren
+                                            ></p></a>
                                     </div>
                                 </div>
                             </div>
@@ -311,7 +315,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2>Wie funktioniert es?</h2>
+                        <h2>Create custom furniture</h2>
                     </div>
                 </div>
             </div>
@@ -319,14 +323,21 @@
             <div class="row">
 
                 <div class="col-lg-4 ">
-                    <a href="{% url 'register' %}" style="display: block">
+                    {% if request.user.is_authenticated %}
+
                         <div class="single-work"><span class="serial">01</span>
                             <h3>Erstelle einen Account</h3></div>
-                    </a>
+
+                    {% else %}
+                        <a href="{% url 'register' %}" style="display: block">
+                            <div class="single-work"><span class="serial">01</span>
+                                <h3>Erstelle einen Account</h3></div>
+                        </a>
+                    {% endif %}
                 </div>
 
                 <div class="col-lg-4 ">
-                    <a href="#" style="display: block">
+                    <a href="{% url 'generatecustomfurniture' %}" style="display: block">
                         <div class="single-work"><span class="serial">02</span>
                             <h3>Generiere ein Möbelstück</h3></div>
                     </a>

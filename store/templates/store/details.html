@@ -25,8 +25,9 @@
                 <div class="col-lg-12">
                     <div class="nav-inner">
                         <nav class="navbar navbar-expand-lg ">
-                            <a class="navbar-brand" href="{% url 'home' %}">
-                                <img src="../../../static/assets/images/logo/logo.png" alt="Logo">
+                            <a class="navbar-brand mt-1" style="vertical-align: middle; margin-right: unset"
+                               href="{% url 'home' %}">
+                                <div class="logo-nav-pic"></div>
                             </a>
                             <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -45,12 +46,27 @@
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
                                            aria-label="Toggle navigation">Categories</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-5">
-                                            {% for item in category %}
-                                                <li class="nav-item"><a
-                                                        href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
-                                                </li>
-                                            {% endfor %}
+                                        <ul class="sub-menu mega-menu collapse" id="submenu-1-5">
+                                            <li class="single-block">
+                                                <ul>
+                                                <li class="mega-menu-title">Categories</li>
+                                                    {% for item in category %}
+                                                        <li class="nav-item"><a
+                                                                href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                            <li class="single-block">
+                                                <ul>
+                                                    <li class="mega-menu-title">Collections</li>
+                                                    <li class="nav-item"><a href="#">ARISTROCRATIC</a></li>
+                                                    <li class="nav-item"><a href="#">IMAGINATIVE</a></li>
+                                                    <li class="nav-item"><a href="#">FUTURISTIC</a></li>
+                                                    <li class="nav-item"><a href="#">BRUTALISTIC</a></li>
+                                                    <li class="nav-item"><a href="#">SIMPLISTIC</a></li>
+                                                </ul>
+                                            </li>
                                         </ul>
                                     </li>
 
@@ -128,9 +144,11 @@
                                     <li>
                                         <a href="{% url 'wishlist' %}"><i class="lni lni-cart"></i>Wunschliste</a>
                                     </li>
-                                    <li>
-                                        <a href="{% url 'cart' %}"><i
-                                                class="lni lni-cart"></i>Warenkorb</a>
+                                    <li class="nav-item" style="vertical-align: middle">
+                                        <a href="{% url 'cart' %}" title="Warenkorb">
+                                            <div class="cart-nav-pic">
+                                            </div>
+                                        </a>
                                     </li>
 
                                 </ul>
@@ -150,13 +168,13 @@
             <div class="row align-items-center">
                 <div class="col">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Account Settings</h1>
+                        <h1 class="page-title">Profile Details</h1>
                     </div>
                 </div>
                 <div class="col">
                     <ul class="breadcrumb-nav">
                         <li><a href="index.html">Home</a></li>
-                        <li>Account Settings</li>
+                        <li>Profile Details</li>
                     </ul>
                 </div>
             </div>
@@ -189,18 +207,6 @@
                                             <a href="{% url 'profile' request.user %}"
                                                class="text-sm font-semibold text-muted">View Profile</a>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="ms-auto">
-                                    <button type="button" class="btn btn-sm btn-neutral" data-bs-toggle="modal"
-                                            data-bs-target="#img">Upload
-                                    </button>
-                                    <div class="modal fade" id="#img" tabindex="-1"
-                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <form action="#">
-                                            <input type="file" id="img" name="img" accept="image/*">
-                                            <input type="submit">
-                                        </form>
                                     </div>
                                 </div>
                             </div>

@@ -1,6 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from .models import User, Product, Profile
 from django import forms
+from django.contrib.auth.models import User
+
+User._meta.get_field('email')._unique = True
 
 
 class CustomUserForm(UserCreationForm):
@@ -12,6 +15,7 @@ class CustomUserForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={'class': 'form-control my-2', 'placeholder': 'Enter Password'}))
     password2 = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control my-2', 'placeholder': 'Enter Password again'}))
+
 
     class Meta:
         model = User
