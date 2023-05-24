@@ -49,7 +49,7 @@
                                         <ul class="sub-menu mega-menu collapse" id="submenu-1-5">
                                             <li class="single-block">
                                                 <ul>
-                                                <li class="mega-menu-title">Categories</li>
+                                                    <li class="mega-menu-title">Categories</li>
                                                     {% for item in category %}
                                                         <li class="nav-item"><a
                                                                 href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
@@ -60,11 +60,11 @@
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Collections</li>
-                                                    <li class="nav-item"><a href="#">ARISTROCRATIC</a></li>
-                                                    <li class="nav-item"><a href="#">IMAGINATIVE</a></li>
-                                                    <li class="nav-item"><a href="#">FUTURISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">BRUTALISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">SIMPLISTIC</a></li>
+                                                    <li class="nav-item"><a href="{% url 'stylecollections' 'aristrocratic' %}">ARISTROCRATIC</a></li>
+                                                    <li class="nav-item"><a href="{% url 'stylecollections' 'imaginative' %}">IMAGINATIVE</a></li>
+                                                    <li class="nav-item"><a href="{% url 'stylecollections' 'futuristic' %}">FUTURISTIC</a></li>
+                                                    <li class="nav-item"><a href="{% url 'stylecollections' 'brutalistic' %}">BRUTALISTIC</a></li>
+                                                    <li class="nav-item"><a href="{% url 'stylecollections' 'simplistic' %}">SIMPLISTIC</a></li>
                                                 </ul>
                                             </li>
                                         </ul>

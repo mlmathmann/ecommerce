@@ -30,10 +30,6 @@ def home(request):
     return render(request, "store/index.html", context)
 
 
-def collections(request):
-    category = Category.objects.filter(status=0)
-    context = {'category': category}
-    return render(request, "store/collections.html", context)
 
 
 style_way = ''
