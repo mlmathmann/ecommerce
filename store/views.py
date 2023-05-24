@@ -98,13 +98,17 @@ def stylecollections(request, style):
     nav_context = get_navbar_context(request)
     style_name = ''
     collection = ''
+    collections = ''
     for choice in Product.StyleChoices.choices:
         if choice[1].lower() == style:
             style = choice[0]
             style_name = choice[1]
             collection = Collection.objects.filter(name=style_name.upper()).first()
+            collections = Collection.objects.filter().exclude(name=style_name.upper())
+
     products = Product.objects.filter(style_way=style)
-    context = {'collection': collection, 'products': products, 'style_name': style_name.lower(),
+    context = {'collections': collections, 'collection': collection, 'products': products,
+               'style_name': style_name.lower(),
                'category': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')}
     return render(request, "store/collections/view.html", context)
 
@@ -115,6 +119,7 @@ category = ''
 def stylecollectionsproducts(request, style):
     nav_context = get_navbar_context(request)
     products = Product.objects.filter()
+    category_obj = ''
 
     global category
 
@@ -135,7 +140,10 @@ def stylecollectionsproducts(request, style):
 
                 if category != '':
                     products = products.filter(category__slug=category)
+                    category_obj = Category.objects.filter(slug=category).first()
 
     context = {'products': products, 'categories': nav_context.get('categories'),
-               'profile_picture': nav_context.get('profile_picture'), 'style_name': style, 'category': category, 'style_title': Collection.objects.filter(slug=style).first()}
+               'profile_picture': nav_context.get('profile_picture'), 'style_name': style, 'category': category,
+               'style_title': Collection.objects.filter(slug=style).first(), 'category_obj': category_obj}
+    print(context)
     return render(request, "store/collections/products.html", context)
