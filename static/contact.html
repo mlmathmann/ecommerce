@@ -66,7 +66,7 @@
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Dashboard</li>
-                                                    <li class="nav-item"><a href="../store/templates/store/profile.html">My Profile</a></li>
+                                                    <li class="nav-item"><a href="profile.html">My Profile</a></li>
                                                     <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
                                                 </ul>
                                             </li>
@@ -127,87 +127,93 @@
 </div>
 <!-- End Breadcrumbs -->
 
-<!-- Start Sign in -->
- 
-<section id=contact-us class="contact-us section">
-    <div class=container>
-    
-    
-    <div class="col">
-    <div class=form-main>
-    <div class=form-title>
-    <h2>Get in Touch</h2>
-    <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-    suffered alteration in some form.</p>
-    </div>
-    <form class=form method=post action="HIER KOMMT DIE .php REIN"><!-- anbindung-->
-    <div class=row>
-    <div class="col-lg-6 col-12">
-    <div class=form-group>
-    <input name=name type=text placeholder="Your Name" required=required>
-    </div>
-    </div>
-    <div class="col-lg-6 col-12">
-    <div class=form-group>
-    <input name=subject type=text placeholder="Your Subject" required=required>
-    </div>
-    </div>
-    <div class="col-lg-6 col-12">
-    <div class=form-group>
-    <input name=email type=email placeholder="Your Email" required=required>
-    </div>
-    </div>
-    <div class="col-lg-6 col-12">
-    <div class=form-group>
-    <input name=phone type=text placeholder="Your Phone" required=required>
-    </div>
-    </div>
-    <div class=col-12>
-    <div class="form-group message">
-    <textarea name=message placeholder="Your Message"></textarea>
-    </div>
-    </div>
-    <div class=col-12>
-    <div class="form-group button">
-    <button type=submit class="btn ">Submit Message</button>
-    </div>
-    </div>
-    </div>
-    </form>
-    </div>
-    </div>
-    
-    
-    </div>
-    </section>
-
-
-    <!--Newsletter-->
-    <div class="newsletter section">
-        <div class="container">
-            <div class="inner-content">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 ">
-                        <div class="title">
-                            <h2>Newsletter</h2>
-                            <p>We don't send spam so don't worry.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 ">
-                        <div class="form">
-                            <form action="#" method="get" target="_blank" class="newsletter-form">
-                                <input name="EMAIL" placeholder="Your email address" type="email">
-                                <div class="button">
-                                    <button class="btn">Subscribe<span class="dir-part"></span></button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- Start Generator  -->
+    <div class="container"><br><br>
+        <div class="row">
+          <!--Überschrift-->
+            <div class="col-12"><div class="section-title"><h2>Lass deiner Kreativität freien Lauf</h2></div></div>
         </div>
+        <!--Alert-->
+        <div class="alert alert-secondary text-center" role="alert"><strong>Wähle eine Möbelkategorie, einen Stil und ein Mateial aus</strong></div><br>
+          <div class="row">
+            <div class="col-md-12">
+              <select id="category-dropdown" class="form-select">
+                <option selected disabled>Wähle eine Möbelkategorie...</option>
+                <option value="category1">Stuhl</option>
+                <option value="category2">Tisch</option>
+                <option value="category3">Sessel</option>
+                <option value="category4">Beistelltisch</option>
+                <option value="category5">Kunstobjekt</option>
+              </select>
+            </div>
+          </div><br><br>
+        <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <button class="category-button" data-category="category1" style="background-image: url(assets/images/styles/aris.png);">ARISTROCRATIC</button>
+                <button class="category-button" data-category="category2" style="background-image: url(assets/images/styles/imagine.png);">IMAGINATIVE</button>
+                <button class="category-button" data-category="category3" style="background-image: url(assets/images/styles/future.png);">FUTURISTIC</button>
+                <button class="category-button" data-category="category4" style="background-image: url(assets/images/styles//brutal.png);">BRUTALISTIC</button>
+                <button class="category-button" data-category="category5" style="background-image: url(assets/images/styles/simpl.png);">SIMPLISTIC</button>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-md-12">
+                <div id="category1" class="subcategory">
+                    <ul>
+                      <button class="btn btn-lg btn-light subcategory-button">Samt</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Mahagoni</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Seide</button>
+                    </ul><br>
+                  </div>
+                  <div id="category2" class="subcategory">
+                    <ul>
+                      <button class="btn btn-lg btn-light subcategory-button">Regenbogen</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Einhornhaar</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Nebel</button>
+                    </ul><br>
+                  </div>
+                  <div id="category3" class="subcategory">
+                    <ul>
+                      <button class="btn btn-lg btn-light subcategory-button">Chrom</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Glasfaser</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Kohlefaser</button>
+                    </ul><br>
+                  </div>
+                  <div id="category4" class="subcategory">
+                    <ul>
+                      <button class="btn btn-lg btn-light subcategory-button">Beton</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Stahl</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Ziegelstein</button>
+                    </ul><br>
+                  </div>
+                  <div id="category5" class="subcategory">
+                    <ul>
+                      <button class="btn btn-lg btn-light subcategory-button">Leinen</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Bambus</button>
+                      <button class="btn btn-lg btn-light subcategory-button">Keramik</button>
+                    </ul><br>
+                  </div>
+              </div>
+            </div><br>
+            <div class="row text-center">
+              <div class="col">
+                <h4>Deine Kreation</h4><br>
+                <input type="text" id="input-field" class="form-control text-center" readonly>
+              </div>
+            </div><br>
+            <div class="col">
+              <div class="form-group button text-center">
+                <button type="button" class="btn">Lass die Magie beginnen</button>
+              </div>
+            </div>
+          </div>
     </div>
-    <!--Newsletter-->
+<!-- End Generator  -->
+
+            
+       
+<br><br><br>
 
     <!--Footer-->
     <footer class="footer">

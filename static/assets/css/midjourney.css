@@ -1,6 +1,6 @@
 .category-button {
     width: 19.7%;
-    height: 100px;
+    height: 120px;
     background-color: #f2f2f2;
     display: inline-block;
     text-align: center;
@@ -12,6 +12,7 @@
     background-size: cover; 
     font-weight: bold; 
     font-size: 18px; 
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.778);
   }
 
   .category-button.selected {
