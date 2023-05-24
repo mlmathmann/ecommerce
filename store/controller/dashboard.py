@@ -91,6 +91,7 @@ def profile(request, user):
                'user_lname': user_lname,
                'category': nav_context.get('categories'),
                'profile_picture': nav_context.get('profile_picture'),
+               'collections': nav_context.get('collections'),
                'user_email': user_email,
                'user_phone': user_phone,
                'user_street': user_street,
