@@ -71,26 +71,15 @@
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                           aria-label="Toggle navigation">Pages</a>
-                                        <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
-                                            <li class="single-block">
-                                                <ul>
-                                                    <li class="mega-menu-title">Essential Pages</li>
-                                                    <li class="nav-item"><a href="../../../static/about-us.html">About
-                                                        Us</a></li>
-                                                    <li class="nav-item"><a href="../../../static/contact.html">Contact
-                                                        Us</a></li>
-                                                    <li class="nav-item"><a href="../../../static/faq.html">FAQ</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="single-block">
-                                                <ul>
-                                                    <li class="mega-menu-title">Dashboard</li>
-                                                    <li class="nav-item"><a href="{% url 'profile' user %}">My
-                                                        Profile</a></li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
-                                                </ul>
-                                            </li>
+                                           aria-label="Toggle navigation">Essentials</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-5">
+
+                                            <li class="nav-item"><a href="../../../static/about-us.html">About
+                                                Us</a></li>
+                                            <li class="nav-item"><a href="../../../static/contact.html">Contact
+                                                Us</a></li>
+                                            <li class="nav-item"><a href="../../../static/faq.html">FAQ</a></li>
+
                                         </ul>
                                     </li>
                                     <li class="nav-item">
@@ -126,18 +115,26 @@
                                             <ul class="dropdown-menu shadow"
                                                 style="border-radius: unset; border: none; padding: 10px">
                                                 <li
-                                                    style="border: none; margin: unset; padding: unset; width: 100%">
-                                                    <a class="profile-btn p-2" style="width: 100%; color: #888888; font-size: 14px" href="{% url 'profile' request.user %}">My Profile</a></li>
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'profile' request.user %}">My Profile</a></li>
                                                 <li
-                                                    style="border: none; margin: unset; padding: unset; width: 100%">
-                                                    <a class="profile-btn p-2" style="width: 100%; color: #888888; font-size: 14px" href="{% url 'home' %}">My Orders</a></li>
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'home' %}">My Orders</a></li>
                                                 <li
-                                                    style="border: none; margin: unset; padding: unset; width: 100%">
-                                                    <a class="profile-btn p-2" style="width: 100%; color: #888888; font-size: 14px" href="{% url 'home' %}">My Furniture</a></li>
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'home' %}">My Furniture</a></li>
                                                 <hr style="margin: 5px">
                                                 <li
-                                                    style="border: none; margin: unset; padding: unset; width: 100%">
-                                                    <a class="profile-btn p-2" style="width: 100%; color: #888888; font-size: 14px" href="{% url 'logout' %}">Logout</a>
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'logout' %}">Logout</a>
                                                 </li>
                                             </ul>
 
