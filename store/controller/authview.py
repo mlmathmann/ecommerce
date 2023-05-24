@@ -126,6 +126,20 @@ def updateprofile(request):
 def updateuser(request):
     nav_context = get_navbar_context(request)
     current_user = User.objects.get(id=request.user.id)
+
+    if not Profile.objects.filter(user=request.user):
+        profile_user = Profile()
+        profile_user.user = request.user
+        profile_user.email = ''
+        profile_user.phone = ''
+        profile_user.street = ''
+        profile_user.house_number = ''
+        profile_user.address_info = ''
+        profile_user.postal_code = ''
+        profile_user.city = ''
+        profile_user.country = ''
+        profile_user.save()
+
     profile_user = Profile.objects.filter(user=request.user).first()
     print("profileuser1")
 

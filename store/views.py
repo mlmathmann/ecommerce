@@ -52,7 +52,7 @@ def collectionsview(request, slug):
             if style_way != '':
                 products = products.filter(style_way=style_way)
 
-        context = {'products': products, 'category': category, 'categories': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')}
+        context = {'products': products, 'category': category, 'categories': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture'), 'style_way': style_way}
         return render(request, 'store/products/index.html', context)
     else:
         messages.warning(request, "No such category found")
