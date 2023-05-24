@@ -190,19 +190,19 @@
             <div class="button text-center mensch">
                 <input id="categor_slug" type="hidden" value="{{ category.slug }}">
                 <button type="button" class="btn filter-btn" value="" onclick="bitch(this.value)">ALL</button>
-                <button type="button" class="btn filter-btn btn-dark btn-lg" value="A" onclick="bitch(this.value)">
+                <button type="button" class="btn filter-btn btn-dark btn-lg" {% if style_way == 'A' %}style="background-color: #1a1e21" {% endif %} value="A" onclick="bitch(this.value)">
                     ARISTROCRATIC
                 </button>
-                <button type="button" class="btn filter-btn btn-dark btn-lg" value="I" onclick="bitch(this.value)">
+                <button type="button" class="btn filter-btn btn-dark btn-lg" {% if style_way == 'I' %}style="background-color: #1a1e21" {% endif %} value="I" onclick="bitch(this.value)">
                     IMAGINATIVE
                 </button>
-                <button type="button" class="btn filter-btn btn-dark btn-lg" value="F" onclick="bitch(this.value)">
+                <button type="button" class="btn filter-btn btn-dark btn-lg" {% if style_way == 'F' %}style="background-color: #1a1e21" {% endif %} value="F" onclick="bitch(this.value)">
                     FUTURISTIC
                 </button>
-                <button type="button" class="btn filter-btn btn-dark btn-lg" value="B" onclick="bitch(this.value)">
+                <button type="button" class="btn filter-btn btn-dark btn-lg" {% if style_way == 'B' %}style="background-color: #1a1e21" {% endif %} value="B" onclick="bitch(this.value)">
                     BRUTALISTIC
                 </button>
-                <button type="button" class="btn filter-btn btn-dark btn-lg" value="S" onclick="bitch(this.value)">
+                <button type="button" class="btn filter-btn btn-dark btn-lg" {% if style_way == 'S' %}style="background-color: #1a1e21" {% endif %} value="S" onclick="bitch(this.value)">
                     SIMPLISTIC
                 </button>
             </div>
@@ -349,7 +349,7 @@
 
                 },
                 success: function (response) {
-                    alertify.success("YESSS");
+                    // alertify.success("YESSS");
                     $('#ihate').load(document.URL + ' #ihate');
                     //window.location.reload()
                 }
