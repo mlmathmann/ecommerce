@@ -114,7 +114,7 @@
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" href="#" role="button"
                                                data-bs-toggle="dropdown"
-                                               aria-expanded="false">
+                                               aria-expanded="false" style="padding-left: unset;">
                                                 {% if profile_picture != '' and profile_picture != None %}
                                                     <img alt="picture" width="25" height="25"
                                                          src="../../../static/{{ profile_picture }}"
@@ -122,11 +122,25 @@
                                                 {% endif %}
                                                 {{ request.user }}
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="{% url 'profile' request.user %}">My
-                                                    Profile</a></li>
-                                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+
+                                            <ul class="dropdown-menu shadow"
+                                                style="border-radius: unset; border: none; padding: 10px">
+                                                <li
+                                                    style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2" style="width: 100%; color: #888888; font-size: 14px" href="{% url 'profile' request.user %}">My Profile</a></li>
+                                                <li
+                                                    style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2" style="width: 100%; color: #888888; font-size: 14px" href="{% url 'home' %}">My Orders</a></li>
+                                                <li
+                                                    style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2" style="width: 100%; color: #888888; font-size: 14px" href="{% url 'home' %}">My Furniture</a></li>
+                                                <hr style="margin: 5px">
+                                                <li
+                                                    style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2" style="width: 100%; color: #888888; font-size: 14px" href="{% url 'logout' %}">Logout</a>
+                                                </li>
                                             </ul>
+
                                         </li>
                                     {% else %}
                                         <li class="nav-item">
@@ -228,7 +242,8 @@
 
                                         {% for collection in collections %}
                                             {% if item.style_way == collection.style_sign %}
-                                                <a href="{% url 'stylecollections' collection.slug %}"><span class="home-item-tag text-uppercase">{{ collection.name }}</span></a>
+                                                <a href="{% url 'stylecollections' collection.slug %}"><span
+                                                        class="home-item-tag text-uppercase">{{ collection.name }}</span></a>
                                             {% endif %}
                                         {% endfor %}
 
