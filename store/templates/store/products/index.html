@@ -11,9 +11,9 @@
         <title>MIAGGIO</title>
         <meta name="description" content=""/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="shortcut icon" type="image/x-icon" href="../../../static/assets/images/favicon.png"/>
+        <link rel="shortcut icon" type="image/x-icon" href="../../../../static/assets/images/favicon.png"/>
         <!--CSS-->
-        <link rel="stylesheet" href="../../../static/assets/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../../../../static/assets/css/bootstrap.min.css"/>
     </head>
 
     <body onbeforeunload="return f()">
@@ -341,7 +341,7 @@
             var token = $('input[name=csrfmiddlewaretoken]').val()
             $.ajax({
                 type: "POST",
-                url: "/collections/" + cat_slug,
+                url: "/categories/" + cat_slug,
                 data: {
                     'filter_value': filter_value,
                     'cat_slug': cat_slug,
@@ -359,12 +359,12 @@
         function f() {
             //console.log(this.find('categor_slug'));
             var end = 'ye';
-            console.log(end)
             var cat_slug = $('#categor_slug').val();
+            console.log(cat_slug)
             var token = $('input[name=csrfmiddlewaretoken]').val()
             $.ajax({
                 type: "POST",
-                url: "/collections/" + cat_slug,
+                url: "/categories/" + cat_slug,
                 data: {
                     'cat_slug': cat_slug,
                     'end': end,

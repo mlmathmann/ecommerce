@@ -25,7 +25,8 @@ def home(request):
     nav_context = get_navbar_context(request)
     products = Product.objects.all()
 
-    context = {'category': nav_context.get('categories'), 'products': products, 'profile_picture': nav_context.get('profile_picture')}
+    context = {'category': nav_context.get('categories'), 'products': products,
+               'profile_picture': nav_context.get('profile_picture')}
     return render(request, "store/index.html", context)
 
 
@@ -40,19 +41,23 @@ style_way = ''
 
 def collectionsview(request, slug):
     nav_context = get_navbar_context(request)
+
     if Category.objects.filter(slug=slug, status=0):
         products = Product.objects.filter(category__slug=slug)
         category = Category.objects.filter(slug=slug).first()
         global style_way
         if request.method == 'POST' and request.POST.get('end') == 'ye':
             style_way = ''
+
         else:
             if request.method == 'POST':
                 style_way = request.POST.get('filter_value')
+
             if style_way != '':
                 products = products.filter(style_way=style_way)
 
-        context = {'products': products, 'category': category, 'categories': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture'), 'style_way': style_way}
+        context = {'products': products, 'category': category, 'categories': nav_context.get('categories'),
+                   'profile_picture': nav_context.get('profile_picture'), 'style_way': style_way}
         return render(request, 'store/products/index.html', context)
     else:
         messages.warning(request, "No such category found")
@@ -74,7 +79,8 @@ def productview(request, cate_slug, prod_slug):
                             product_style = choice[1]
             else:
                 product_style = ''
-            context = {'products': products, 'categories': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture'), 'product_style': product_style}
+            context = {'products': products, 'categories': nav_context.get('categories'),
+                       'profile_picture': nav_context.get('profile_picture'), 'product_style': product_style}
         else:
             messages.error(request, "No such product found")
             return redirect('collections')
@@ -86,3 +92,50 @@ def productview(request, cate_slug, prod_slug):
 class PasswordsChangeView(PasswordChangeView):
     form_class = CustomPasswordChangeForm
     success_url = reverse_lazy('home')
+
+
+def stylecollections(request, style):
+    nav_context = get_navbar_context(request)
+    style_name = ''
+    collection = ''
+    for choice in Product.StyleChoices.choices:
+        if choice[1].lower() == style:
+            style = choice[0]
+            style_name = choice[1]
+            collection = Collection.objects.filter(name=style_name.upper()).first()
+    products = Product.objects.filter(style_way=style)
+    context = {'collection': collection, 'products': products, 'style_name': style_name.lower(),
+               'category': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')}
+    return render(request, "store/collections/view.html", context)
+
+
+category = ''
+
+
+def stylecollectionsproducts(request, style):
+    nav_context = get_navbar_context(request)
+    products = Product.objects.filter()
+
+    global category
+
+    if request.method == 'POST' and request.POST.get('end') == 'yeet':
+        category = ''
+
+    else:
+        if request.method == 'POST':
+            category = request.POST.get('filter_value')
+
+        for choice in Product.StyleChoices.choices:
+            if choice[1].lower() == style:
+                style_choice = choice[0]
+                style_name = choice[1]
+                style_name.lower()
+
+                products = Product.objects.filter(style_way=style_choice)
+
+                if category != '':
+                    products = products.filter(category__slug=category)
+
+    context = {'products': products, 'categories': nav_context.get('categories'),
+               'profile_picture': nav_context.get('profile_picture'), 'style_name': style, 'category': category}
+    return render(request, "store/collections/products.html", context)
