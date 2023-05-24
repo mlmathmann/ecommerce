@@ -9,4 +9,5 @@ from store.views import get_navbar_context
 
 
 def generatecustomfurniture(request):
-    return render(request, "store/midjourney.html")
+    nav_context = get_navbar_context(request)
+    return render(request, "store/midjourney.html", {'nav_context': nav_context, 'profile_picture': nav_context.get('profile_picture')})
