@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const categoryDropdownName = categoryDropdown.options[categoryDropdown.selectedIndex].text;
       const categoryButtonName = selectedCategoryButton ? selectedCategoryButton.innerText : "";
       const subcategoryButtonName = this.innerText;
-      const value = "Ein " + categoryDropdownName + " im " + categoryButtonName + " Stil in einem " + subcategoryButtonName + " Material.";
+      const value = "Ein " + categoryDropdownName + " im " + categoryButtonName + " Stil aus einem " + subcategoryButtonName + " Material.";
           inputField.value = value.toLowerCase();
       });
     });
