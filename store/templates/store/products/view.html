@@ -296,6 +296,55 @@
             </div>
         </div>
     </div>
+    <section class="items-grid section" style="background-color: white; padding-top: unset">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title"><h2>Passend dazu</h2></div>
+                </div>
+            </div>
+            <div class="single-head">
+                <div class="row">
+
+                    {% for item in other_products %}
+                        <div class="col-lg-2 ">
+                            <div class="single-grid">
+                                <div class="image"><a href="{% url 'productview' item.category.slug item.slug %}"
+                                                      class="thumbnail"><img
+                                        src="{{ item.product_image.url }}" alt="#"></a></div>
+                                <div class="content">
+                                    <div class="top-content">
+                                        <a class="a-home-item-tag"
+                                           href="{% url 'collectionsview' item.category.slug %}"><span
+                                                class="home-item-tag"> {{ item.category }} </span></a>
+
+                                        {% for collection in collections %}
+                                            {% if item.style_way == collection.style_sign %}
+                                                <a href="{% url 'stylecollections' collection.slug %}"><span
+                                                        class="home-item-tag text-uppercase">{{ collection.name }}</span></a>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        <h3 class="title"><a
+                                                href="{% url 'productview' item.category.slug item.slug %}"> {{ item.name }} </a>
+                                        </h3>
+                                        <p> "{{ item.small_description }}" </p>
+                                    </div>
+                                    <div class="bottom-content">
+                                        <a class="a-home-item-tag"
+                                           href="{% url 'productview' item.category.slug item.slug %}"><p>Mehr erfahren
+                                            ></p></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
 
     <!-- Start How Works Area -->
     <section class="how-works section pt-0 mt-4" style="background-color: #fff;">

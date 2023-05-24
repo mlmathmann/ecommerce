@@ -31,8 +31,6 @@ def home(request):
     return render(request, "store/index.html", context)
 
 
-
-
 style_way = ''
 
 
@@ -54,7 +52,8 @@ def collectionsview(request, slug):
                 products = products.filter(style_way=style_way)
 
         context = {'products': products, 'category': category, 'categories': nav_context.get('categories'),
-                   'profile_picture': nav_context.get('profile_picture'), 'style_way': style_way, 'collections': nav_context.get('collections')}
+                   'profile_picture': nav_context.get('profile_picture'), 'style_way': style_way,
+                   'collections': nav_context.get('collections')}
         return render(request, 'store/products/index.html', context)
     else:
         messages.warning(request, "No such category found")
@@ -66,18 +65,23 @@ def productview(request, cate_slug, prod_slug):
     if Category.objects.filter(slug=cate_slug, status=0):
         if Product.objects.filter(slug=prod_slug, status=0):
             products = Product.objects.filter(slug=prod_slug, status=0).first
+
             product_style = Product.objects.filter(slug=prod_slug, status=0).values('style_way')
 
             if product_style:
                 for style in product_style:
                     product_style = style.get('style_way')
+                    other_products = Product.objects.filter(style_way=product_style).exclude(slug=prod_slug)
                     for choice in Product.StyleChoices.choices:
                         if product_style == choice[0]:
                             product_style = choice[1]
+
             else:
                 product_style = ''
+                other_products = ''
             context = {'products': products, 'categories': nav_context.get('categories'),
-                       'profile_picture': nav_context.get('profile_picture'), 'product_style': product_style, 'collections': nav_context.get('collections')}
+                       'profile_picture': nav_context.get('profile_picture'), 'product_style': product_style,
+                       'collections': nav_context.get('collections'), 'other_products': other_products}
         else:
             messages.error(request, "No such product found")
             return redirect('collections')
@@ -106,7 +110,8 @@ def stylecollections(request, style):
     products = Product.objects.filter(style_way=style)
     context = {'collections': collections, 'collection': collection, 'products': products,
                'style_name': style_name.lower(),
-               'category': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture'), 'collections': nav_context.get('collections')}
+               'category': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture'),
+               'collections': nav_context.get('collections')}
     return render(request, "store/collections/view.html", context)
 
 
@@ -141,6 +146,7 @@ def stylecollectionsproducts(request, style):
 
     context = {'products': products, 'categories': nav_context.get('categories'),
                'profile_picture': nav_context.get('profile_picture'), 'style_name': style, 'category': category,
-               'style_title': Collection.objects.filter(slug=style).first(), 'category_obj': category_obj, 'collections': nav_context.get('collections')}
+               'style_title': Collection.objects.filter(slug=style).first(), 'category_obj': category_obj,
+               'collections': nav_context.get('collections')}
     print(context)
     return render(request, "store/collections/products.html", context)
