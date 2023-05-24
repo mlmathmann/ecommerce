@@ -1,0 +1,384 @@
+{% extends 'store/layouts/main.html' %}
+{% load django_bootstrap5 %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+{% block content %}
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+        <title>MIAGGIO</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="shortcut icon" type="image/x-icon" href="../../../static/assets/images/favicon.png"/>
+        <!--CSS-->
+        <link rel="stylesheet" href="../../../static/assets/css/bootstrap.min.css"/>
+    </head>
+
+    <body onbeforeunload="return f()">
+    <!--header-->
+    <header class="header navbar-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <div class="nav-inner">
+                        <nav class="navbar navbar-expand-lg ">
+                            <a class="navbar-brand mt-1" style="vertical-align: middle; margin-right: unset"
+                               href="{% url 'home' %}">
+                                <div class="logo-nav-pic"></div>
+                            </a>
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+
+                                    <li class="nav-item" href="{% url 'home' %}">
+                                        <a class=" dd-menu collapsed" href="{% url 'home' %}">Home</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class=" dd-menu collapsed" href="javascript:void(0)"
+                                           data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
+                                           aria-controls="navbarSupportedContent" aria-expanded="false"
+                                           aria-label="Toggle navigation">Categories</a>
+                                        <ul class="sub-menu mega-menu collapse" id="submenu-1-5">
+                                            <li class="single-block">
+                                                <ul>
+                                                    <li class="mega-menu-title">Categories</li>
+                                                    {% for item in categories %}
+                                                        <li class="nav-item"><a
+                                                                href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                            <li class="single-block">
+                                                <ul>
+                                                    <li class="mega-menu-title">Collections</li>
+                                                    <li class="nav-item"><a href="#">ARISTROCRATIC</a></li>
+                                                    <li class="nav-item"><a href="#">IMAGINATIVE</a></li>
+                                                    <li class="nav-item"><a href="#">FUTURISTIC</a></li>
+                                                    <li class="nav-item"><a href="#">BRUTALISTIC</a></li>
+                                                    <li class="nav-item"><a href="#">SIMPLISTIC</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class=" dd-menu collapsed" href="javascript:void(0)"
+                                           data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
+                                           aria-controls="navbarSupportedContent" aria-expanded="false"
+                                           aria-label="Toggle navigation">Pages</a>
+                                        <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
+                                            <li class="single-block">
+                                                <ul>
+                                                    <li class="mega-menu-title">Essential Pages</li>
+                                                    <li class="nav-item"><a href="../../../static/about-us.html">About
+                                                        Us</a></li>
+                                                    <li class="nav-item"><a href="../../../static/contact.html">Contact
+                                                        Us</a></li>
+                                                    <li class="nav-item"><a href="../../../static/faq.html">FAQ</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="single-block">
+                                                <ul>
+                                                    <li class="mega-menu-title">Dashboard</li>
+                                                    <li class="nav-item"><a href="{% url 'profile' user %}">My
+                                                        Profile</a></li>
+                                                    <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class=" dd-menu collapsed" href="javascript:void(0)"
+                                           data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
+                                           aria-controls="navbarSupportedContent" aria-expanded="false"
+                                           aria-label="Toggle navigation">AGB</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-5">
+                                            <li class="nav-item"><a href="../../../static/agb.html">AGB</a></li>
+                                            <li class="nav-item"><a href="../../../static/datenschutz.html">Datenschutzrichtlinie</a>
+                                            </li>
+                                            <li class="nav-item"><a href="../../../static/impressum.html">Impressum</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div> <!-- navbar collapse -->
+                            <div class="login-button">
+                                <ul>
+                                    {% if request.user.is_authenticated %}
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                                               data-bs-toggle="dropdown"
+                                               aria-expanded="false">
+                                                {% if profile_picture != '' and profile_picture != None %}
+                                                    <img alt="picture" width="25" height="25"
+                                                         src="../../../static/{{ profile_picture }}"
+                                                         class="rounded-circle me-1">
+                                                {% endif %}
+                                                {{ request.user }}
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="{% url 'profile' request.user %}">My
+                                                    Profile</a></li>
+                                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                                            </ul>
+                                        </li>
+                                    {% else %}
+                                        <li class="nav-item">
+                                            <a class="nav-link {% if request.resolver_match.url_name == 'loginpage' %}active{% endif %}"
+                                               href="{% url 'loginpage' %}">Login</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link {% if request.resolver_match.url_name == 'register' %}active{% endif %}"
+                                               href="{% url 'register' %}">Register</a>
+                                        </li>
+                                    {% endif %}
+                                    <li>
+                                        <a href="{% url 'wishlist' %}"><i class="lni lni-cart"></i>Wunschliste</a>
+                                    </li>
+                                    <li class="nav-item" style="vertical-align: middle">
+                                        <a href="{% url 'cart' %}" title="Warenkorb">
+                                            <div class="cart-nav-pic">
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </nav> <!-- navbar -->
+                    </div>
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </header>
+    <!--header-->
+
+    <!-- Start Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">{{ category.name }}</h1>
+                    </div>
+                </div>
+                <div class="col">
+                    <ul class="breadcrumb-nav">
+                        <li><a href="index.html">Home</a></li>
+                        <li>{{ category.name }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+
+
+    <!--Items-->
+    <section class="items-grid" id="ihate"><br><br>
+        <div class="container">
+            {% csrf_token %}
+
+            <div class="button text-center mensch">
+                <input id="categor_slug" type="hidden" value="{{ category.slug }}">
+                <button type="button" class="btn filter-btn" value="" onclick="bitch(this.value)">ALL</button>
+                <button type="button" class="btn filter-btn btn-dark btn-lg" value="A" onclick="bitch(this.value)">
+                    ARISTROCRATIC
+                </button>
+                <button type="button" class="btn filter-btn btn-dark btn-lg" value="I" onclick="bitch(this.value)">
+                    IMAGINATIVE
+                </button>
+                <button type="button" class="btn filter-btn btn-dark btn-lg" value="F" onclick="bitch(this.value)">
+                    FUTURISTIC
+                </button>
+                <button type="button" class="btn filter-btn btn-dark btn-lg" value="B" onclick="bitch(this.value)">
+                    BRUTALISTIC
+                </button>
+                <button type="button" class="btn filter-btn btn-dark btn-lg" value="S" onclick="bitch(this.value)">
+                    SIMPLISTIC
+                </button>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title"><h2>Unsere {{ category.name }}</h2></div>
+                </div>
+            </div>
+            <div class="single-head">
+                <div class="row">
+
+                    {% for item in products %}
+                        <div class="col-lg-3 ">
+                            <div class="single-grid">
+                                <div class="image"><a href="{% url 'productview' item.category.slug item.slug %}"
+                                                      class="thumbnail"><img
+                                        src="{{ item.product_image.url }}" alt="#"></a></div>
+                                <div class="content">
+                                    <div class="top-content">
+                                        <a class="a-home-item-tag"
+                                           href="{% url 'collectionsview' item.category.slug %}"><span
+                                                class="home-item-tag"> {{ item.category }} </span></a>
+
+                                        {% if item.style_way == 'A' %}
+                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> ARISTROCRATIC </span></a>
+                                        {% elif item.style_way == 'I' %}
+                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> IMAGINATIVE </span></a>
+                                        {% elif item.style_way == 'F' %}
+                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> FUTURISTIC </span></a>
+                                        {% elif item.style_way == 'B' %}
+                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> BRUTALISTIC </span></a>
+                                        {% elif item.style_way == 'I' %}
+                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> IMAGINATIVE </span></a>
+                                        {% elif item.style_way == 'S' %}
+                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> SIMPLISTIC </span></a>
+                                        {% endif %}
+
+                                        <h3 class="title"><a
+                                                href="{% url 'productview' item.category.slug item.slug %}"> {{ item.name }} </a>
+                                        </h3>
+                                        <p> "{{ item.small_description }}" </p>
+                                    </div>
+                                    <div class="bottom-content">
+                                        <a class="a-home-item-tag"
+                                           href="{% url 'productview' item.category.slug item.slug %}"><p>Mehr erfahren
+                                            ></p></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </section>
+
+    <!--Items-->
+
+
+    <!--Footer-->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="single-footer f-link">
+                            <h3>Locations</h3>
+                            <ul>
+                                <li><a href="#">Oelde</a></li>
+                                <li><a href="#">Beckum</a></li>
+                                <li><a href="#">Ahlen</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="single-footer f-link">
+                            <h3>Quick Links</h3>
+                            <ul>
+                                <li><a href="about-us.html">About Us</a></li>
+                                <li><a href="login.html">Login</a></li>
+                                <li><a href="register.html">Signup</a></li>
+                                <li><a href="faq.html">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="single-footer f-contact">
+                            <h3>Contact</h3>
+                            <ul>
+                                <li>MIAGGIO GmbH<br> Musterstr 4<br> 59269 Beckum, DE</li>
+                                <li>Tel. +49 123456 <br> support@miaggio.com</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Footer Bottom-->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="content">
+                                <ul class="footer-bottom-links">
+                                    <li><a href="agb.html">AGB</a></li>
+                                    <li><a href="datenschutz.html">Datenschutzrichtlinie</a></li>
+                                    <li><a href="impressum.html">Impressum</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--Footer-->
+
+    <!--scroll-top-->
+    <a href="#" class="scroll-top btn-hover">
+        <i class="lni lni-chevron-up">^</i>
+    </a>
+    <!--scroll-top-->
+
+    <!--JS-->
+    <script>
+        function bitch(filter_value) {
+            console.log(filter_value);
+            //console.log(this.find('categor_slug'));
+            var cat_slug = $('#categor_slug').val();
+            var token = $('input[name=csrfmiddlewaretoken]').val()
+            $.ajax({
+                type: "POST",
+                url: "/collections/" + cat_slug,
+                data: {
+                    'filter_value': filter_value,
+                    'cat_slug': cat_slug,
+                    csrfmiddlewaretoken: token
+
+                },
+                success: function (response) {
+                    alertify.success("YESSS");
+                    $('#ihate').load(document.URL + ' #ihate');
+                    //window.location.reload()
+                }
+            });
+        }
+
+        function f() {
+            //console.log(this.find('categor_slug'));
+            var end = 'ye';
+            console.log(end)
+            var cat_slug = $('#categor_slug').val();
+            var token = $('input[name=csrfmiddlewaretoken]').val()
+            $.ajax({
+                type: "POST",
+                url: "/collections/" + cat_slug,
+                data: {
+                    'cat_slug': cat_slug,
+                    'end': end,
+                    csrfmiddlewaretoken: token
+
+                },
+                success: function (response) {
+                    alertify.success("Reload");
+                    //window.location.reload()
+                }
+            });
+        }
+
+    </script>
+    </body>
+    </html>
+{% endblock content %}

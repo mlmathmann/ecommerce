@@ -126,38 +126,274 @@
     </div>
 </div>
 <!-- End Breadcrumbs -->
+<br>
 
-<main class="py-6 bg-surface-secondary">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-xl-7 mx-auto">
-  <div class="container mt-5">
-    <h2>Mein Profil</h2>
-    <hr>
-    <div class="row">
-      <div class="col-md-6">
-        <h3>Personenbezogene Daten</h3><br>
-        <p>Name: John Doe</p><br>
-        <p>Alter: 30</p><br>
-        <p>Email: johndoe@example.com</p><br>
-        <p>Telefon: +123456789</p><br>
+
+<div class="container" 
+      class="card-body pt-3">
+        <!-- Bordered Tabs -->
+        <ul class="nav nav-tabs nav-tabs-bordered">
+
+          <li class="nav-item">
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+          </li>
+
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+          </li>
+
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
+          </li>
+
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+          </li>
+
+        </ul>
+        <div class="tab-content pt-2">
+
+          <div class="tab-pane fade show active profile-overview" id="profile-overview"><br>
+            <h5 class="card-title">Profile Details</h5><br>
+
+
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label ">Full Name</div>
+              <div class="col-lg-9 col-md-8">Kevin Anderson</div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label">Company</div>
+              <div class="col-lg-9 col-md-8">Lueilwitz, Wisoky and Leuschke</div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label">Job</div>
+              <div class="col-lg-9 col-md-8">Web Designer</div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label">Country</div>
+              <div class="col-lg-9 col-md-8">USA</div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label">Address</div>
+              <div class="col-lg-9 col-md-8">A108 Adam Street, New York, NY 535022</div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label">Phone</div>
+              <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-lg-3 col-md-4 label">Email</div>
+              <div class="col-lg-9 col-md-8">k.anderson@example.com</div>
+            </div>
+
+          </div>
+
+          <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+            <!-- Profile Edit Form -->
+            <form>
+              <div class="row mb-3">
+                <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                <div class="col-md-8 col-lg-9">
+                  <img src="assets/images/blank.jpg" width="50" height="50" alt="Profile">
+                  <div class="pt-2">
+                    <button type="button" class="btn btn-sm btn-primary">Upload</button>
+                    <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="fullName" type="text" class="form-control" id="fullName" value="...">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="zip" class="col-md-4 col-lg-3 col-form-label">PLZ</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="Stadt" type="tel" class="form-control" id="zip" value="...">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="Stadt" class="col-md-4 col-lg-3 col-form-label">Stadt</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="Stadt" type="text" class="form-control" id="Stadt" value="...">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
+                <div class="col-md-8 col-lg-9">
+                  <select class="form-select" id="country" placeholder="Your email" aria-label="Default select example">
+                    <option selected></option>
+                    <option value="1">Deutschland</option>
+                    <option value="2">Österreich</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="address" type="text" class="form-control" id="Address" value="...">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="phone" type="text" class="form-control" id="Phone" value="...">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="email" type="email" class="form-control" id="Email" value="...">
+                </div>
+              </div>
+
+              
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </div><br>
+
+              <div class="row g-6"> 
+                <div class="col-md-12">
+                  <div class="card shadow border-0">
+                    <div class="card-body d-flex align-items-center">
+                       <div>
+                        <h5 class="text-danger mb-2">Deactivate account</h5>
+                        <p class="text-sm text-muted">
+                          Once you delete your account, there is no going back. Please be certain.
+                        </p>
+                      </div>
+                      <div class="ms-auto">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"> Deactivate</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Bist du sicher?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                Hiermit wird dein Account vollständig gelöscht.
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger">Ja</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><br>
+                </div>
+            </div>
+
+            </form><!-- End Profile Edit Form -->
+
+          </div>
+
+          <div class="tab-pane fade pt-3" id="profile-settings">
+
+            <!-- Settings Form -->
+            <form>
+
+              <div class="row mb-3">
+                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
+                <div class="col-md-8 col-lg-9">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="changesMade" checked>
+                    <label class="form-check-label" for="changesMade">
+                      Changes made to your account
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="newProducts" checked>
+                    <label class="form-check-label" for="newProducts">
+                      Information on new products and services
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="proOffers">
+                    <label class="form-check-label" for="proOffers">
+                      Marketing and promo offers
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
+                    <label class="form-check-label" for="securityNotify">
+                      Security alerts
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </div>
+            </form><!-- End settings Form -->
+
+          </div>
+
+          
+
+          <div class="tab-pane fade pt-3" id="profile-change-password">
+            <!-- Change Password Form -->
+            <form>
+
+              <div class="row mb-3">
+                <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="password" type="password" class="form-control" id="currentPassword">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="newpassword" type="password" class="form-control" id="newPassword">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Change Password</button>
+              </div>
+            </form><!-- End Change Password Form -->
+
+          </div>
+
+        </div><!-- End Bordered Tabs -->
+
       </div>
-      <div class="col-md-6">
-        <h3>Adresse</h3><br>
-        <p>Straße: Beispielstraße 123</p><br>
-        <p>PLZ: 12345</p><br>
-        <p>Ort: Beispielstadt</p><br>
-        <p>Land: Beispielland</p><br>
-      </div>
-    </div>
-    <hr>
-    <p>Hinweis: Diese Daten können nicht verändert werden. 
-        <a href="account.html" class="btn btn-sm btn-primary"> Daten ändern</a></p>
-  </div><br>
-</div>
-</div>
-</div>
-</main>
+    <br>
   
 
 

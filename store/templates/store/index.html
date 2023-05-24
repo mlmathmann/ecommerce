@@ -1,75 +1,95 @@
+{% extends 'store/layouts/main.html' %}
 {% load django_bootstrap5 %}
 
 
 <!DOCTYPE html>
 <html lang="en">
+{% block content %}
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+        <title>MIAGGIO</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="shortcut icon" type="image/x-icon" href="../../../static/assets/images/favicon.png"/>
+        <!--CSS-->
+        <link rel="stylesheet" href="../../../static/assets/css/bootstrap.min.css"/>
+    </head>
 
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>MIAGGIO</title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/x-icon" href="../inc/assets/images/favicon.png" />
-    <!--CSS-->
-    <link rel="stylesheet" href="../inc/assets/css/bootstrap.min.css" />
-</head>
-
-<body>
-    <!--Header-->
-    <header class="header navbar-area">
+    <body>
+    <!--header-->
+    <header class="header navbar-area position-sticky">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <div class="nav-inner">
                         <nav class="navbar navbar-expand-lg ">
-                            <a class="navbar-brand" href="../inc/index.html">
-                                <img src="../inc/assets/images/logo/logo.png" alt="Logo">
+                            <a class="navbar-brand mt-1" style="vertical-align: middle; margin-right: unset"
+                               href="{% url 'home' %}">
+                                <div class="logo-nav-pic"></div>
                             </a>
                             <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
+                                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
 
-                                    <li class="nav-item">
-                                        <a class=" dd-menu collapsed" href="../inc/index.html"
-                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-1"
-                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation" >Home</a>
+                                    <li class="nav-item" href="{% url 'home' %}">
+                                        <a class=" dd-menu collapsed" href="{% url 'home' %}">Home</a>
                                     </li>
 
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
-                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
-                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation">Categories</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-5">
-                                            <li class="nav-item"><a href="javascript:void(0)">Stuhl</a></li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Tisch</a></li>
+                                           data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
+                                           aria-controls="navbarSupportedContent" aria-expanded="false"
+                                           aria-label="Toggle navigation">Categories</a>
+                                        <ul class="sub-menu mega-menu collapse" id="submenu-1-5">
+                                            <li class="single-block">
+                                                <ul>
+                                                    <li class="mega-menu-title">Categories</li>
+                                                    {% for item in category %}
+                                                        <li class="nav-item"><a
+                                                                href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                            <li class="single-block">
+                                                <ul>
+                                                    <li class="mega-menu-title">Collections</li>
+                                                    <li class="nav-item"><a href="#">ARISTROCRATIC</a></li>
+                                                    <li class="nav-item"><a href="#">IMAGINATIVE</a></li>
+                                                    <li class="nav-item"><a href="#">FUTURISTIC</a></li>
+                                                    <li class="nav-item"><a href="#">BRUTALISTIC</a></li>
+                                                    <li class="nav-item"><a href="#">SIMPLISTIC</a></li>
+                                                </ul>
+                                            </li>
                                         </ul>
                                     </li>
 
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
-                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
-                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation">Pages</a>
+                                           data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
+                                           aria-controls="navbarSupportedContent" aria-expanded="false"
+                                           aria-label="Toggle navigation">Pages</a>
                                         <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Essential Pages</li>
-                                                    <li class="nav-item"><a href="../inc/about-us.html">About Us</a></li>
-                                                    <li class="nav-item"><a href="../inc/contact.html">Contact Us</a></li>
-                                                    <li class="nav-item"><a href="../inc/faq.html">FAQ</a></li>
+                                                    <li class="nav-item"><a href="../../../static/about-us.html">About
+                                                        Us</a></li>
+                                                    <li class="nav-item"><a href="../../../static/contact.html">Contact
+                                                        Us</a></li>
+                                                    <li class="nav-item"><a href="../../../static/faq.html">FAQ</a></li>
                                                 </ul>
                                             </li>
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Dashboard</li>
-                                                    <li class="nav-item"><a href="../inc/profile.html">My Profile</a></li>
+                                                    <li class="nav-item"><a href="{% url 'profile' user %}">My
+                                                        Profile</a></li>
                                                     <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
                                                 </ul>
                                             </li>
@@ -77,28 +97,59 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
-                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
-                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation">AGB</a>
+                                           data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
+                                           aria-controls="navbarSupportedContent" aria-expanded="false"
+                                           aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
-                                            <li class="nav-item"><a href="../inc/agb.html">AGB</a></li>
-                                            <li class="nav-item"><a href="../inc/datenschutz.html">Datenschutzrichtlinie</a></li>
-                                            <li class="nav-item"><a href="../inc/impressum.html">Impressum</a></li>
+                                            <li class="nav-item"><a href="../../../static/agb.html">AGB</a></li>
+                                            <li class="nav-item"><a href="../../../static/datenschutz.html">Datenschutzrichtlinie</a>
+                                            </li>
+                                            <li class="nav-item"><a href="../../../static/impressum.html">Impressum</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
                             </div> <!-- navbar collapse -->
                             <div class="login-button">
                                 <ul>
+                                    {% if request.user.is_authenticated %}
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                                               data-bs-toggle="dropdown"
+                                               aria-expanded="false">
+                                                {% if profile_picture != '' and profile_picture != None %}
+                                                    <img alt="picture" width="25" height="25"
+                                                         src="../../../static/{{ profile_picture }}"
+                                                         class="rounded-circle me-1">
+                                                {% endif %}
+                                                {{ request.user }}
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="{% url 'profile' request.user %}">My
+                                                    Profile</a></li>
+                                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                                            </ul>
+                                        </li>
+                                    {% else %}
+                                        <li class="nav-item">
+                                            <a class="nav-link {% if request.resolver_match.url_name == 'loginpage' %}active{% endif %}"
+                                               href="{% url 'loginpage' %}">Login</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link {% if request.resolver_match.url_name == 'register' %}active{% endif %}"
+                                               href="{% url 'register' %}">Register</a>
+                                        </li>
+                                    {% endif %}
                                     <li>
-                                        <a href="../inc/login.html"><i class="lni lni-enter"></i> Sign in</a>
+                                        <a href="{% url 'wishlist' %}"><i class="lni lni-cart"></i>Wunschliste</a>
                                     </li>
-                                    <li>
-                                        <a href="../inc/register.html"><i class="lni lni-user"></i> Register</a>
+                                    <li class="nav-item" style="vertical-align: middle">
+                                        <a href="{% url 'cart' %}" title="Warenkorb">
+                                            <div class="cart-nav-pic">
+                                            </div>
+                                        </a>
                                     </li>
-                                    <li>
-                                        <a href="../inc/checkout.html"><i class="lni lni-cart"></i> Warenkorb</a>
-                                    </li>
+
                                 </ul>
                             </div>
 
@@ -108,27 +159,33 @@
             </div> <!-- row -->
         </div> <!-- container -->
     </header>
-    <!--Header -->
-
+    <!--header-->
 
     <!-- Carousel -->
-<div id="demo" class="carousel slide" data-bs-ride="carousel">
-    <!-- Indicators/dots -->
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-      <button type="button" data-bs-target="#demo" data-bs-slide-to="1" class="active"></button>
-      <button type="button" data-bs-target="#demo" data-bs-slide-to="2" class="active"></button>
+    <div id="demo" class="carousel slide" data-bs-ride="carousel">
+        <!-- Indicators/dots -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="1" class="active"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="2" class="active"></button>
+        </div>
+        <!-- The slideshow/carousel -->
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="3000"><img
+                    src="../../../static/assets/images/hero/hero-caro.jpg" alt="#"></div>
+            <div class="carousel-item" data-bs-interval="3000"><img
+                    src="../../../static/assets/images/hero/hero-caro2.jpg"
+                    alt="#"></div>
+            <div class="carousel-item" data-bs-interval="3000"><img
+                    src="../../../static/assets/images/hero/hero-caro3.jpg"
+                    alt="#"></div>
+        </div>
+        <!-- Left and right controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev"><span
+                class="carousel-control-prev-icon"></span></button>
+        <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next"><span
+                class="carousel-control-next-icon"></span></button>
     </div>
-    <!-- The slideshow/carousel -->
-    <div class="carousel-inner">
-      <div class="carousel-item active" data-bs-interval="3000"><img src="../inc/../inc/../inc/assets/images/hero/hero-caro.jpg" alt="#"></div>
-      <div class="carousel-item" data-bs-interval="3000"><img src="../inc/../inc/../inc/assets/images/hero/hero-caro2.jpg" alt="#"></div>
-      <div class="carousel-item" data-bs-interval="3000"><img src="../inc/../inc/../inc/assets/images/hero/hero-caro3.jpg" alt="#"></div>
-    </div>
-    <!-- Left and right controls -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
-    <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
-</div>
 
     <!--Categories-->
     <section class="categories">
@@ -136,17 +193,11 @@
             <div class="cat-inner">
                 <div class=col>
                     <div class=row>
-                        <div class="col"><a href=# class="single-cat"><div class=icon><img src="../inc/../inc/assets/images/favicon.png" alt="#"></div><h3>Vehicle</h3></a></div>
-
-                        <div class="col"><a href=# class="single-cat"><div class=icon><img src="../inc/../inc/assets/images/favicon.png" alt="#"></div><h3>Vehicle</h3></a></div>
-
-                        <div class="col"><a href=# class="single-cat"><div class=icon><img src="../inc/../inc/assets/images/favicon.png" alt="#"></div><h3>Vehicle</h3></a></div>
-
-                        <div class="col"><a href=# class="single-cat"><div class=icon><img src="../inc/../inc/assets/images/favicon.png" alt="#"></div><h3>Vehicle</h3></a></div>
-
-                        <div class="col"><a href=# class="single-cat"><div class=icon><img src="../inc/../inc/assets/images/favicon.png" alt="#"></div><h3>Vehicle</h3></a></div>
-
-                        <div class="col"><a href=# class="single-cat"><div class=icon><img src="../inc/../inc/assets/images/favicon.png" alt="#"></div><h3>Vehicle</h3></a></div>
+                        {% for item in category %}
+                            <div class="col"><a href='{% url 'collectionsview' item.slug %}' class="single-cat">
+                                <div class=icon><img src="{{ item.image.url }}" alt="#"></div>
+                                <h3>{{ item.name }}</h3></a></div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -158,93 +209,57 @@
     <section class="items-grid section custom-padding">
         <div class="container">
             <div class="row">
-                <div class="col-12"><div class="section-title"><h2 >Latest Products</h2></div></div>
+                <div class="col-12">
+                    <div class="section-title"><h2>Latest Products</h2></div>
+                </div>
             </div>
             <div class="single-head">
                 <div class="row">
 
-                    <div class="col-lg-4 ">
-                        <div class="single-grid">
-                            <div class="image"><a href="../inc/item-details.html" class="thumbnail"><img src="../inc/assets/images/hero/hero-bg.jpg" alt="#"></a></div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Furniture</a>
-                                    <h3 class="title"><a href="../inc/item-details.html">Colourful antique chair</a></h3>
+                    {% for item in products %}
+                        <div class="col-lg-4 ">
+                            <div class="single-grid">
+                                <div class="image"><a href="{% url 'productview' item.category.slug item.slug %}"
+                                                      class="thumbnail"><img
+                                        src="{{ item.product_image.url }}" alt="#"></a></div>
+                                <div class="content">
+                                    <div class="top-content">
+                                        <a class="a-home-item-tag"
+                                           href="{% url 'collectionsview' item.category.slug %}"><span
+                                                class="home-item-tag"> {{ item.category }} </span></a>
+
+                                        {% if item.style_way == 'A' %}
+                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> ARISTROCRATIC </span></a>
+                                        {% elif item.style_way == 'I' %}
+                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> IMAGINATIVE </span></a>
+                                        {% elif item.style_way == 'F' %}
+                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> FUTURISTIC </span></a>
+                                        {% elif item.style_way == 'B' %}
+                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> BRUTALISTIC </span></a>
+                                        {% elif item.style_way == 'I' %}
+                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> IMAGINATIVE </span></a>
+                                        {% elif item.style_way == 'S' %}
+                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> SIMPLISTIC </span></a>
+                                        {% endif %}
+
+                                        <h3 class="title"><a
+                                                href="{% url 'productview' item.category.slug item.slug %}"> {{ item.name }} </a>
+                                        </h3>
+                                        <p> "{{ item.small_description }}" </p>
+                                    </div>
+                                    <div class="bottom-content">
+                                        <a class="a-home-item-tag"
+                                           href="{% url 'productview' item.category.slug item.slug %}"><p>Mehr erfahren
+                                            ></p></a>
+                                    </div>
                                 </div>
-                                <div class="bottom-content"><p class="price"><span>200€</span></p></div>
                             </div>
                         </div>
-                    </div>
+                    {% endfor %}
 
-                    <div class="col-lg-4 ">
-                        <div class="single-grid">
-                            <div class="image"><a href="../inc/item-details.html" class="thumbnail"><img src="../inc/assets/images/hero/hero-bg.jpg" alt="#"></a></div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Furniture</a>
-                                    <h3 class="title"><a href="../inc/item-details.html">Colourful antique chair</a></h3>
-                                </div>
-                                <div class="bottom-content"><p class="price"><span>200€</span></p></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 ">
-                        <div class="single-grid">
-                            <div class="image"><a href="../inc/../inc/../inc/../inc/item-details.html" class="thumbnail"><img src="../inc/../inc/../inc/../inc/assets/images/hero/hero-bg.jpg" alt="#"></a></div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Furniture</a>
-                                    <h3 class="title"><a href="../inc/../inc/../inc/../inc/item-details.html">Colourful antique chair</a></h3>
-                                </div>
-                                <div class="bottom-content"><p class="price"><span>200€</span></p></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 ">
-                        <div class="single-grid">
-                            <div class="image"><a href="../inc/../inc/../inc/item-details.html" class="thumbnail"><img src="../inc/../inc/../inc/assets/images/hero/hero-bg.jpg" alt="#"></a></div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Furniture</a>
-                                    <h3 class="title"><a href="../inc/../inc/../inc/item-details.html">Colourful antique chair</a></h3>
-                                </div>
-                                <div class="bottom-content"><p class="price"><span>200€</span></p></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 ">
-                        <div class="single-grid">
-                            <div class="image"><a href="../inc/../inc/item-details.html" class="thumbnail"><img src="../inc/../inc/assets/images/hero/hero-bg.jpg" alt="#"></a></div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Furniture</a>
-                                    <h3 class="title"><a href="../inc/../inc/item-details.html">Colourful antique chair</a></h3>
-                                </div>
-                                <div class="bottom-content"><p class="price"><span>200€</span></p></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 ">
-                        <div class="single-grid">
-                            <div class="image"><a href="../inc/item-details.html" class="thumbnail"><img src="../inc/assets/images/hero/hero-bg.jpg" alt="#"></a></div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Furniture</a>
-                                    <h3 class="title"><a href="../inc/item-details.html">Colourful antique chair</a></h3>
-                                </div>
-                                <div class="bottom-content"><p class="price"><span>200€</span></p></div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
     <!--Items-->
@@ -262,13 +277,31 @@
             <div class="row">
                 <div class="choose-content">
                     <div class="row">
-                        <div class="col"><div class="single-list"> <h4>Punkt</h4><p>Lorem Ipsum</p></div></div>
-                        <div class="col"><div class="single-list"> <h4>Punkt</h4><p>Lorem Ipsum</p></div></div>
-                        <div class="col"><div class="single-list"> <h4>Punkt</h4><p>Lorem Ipsum</p></div></div>
+                        <div class="col">
+                            <div class="single-list"><h4>Punkt</h4>
+                                <p>Lorem Ipsum</p></div>
+                        </div>
+                        <div class="col">
+                            <div class="single-list"><h4>Punkt</h4>
+                                <p>Lorem Ipsum</p></div>
+                        </div>
+                        <div class="col">
+                            <div class="single-list"><h4>Punkt</h4>
+                                <p>Lorem Ipsum</p></div>
+                        </div>
                         <span></span>
-                        <div class="col"><div class="single-list"> <h4>Punkt</h4><p>Lorem Ipsum</p></div></div>
-                        <div class="col"><div class="single-list"> <h4>Punkt</h4><p>Lorem Ipsum</p></div></div>
-                        <div class="col"><div class="single-list"> <h4>Punkt</h4><p>Lorem Ipsum</p></div></div>
+                        <div class="col">
+                            <div class="single-list"><h4>Punkt</h4>
+                                <p>Lorem Ipsum</p></div>
+                        </div>
+                        <div class="col">
+                            <div class="single-list"><h4>Punkt</h4>
+                                <p>Lorem Ipsum</p></div>
+                        </div>
+                        <div class="col">
+                            <div class="single-list"><h4>Punkt</h4>
+                                <p>Lorem Ipsum</p></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -282,22 +315,37 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2>Wie funktioniert es?</h2>
+                        <h2>Create custom furniture</h2>
                     </div>
                 </div>
             </div>
 
             <div class="row">
+
                 <div class="col-lg-4 ">
-                    <div class="single-work" ><span class="serial">01</span><h3>Erstelle ein Account</h3></div>
+                    {% if request.user.is_authenticated %}
+
+                        <div class="single-work"><span class="serial">01</span>
+                            <h3>Erstelle einen Account</h3></div>
+
+                    {% else %}
+                        <a href="{% url 'register' %}" style="display: block">
+                            <div class="single-work"><span class="serial">01</span>
+                                <h3>Erstelle einen Account</h3></div>
+                        </a>
+                    {% endif %}
                 </div>
 
                 <div class="col-lg-4 ">
-                    <div class="single-work" ><span class="serial">02</span><h3>Generiere ein Möbelstück</h3></div>
+                    <a href="{% url 'generatecustomfurniture' %}" style="display: block">
+                        <div class="single-work"><span class="serial">02</span>
+                            <h3>Generiere ein Möbelstück</h3></div>
+                    </a>
                 </div>
 
                 <div class="col-lg-4 ">
-                    <div class="single-work" ><span class="serial">03</span><h3>Bestellen</h3></div>
+                    <div class="single-work"><span class="serial">03</span>
+                        <h3>Bestellen</h3></div>
                 </div>
             </div>
         </div>
@@ -350,10 +398,10 @@
                         <div class="single-footer f-link">
                             <h3>Quick Links</h3>
                             <ul>
-                                <li><a href="../inc/../inc/about-us.html">About Us</a></li>
-                                <li><a href="../inc/../inc/login.html">Login</a></li>
-                                <li><a href="../inc/../inc/register.html">Signup</a></li>
-                                <li><a href="../inc/../inc/faq.html">FAQ</a></li>
+                                <li><a href="../../../static/about-us.html">About Us</a></li>
+                                <li><a href="../../../static/login.html">Login</a></li>
+                                <li><a href="../../../static/register.html">Signup</a></li>
+                                <li><a href="../../../static/faq.html">FAQ</a></li>
                             </ul>
                         </div>
                     </div>
@@ -378,9 +426,9 @@
                         <div class="col-12">
                             <div class="content">
                                 <ul class="footer-bottom-links">
-                                    <li><a href="../inc/agb.html">AGB</a></li>
-                                    <li><a href="../inc/datenschutz.html">Datenschutzrichtlinie</a></li>
-                                    <li><a href="../inc/impressum.html">Impressum</a></li>
+                                    <li><a href="../../../static/agb.html">AGB</a></li>
+                                    <li><a href="../../../static/datenschutz.html">Datenschutzrichtlinie</a></li>
+                                    <li><a href="../../../static/impressum.html">Impressum</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -398,7 +446,11 @@
     <!--scroll-top-->
 
     <!--JS-->
-    <script src="../inc/assets/js/bootstrap.min.js"></script>
-</body>
-</html>
+    </body>
+    </html>
+{% endblock content %}
+
+
+
+
 
