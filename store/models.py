@@ -30,6 +30,7 @@ class Category(models.Model):
 
 class Collection(models.Model):
     name = models.CharField(max_length=150, null=False, blank=False)
+    slug = models.CharField(max_length=150, null=False, blank=False, default='')
     image = models.ImageField(upload_to=get_file_path, null=True, blank=True)
     description = models.TextField(max_length=500, null=False, blank=False, default='')
 

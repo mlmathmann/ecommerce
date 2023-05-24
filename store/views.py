@@ -137,5 +137,5 @@ def stylecollectionsproducts(request, style):
                     products = products.filter(category__slug=category)
 
     context = {'products': products, 'categories': nav_context.get('categories'),
-               'profile_picture': nav_context.get('profile_picture'), 'style_name': style, 'category': category}
+               'profile_picture': nav_context.get('profile_picture'), 'style_name': style, 'category': category, 'style_title': Collection.objects.filter(slug=style).first()}
     return render(request, "store/collections/products.html", context)
