@@ -1,9 +1,9 @@
 {% extends 'store/layouts/main.html' %}
 {% load django_bootstrap5 %}
 
+
 <!DOCTYPE html>
 <html lang="en">
-
 {% block content %}
     <head>
         <meta charset="utf-8"/>
@@ -11,10 +11,11 @@
         <title>MIAGGIO</title>
         <meta name="description" content=""/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="shortcut icon" type="image/x-icon" href="../../../static/assets/images/favicon.png"/>
+        <link rel="shortcut icon" type="image/x-icon" href="../../../../static/assets/images/favicon.png"/>
         <!--CSS-->
-        <link rel="stylesheet" href="../../../static/assets/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../../../../static/assets/css/bootstrap.min.css"/>
     </head>
+
 
     <body>
     <!--header-->
@@ -165,94 +166,209 @@
     <div class="breadcrumbs">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col">
+                <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">My Profile</h1>
+                        <h1 class="page-title">Produktansicht</h1>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="{% url 'home' %}">Home</a></li>
-                        <li>My Profile</li>
+                        <li><a href="index.html">Home</a></li>
+                        <li>Produktansicht</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
     <!-- End Breadcrumbs -->
-
-    <main class="py-6 bg-surface-secondary">
-        <div class="container-fluid">
+    <div class="py-5 pb-4">
+        <div class="container">
             <div class="row">
-                <div class="col-xl-7 mx-auto">
-                    <div class="container mt-5">
-                        <div class="card shadow border-0 mt-4 mb-10">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <div class="d-flex align-items-center">
-                                            <a href="#" class="avatar avatar-sm bg-warning rounded-circle text-white">
-                                                {% if profile_picture != '' and profile_picture != None %}
-                                                    <img alt="picture" width="80" height="80" style="border-radius: 12px"
-                                                     src="../../../static/{{ profile_picture }}">
-                                                {% else %}
-                                                    <img alt="picture" width="80" height="80"
-                                                     src="../../../static/assets/images/blank.jpg">
-                                                {% endif %}
-                                            </a>
-                                            <div class="ms-4">
-                                                <span class="h4 d-block mb-0">{{ request.user }}</span>
-                                                <div class="text-sm font-semibold text-muted">{{ user_email }}</div>
-                                            </div>
+                <div class="col-md-12">
+                    <div class="card product_data" style="border: unset">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    {% if products.tag %}
+                                        <label class="badge product-viewtag"
+                                               style="border-radius: 5px; z-index: 9999; font-size: 20px"> {{ products.tag }} </label>
+                                    {% endif %}
+                                    <div class="card shadow">
+                                        <div class="card-body">
+
+                                            <img src="{{ products.product_image.url }}" class="w-100" alt="image">
                                         </div>
                                     </div>
-                                    <div class="ms-auto" style="position: relative">
-                                        <div class="mt-2"></div>
-                                        <a href="{% url 'updateuser' %}" title="Change User Info"><img
-                                                style="position: absolute; bottom: 0px; right: 20px"
-                                                src="../../../static/assets/images/pencil.png" width="25px"
-                                                height="25px"></a>
-                                    <div class="modal fade" id="#img" tabindex="-1"
-                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <form action="#">
-                                            <input type="file" id="img" name="img" accept="image/*">
-                                            <input type="submit">
-                                        </form>
-                                    </div>
                                 </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h3>Kundeninformationen</h3><br>
-                                        <p>Vorname: {{ user_fname }}</p><br>
-                                        <p>Nachname: {{ user_lname }}</p><br>
-                                        <p>Telefon: {{ user_phone }}</p><br>
-                                        <p>Mitglied seit: {{ user_time }}</p><br>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h3>Addresse</h3><br>
-                                        <p>Straße: {{ user_street }}</p><br>
-                                        <p>Hausnummer: {{ user_house_number }}</p><br>
-                                        <p>Addressinfo: {{ user_address_info }}</p><br>
-                                        <p>PLZ: {{ user_postal_code }}</p><br>
-                                        <p>Ort: {{ user_city }}</p><br>
-                                        <p>Land: {{ user_country }}</p><br>
-                                    </div>
+                                <div class="col-md-7">
+                                    <section class="about-us section pt-5">
+                                        <div class="container" style="padding: unset">
+                                            <div class="row align-items-center justify-content-center">
+                                                <div class="col-lg-12 col-md-12 col-12">
+                                                    <!-- content-1 start -->
+                                                    <div class="content-right wow fadeInRight" data-wow-delay=".5s"
+                                                         style="padding: 20px">
+                                                        <!-- Heading -->
+                                                        <span class="sub-heading text-uppercase">{{ product_style }}</span>
+                                                        <h2 class="mb-0" style="font-family: Lato, sans-serif">
+                                                            {{ products.name }}
+                                                            {% if products.trending %}
+                                                                <label style="font-size: 16px;"
+                                                                       class="float-end badge bg-danger trending_tag">Trending </label>
+                                                            {% endif %}
+                                                        </h2>
+                                                        <hr>
+                                                        <p class="mt-4 mb-2"
+                                                           style="font-family: Lato, sans-serif; color: #888888">{{ products.description }}</p>
+                                                        <label class="me-3 mt-4">Original Price :
+                                                            <s>{{ products.original_price | stringformat:'d' }}€</s></label>
+                                                        <label class="fw-bold">Selling Price :
+                                                            {{ products.selling_price }}€</label>
+                                                        <hr>
+                                                        {% if products.quantity > 0 %}
+                                                            <label class="badge bg-success" style="font-size: 100%">In
+                                                                stock</label>
+                                                        {% else %}
+                                                            <label class="badge bg-danger" style="font-size: 100%">Out
+                                                                of stock</label>
+                                                        {% endif %}
+                                                        <div class="row mt-2">
+                                                            <div class="col-md-3">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" value="{{ products.id }}"
+                                                                       class="prod_id">
+                                                                <input type="hidden" class="max-qty"
+                                                                       value="{{ products.quantity }}">
+                                                                <label for="Quantity">Quantity</label>
+                                                                <div class="input-group text-center mb-3"
+                                                                     style="width:130px;">
+                                                                    {% if products.quantity == 0 %}
+                                                                        <button class="input-group-text decrement-btn"
+                                                                                style="background-color: #d3d3d3">-
+                                                                        </button>
+                                                                        <input type="text" name="quantity"
+                                                                               class="form-control qty-input text-center"
+                                                                               value="0"
+                                                                               style="background-color: #dbdbdb">
+                                                                        <button class="input-group-text increment-btn"
+                                                                                style="background-color: #d3d3d3">+
+                                                                        </button>
+                                                                    {% else %}
+                                                                        <button class="input-group-text decrement-btn">
+                                                                            -
+                                                                        </button>
+                                                                        <input type="text" name="quantity"
+                                                                               class="form-control qty-input text-center"
+                                                                               value="1">
+                                                                        <button class="input-group-text increment-btn">
+                                                                            +
+                                                                        </button>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-9 ps-1 ms-0">
+                                                                <br/>
+                                                                {% if products.quantity > 0 %}
+                                                                    <button type="button"
+                                                                            class="btn btn-primary me-3 float-start addToCartBtn">
+                                                                        Add to
+                                                                        Cart
+                                                                        <i class="fa fa-shopping-cart"></i></button>
+                                                                {% endif %}
+                                                                <button type="button"
+                                                                        class="btn btn-success me-3 addToWishlist float-start">
+                                                                    Add
+                                                                    to
+                                                                    Wishlist
+                                                                    <i class="fa fa-heart"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Heading -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
                                 </div>
                             </div>
+                            <div class="col-md-12 mt-5">
+                                <hr>
+                            </div>
                         </div>
-                        <hr>
-                        <p>Hinweis: Stimmt dies nicht mit Ihren Angaben überein?
-                            <a href="{% url 'details' request.user %}" class="btn btn-sm btn-primary">Daten ändern</a>
-                        </p>
                     </div>
-                    <br>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
+    <!-- Start How Works Area -->
+    <section class="how-works section pt-0 mt-4" style="background-color: #fff;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Create custom furniture</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
+                            Ipsum available, but the majority have suffered alteration in some form.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-12">
+                    <!-- Start Single Work -->
+                    <div class="single-work wow fadeInUp" data-wow-delay=".2s">
+                        <span class="serial">01</span>
+                        <h3>Create Account</h3>
+                    </div>
+                    <!-- End Single Work -->
+                </div>
+                <div class="col-lg-4 col-md-4 col-12">
+                    <!-- Start Single Work -->
+                    <div class="single-work wow fadeInUp" data-wow-delay=".4s">
+                        <span class="serial">02</span>
+                        <h3>Generate Furniture</h3>
+                    </div>
+                    <!-- End Single Work -->
+                </div>
+                <div class="col-lg-4 col-md-4 col-12">
+                    <!-- Start Single Work -->
+                    <div class="single-work wow fadeInUp" data-wow-delay=".6s">
+                        <span class="serial">03</span>
+                        <h3>Buy Your Item</h3>
+                    </div>
+                    <!-- End Single Work -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End How Works Area -->
+
+    <!-- Start Achievement Area -->
+    <section class="our-achievement section">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="single-achievement wow fadeInUp" data-wow-delay=".2s">
+                        <h3 class="counter"><span id="secondo1" class="countup" cup-end="1250">100</span>+</h3>
+                        <p>Models</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="single-achievement wow fadeInUp" data-wow-delay=".4s">
+                        <h3 class="counter"><span id="secondo2" class="countup" cup-end="350">20</span>+</h3>
+                        <p>Customs</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="single-achievement wow fadeInUp" data-wow-delay=".6s">
+                        <h3 class="counter"><span id="secondo3" class="countup" cup-end="2500">10</span>+</h3>
+                        <p>Members</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Achievement Area -->
 
     <!--Newsletter-->
     <div class="newsletter section">
@@ -300,10 +416,10 @@
                         <div class="single-footer f-link">
                             <h3>Quick Links</h3>
                             <ul>
-                                <li><a href="../../../static/about-us.html">About Us</a></li>
-                                <li><a href="../../../static/login.html">Login</a></li>
-                                <li><a href="../../../static/register.html">Signup</a></li>
-                                <li><a href="../../../static/faq.html">FAQ</a></li>
+                                <li><a href="../../../../static/about-us.html">About Us</a></li>
+                                <li><a href="../../../../static/login.html">Login</a></li>
+                                <li><a href="../../../../static/register.html">Signup</a></li>
+                                <li><a href="../../../../static/faq.html">FAQ</a></li>
                             </ul>
                         </div>
                     </div>
@@ -328,9 +444,9 @@
                         <div class="col-12">
                             <div class="content">
                                 <ul class="footer-bottom-links">
-                                    <li><a href="../../../static/agb.html">AGB</a></li>
-                                    <li><a href="../../../static/datenschutz.html">Datenschutzrichtlinie</a></li>
-                                    <li><a href="../../../static/impressum.html">Impressum</a></li>
+                                    <li><a href="../../../../static/agb.html">AGB</a></li>
+                                    <li><a href="../../../../static/datenschutz.html">Datenschutzrichtlinie</a></li>
+                                    <li><a href="../../../../static/impressum.html">Impressum</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -346,7 +462,13 @@
         <i class="lni lni-chevron-up">^</i>
     </a>
     <!--scroll-top-->
+
     <!--JS-->
     </body>
     </html>
 {% endblock content %}
+
+
+
+
+
