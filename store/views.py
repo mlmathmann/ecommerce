@@ -32,28 +32,40 @@ def home(request):
 
 
 style_way = ''
+price_filter = ''
 
 
 def collectionsview(request, slug):
     nav_context = get_navbar_context(request)
+    price_sorted_products = ''
 
     if Category.objects.filter(slug=slug, status=0):
         products = Product.objects.filter(category__slug=slug)
         category = Category.objects.filter(slug=slug).first()
         global style_way
+        global price_filter
         if request.method == 'POST' and request.POST.get('end') == 'ye':
             style_way = ''
+            price_filter = ''
 
         else:
             if request.method == 'POST':
-                style_way = request.POST.get('filter_value')
+                if request.POST.get('filter_value') is not None:
+                    style_way = request.POST.get('filter_value')
+                if request.POST.get('price_filter_value') is not None:
+                    price_filter = request.POST.get('price_filter_value')
 
             if style_way != '':
                 products = products.filter(style_way=style_way)
 
+            if price_filter != '' and price_filter == 'price desc':
+                products = products.order_by('-selling_price')
+            else:
+                products = products.order_by('selling_price')
+
         context = {'products': products, 'category': category, 'categories': nav_context.get('categories'),
                    'profile_picture': nav_context.get('profile_picture'), 'style_way': style_way,
-                   'collections': nav_context.get('collections')}
+                   'collections': nav_context.get('collections'), 'price_sorted_products': price_sorted_products, 'price_filter': price_filter}
         return render(request, 'store/products/index.html', context)
     else:
         messages.warning(request, "No such category found")

@@ -58,7 +58,9 @@
                                                 <ul>
                                                     <li class="mega-menu-title">Collections</li>
                                                     {% for collection in collections %}
-                                                        <li class="nav-item"><a href="{% url 'stylecollections' collection.slug %}">{{ collection.name }}</a></li>
+                                                        <li class="nav-item"><a
+                                                                href="{% url 'stylecollections' collection.slug %}">{{ collection.name }}</a>
+                                                        </li>
                                                     {% endfor %}
                                                 </ul>
                                             </li>
@@ -145,7 +147,6 @@
                                             </div>
                                         </a>
                                     </li>
-
                                 </ul>
                             </div>
 
@@ -183,23 +184,51 @@
         <div class="container">
             {% csrf_token %}
 
-            <div class="button text-center mensch">
+            <div class="button text-center style-filter-select">
                 <input id="categor_slug" type="hidden" value="{{ category.slug }}">
                 <button type="button" class="btn filter-btn" value="" onclick="bitch(this.value)">ALL</button>
-                <button type="button" class="btn filter-btn btn-dark btn-lg" {% if style_way == 'A' %}style="background-color: #1a1e21" {% endif %} value="A" onclick="bitch(this.value)">
+                <button type="button" class="btn filter-btn btn-dark btn-lg"
+                        {% if style_way == 'A' %}style="background-color: #1a1e21" {% endif %} value="A"
+                        onclick="bitch(this.value)">
                     ARISTROCRATIC
                 </button>
-                <button type="button" class="btn filter-btn btn-dark btn-lg" {% if style_way == 'I' %}style="background-color: #1a1e21" {% endif %} value="I" onclick="bitch(this.value)">
+                <button type="button" class="btn filter-btn btn-dark btn-lg"
+                        {% if style_way == 'I' %}style="background-color: #1a1e21" {% endif %} value="I"
+                        onclick="bitch(this.value)">
                     IMAGINATIVE
                 </button>
-                <button type="button" class="btn filter-btn btn-dark btn-lg" {% if style_way == 'F' %}style="background-color: #1a1e21" {% endif %} value="F" onclick="bitch(this.value)">
+                <button type="button" class="btn filter-btn btn-dark btn-lg"
+                        {% if style_way == 'F' %}style="background-color: #1a1e21" {% endif %} value="F"
+                        onclick="bitch(this.value)">
                     FUTURISTIC
                 </button>
-                <button type="button" class="btn filter-btn btn-dark btn-lg" {% if style_way == 'B' %}style="background-color: #1a1e21" {% endif %} value="B" onclick="bitch(this.value)">
+                <button type="button" class="btn filter-btn btn-dark btn-lg"
+                        {% if style_way == 'B' %}style="background-color: #1a1e21" {% endif %} value="B"
+                        onclick="bitch(this.value)">
                     BRUTALISTIC
                 </button>
-                <button type="button" class="btn filter-btn btn-dark btn-lg" {% if style_way == 'S' %}style="background-color: #1a1e21" {% endif %} value="S" onclick="bitch(this.value)">
+                <button type="button" class="btn filter-btn btn-dark btn-lg"
+                        {% if style_way == 'S' %}style="background-color: #1a1e21" {% endif %} value="S"
+                        onclick="bitch(this.value)">
                     SIMPLISTIC
+                </button>
+            </div>
+            <div class="button text-center mt-2 price-filter-select">
+                <input id="categor_slug" type="hidden" value="{{ category.slug }}">
+                <button type="button" class="btn filter-btn" value="" onclick="priceselect(this.value)"
+                        style="height: 52px; width: 52px; background-image: url(../../../../static/assets/images/imageedit_29_4812862319.png); background-size: cover; background-position: center;">
+                </button>
+                <button type="button" class="btn filter-btn btn-dark btn-lg"
+                        {% if price_filter == 'price desc' %}style="background-color: #1a1e21" {% endif %}
+                        value="price desc"
+                        onclick="priceselect(this.value)">
+                    Höchster Preis
+                </button>
+                <button type="button" class="btn filter-btn btn-dark btn-lg"
+                        {% if price_filter == 'price asc' %}style="background-color: #1a1e21" {% endif %}
+                        value="price asc"
+                        onclick="priceselect(this.value)">
+                    Niedrigster Preis
                 </button>
             </div>
             <br><br>
@@ -210,7 +239,6 @@
             </div>
             <div class="single-head">
                 <div class="row">
-
                     {% for item in products %}
                         <div class="col-lg-3 ">
                             <div class="single-grid">
@@ -340,6 +368,27 @@
                 url: "/categories/" + cat_slug,
                 data: {
                     'filter_value': filter_value,
+                    'cat_slug': cat_slug,
+                    csrfmiddlewaretoken: token
+
+                },
+                success: function (response) {
+                    // alertify.success("YESSS");
+                    $('#ihate').load(document.URL + ' #ihate');
+                    //window.location.reload()
+                }
+            });
+        }
+
+        function priceselect(filter_value) {
+            console.log(filter_value);
+            var cat_slug = $('#categor_slug').val();
+            var token = $('input[name=csrfmiddlewaretoken]').val()
+            $.ajax({
+                type: "POST",
+                url: "/categories/" + cat_slug,
+                data: {
+                    'price_filter_value': filter_value,
                     'cat_slug': cat_slug,
                     csrfmiddlewaretoken: token
 
