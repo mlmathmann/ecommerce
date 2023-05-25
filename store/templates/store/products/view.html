@@ -48,7 +48,7 @@
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Categories</li>
-                                                    {% for item in category %}
+                                                    {% for item in categories %}
                                                         <li class="nav-item"><a
                                                                 href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
                                                         </li>
