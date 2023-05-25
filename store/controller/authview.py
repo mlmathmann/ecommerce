@@ -148,6 +148,23 @@ def updateuser(request):
         profile_user.save()
 
     profile_user = Profile.objects.filter(user=request.user).first()
+    print("profileuser1")
+
+    if not Profile.objects.filter(user=request.user):
+        profile_user = Profile()
+        profile_user.user = request.user
+        profile_user.email = ""
+        profile_user.phone = ""
+        profile_user.street = ""
+        profile_user.house_number = ""
+        profile_user.address_info = ""
+        profile_user.postal_code = ""
+        profile_user.city = ""
+        profile_user.country = ""
+        profile_user.save()
+
+    profile_user = Profile.objects.filter(user=request.user).first()
+    print("profileuser2", profile_user)
     user_form = CustomUserChangeForm(None, instance=current_user)
     profile_form = ProfilePictureChangeForm(None, request.FILES or None, instance=profile_user)
     if request.method == "POST":
