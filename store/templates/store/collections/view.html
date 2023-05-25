@@ -36,11 +36,9 @@
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
-
                                     <li class="nav-item" href="{% url 'home' %}">
                                         <a class=" dd-menu collapsed" href="{% url 'home' %}">Home</a>
                                     </li>
-
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
@@ -49,7 +47,7 @@
                                         <ul class="sub-menu mega-menu collapse" id="submenu-1-5">
                                             <li class="single-block">
                                                 <ul>
-                                                <li class="mega-menu-title">Categories</li>
+                                                    <li class="mega-menu-title">Categories</li>
                                                     {% for item in category %}
                                                         <li class="nav-item"><a
                                                                 href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
@@ -60,11 +58,9 @@
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Collections</li>
-                                                    <li class="nav-item"><a href="#">ARISTROCRATIC</a></li>
-                                                    <li class="nav-item"><a href="#">IMAGINATIVE</a></li>
-                                                    <li class="nav-item"><a href="#">FUTURISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">BRUTALISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">SIMPLISTIC</a></li>
+                                                    {% for collection in collections %}
+                                                        <li class="nav-item"><a href="{% url 'stylecollections' collection.slug %}">{{ collection.name }}</a></li>
+                                                    {% endfor %}
                                                 </ul>
                                             </li>
                                         </ul>
@@ -168,13 +164,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Produktansicht</h1>
+                        <h1 class="page-title">{{ collection.name }}</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li>Produktansicht</li>
+                        <li><a href="view.html">Home</a></li>
+                        <li class="">{{ collection.name }}</li>
                     </ul>
                 </div>
             </div>
@@ -189,14 +185,9 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-5">
-                                    {% if products.tag %}
-                                        <label class="badge product-viewtag"
-                                               style="border-radius: 5px; z-index: 9999; font-size: 20px"> {{ products.tag }} </label>
-                                    {% endif %}
                                     <div class="card shadow">
                                         <div class="card-body">
-
-                                            <img src="{{ products.product_image.url }}" class="w-100" alt="image">
+                                            <img src="{{ collection.image.url }}" class="w-100" alt="image">
                                         </div>
                                     </div>
                                 </div>
@@ -209,78 +200,19 @@
                                                     <div class="content-right wow fadeInRight" data-wow-delay=".5s"
                                                          style="padding: 20px">
                                                         <!-- Heading -->
-                                                        <span class="sub-heading text-uppercase">{{ product_style }}</span>
                                                         <h2 class="mb-0" style="font-family: Lato, sans-serif">
-                                                            {{ products.name }}
-                                                            {% if products.trending %}
-                                                                <label style="font-size: 16px;"
-                                                                       class="float-end badge bg-danger trending_tag">Trending </label>
-                                                            {% endif %}
+                                                            {{ collection.name }}
                                                         </h2>
                                                         <hr>
-                                                        <p class="mt-4 mb-2"
-                                                           style="font-family: Lato, sans-serif; color: #888888">{{ products.description }}</p>
-                                                        <label class="me-3 mt-4">Original Price :
-                                                            <s>{{ products.original_price | stringformat:'d' }}€</s></label>
-                                                        <label class="fw-bold">Selling Price :
-                                                            {{ products.selling_price }}€</label>
+                                                        <p class="mt-4 mb-4"
+                                                           style="font-family: Lato, sans-serif; color: #888888">{{ collection.description }}</p>
                                                         <hr>
-                                                        {% if products.quantity > 0 %}
-                                                            <label class="badge bg-success" style="font-size: 100%">In
-                                                                stock</label>
-                                                        {% else %}
-                                                            <label class="badge bg-danger" style="font-size: 100%">Out
-                                                                of stock</label>
-                                                        {% endif %}
                                                         <div class="row mt-2">
-                                                            <div class="col-md-3">
-                                                                {% csrf_token %}
-                                                                <input type="hidden" value="{{ products.id }}"
-                                                                       class="prod_id">
-                                                                <input type="hidden" class="max-qty"
-                                                                       value="{{ products.quantity }}">
-                                                                <label for="Quantity">Quantity</label>
-                                                                <div class="input-group text-center mb-3"
-                                                                     style="width:130px;">
-                                                                    {% if products.quantity == 0 %}
-                                                                        <button class="input-group-text decrement-btn"
-                                                                                style="background-color: #d3d3d3">-
-                                                                        </button>
-                                                                        <input type="text" name="quantity"
-                                                                               class="form-control qty-input text-center"
-                                                                               value="0"
-                                                                               style="background-color: #dbdbdb">
-                                                                        <button class="input-group-text increment-btn"
-                                                                                style="background-color: #d3d3d3">+
-                                                                        </button>
-                                                                    {% else %}
-                                                                        <button class="input-group-text decrement-btn">
-                                                                            -
-                                                                        </button>
-                                                                        <input type="text" name="quantity"
-                                                                               class="form-control qty-input text-center"
-                                                                               value="1">
-                                                                        <button class="input-group-text increment-btn">
-                                                                            +
-                                                                        </button>
-                                                                    {% endif %}
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-9 ps-1 ms-0">
-                                                                <br/>
-                                                                {% if products.quantity > 0 %}
-                                                                    <button type="button"
-                                                                            class="btn btn-primary me-3 float-start addToCartBtn">
-                                                                        Add to
-                                                                        Cart
-                                                                        <i class="fa fa-shopping-cart"></i></button>
-                                                                {% endif %}
-                                                                <button type="button"
-                                                                        class="btn btn-success me-3 addToWishlist float-start">
-                                                                    Add
-                                                                    to
-                                                                    Wishlist
-                                                                    <i class="fa fa-heart"></i></button>
+                                                            <div class="col-md-9 ps-1 ms-2 mt-2">
+                                                                <a href="{% url 'stylecollectionsproducts' style_name %}"><button type="button"
+                                                                        class="btn btn-outline-secondary me-3 float-start">
+                                                                    Produkte ansehen >
+                                                                    </button></a>
                                                             </div>
                                                         </div>
                                                         <!-- End Heading -->
@@ -299,6 +231,71 @@
                 </div>
             </div>
         </div>
+            <br>
+    <br>
+            <di class="section-title">
+                <h2>
+                    Weitere Kollektionen
+                </h2>
+            </di>
+    <br>
+    <br>
+        {% for item in collections %}
+            <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card product_data" style="border: unset">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="card shadow">
+                                        <div class="card-body">
+                                            <img src="{{ item.image.url }}" class="w-100" alt="image">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <section class="about-us section pt-5">
+                                        <div class="container" style="padding: unset">
+                                            <div class="row align-items-center justify-content-center">
+                                                <div class="col-lg-12 col-md-12 col-12">
+                                                    <!-- content-1 start -->
+                                                    <div class="content-right wow fadeInRight" data-wow-delay=".5s"
+                                                         style="padding: 20px">
+                                                        <!-- Heading -->
+                                                        <h2 class="mb-0" style="font-family: Lato, sans-serif">
+                                                            {{ item.name }}
+                                                        </h2>
+                                                        <hr>
+                                                        <p class="mt-4 mb-4"
+                                                           style="font-family: Lato, sans-serif; color: #888888">{{ item.description }}</p>
+                                                        <hr>
+                                                        <div class="row mt-2">
+                                                            <div class="col-md-9 ps-1 ms-2 mt-2">
+                                                                <a href="{% url 'stylecollectionsproducts' item.slug %}"><button type="button"
+                                                                        class="btn btn-outline-secondary me-3 float-start">
+                                                                    Produkte ansehen >
+                                                                    </button></a>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Heading -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-5">
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
     </div>
 
     <!-- Start How Works Area -->

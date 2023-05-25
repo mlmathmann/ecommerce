@@ -35,11 +35,9 @@
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
-
                                     <li class="nav-item" href="{% url 'home' %}">
                                         <a class=" dd-menu collapsed" href="{% url 'home' %}">Home</a>
                                     </li>
-
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
@@ -48,7 +46,7 @@
                                         <ul class="sub-menu mega-menu collapse" id="submenu-1-5">
                                             <li class="single-block">
                                                 <ul>
-                                                <li class="mega-menu-title">Categories</li>
+                                                    <li class="mega-menu-title">Categories</li>
                                                     {% for item in category %}
                                                         <li class="nav-item"><a
                                                                 href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
@@ -59,11 +57,9 @@
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Collections</li>
-                                                    <li class="nav-item"><a href="#">ARISTROCRATIC</a></li>
-                                                    <li class="nav-item"><a href="#">IMAGINATIVE</a></li>
-                                                    <li class="nav-item"><a href="#">FUTURISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">BRUTALISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">SIMPLISTIC</a></li>
+                                                    {% for collection in collections %}
+                                                        <li class="nav-item"><a href="{% url 'stylecollections' collection.slug %}">{{ collection.name }}</a></li>
+                                                    {% endfor %}
                                                 </ul>
                                             </li>
                                         </ul>

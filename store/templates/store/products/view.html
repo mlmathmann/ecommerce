@@ -36,11 +36,9 @@
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
-
                                     <li class="nav-item" href="{% url 'home' %}">
                                         <a class=" dd-menu collapsed" href="{% url 'home' %}">Home</a>
                                     </li>
-
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
@@ -49,7 +47,7 @@
                                         <ul class="sub-menu mega-menu collapse" id="submenu-1-5">
                                             <li class="single-block">
                                                 <ul>
-                                                <li class="mega-menu-title">Categories</li>
+                                                    <li class="mega-menu-title">Categories</li>
                                                     {% for item in category %}
                                                         <li class="nav-item"><a
                                                                 href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
@@ -60,11 +58,9 @@
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Collections</li>
-                                                    <li class="nav-item"><a href="#">ARISTROCRATIC</a></li>
-                                                    <li class="nav-item"><a href="#">IMAGINATIVE</a></li>
-                                                    <li class="nav-item"><a href="#">FUTURISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">BRUTALISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">SIMPLISTIC</a></li>
+                                                    {% for collection in collections %}
+                                                        <li class="nav-item"><a href="{% url 'stylecollections' collection.slug %}">{{ collection.name }}</a></li>
+                                                    {% endfor %}
                                                 </ul>
                                             </li>
                                         </ul>
@@ -300,6 +296,55 @@
             </div>
         </div>
     </div>
+    <section class="items-grid section" style="background-color: white; padding-top: unset">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title"><h2>Passend dazu</h2></div>
+                </div>
+            </div>
+            <div class="single-head">
+                <div class="row">
+
+                    {% for item in other_products %}
+                        <div class="col-lg-2 ">
+                            <div class="single-grid">
+                                <div class="image"><a href="{% url 'productview' item.category.slug item.slug %}"
+                                                      class="thumbnail"><img
+                                        src="{{ item.product_image.url }}" alt="#"></a></div>
+                                <div class="content">
+                                    <div class="top-content">
+                                        <a class="a-home-item-tag"
+                                           href="{% url 'collectionsview' item.category.slug %}"><span
+                                                class="home-item-tag"> {{ item.category }} </span></a>
+
+                                        {% for collection in collections %}
+                                            {% if item.style_way == collection.style_sign %}
+                                                <a href="{% url 'stylecollections' collection.slug %}"><span
+                                                        class="home-item-tag text-uppercase">{{ collection.name }}</span></a>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        <h3 class="title"><a
+                                                href="{% url 'productview' item.category.slug item.slug %}"> {{ item.name }} </a>
+                                        </h3>
+                                        <p> "{{ item.small_description }}" </p>
+                                    </div>
+                                    <div class="bottom-content">
+                                        <a class="a-home-item-tag"
+                                           href="{% url 'productview' item.category.slug item.slug %}"><p>Mehr erfahren
+                                            ></p></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
 
     <!-- Start How Works Area -->
     <section class="how-works section pt-0 mt-4" style="background-color: #fff;">

@@ -11,9 +11,9 @@
         <title>MIAGGIO</title>
         <meta name="description" content=""/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="shortcut icon" type="image/x-icon" href="../../../static/assets/images/favicon.png"/>
+        <link rel="shortcut icon" type="image/x-icon" href="../../../../static/assets/images/favicon.png"/>
         <!--CSS-->
-        <link rel="stylesheet" href="../../../static/assets/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../../../../static/assets/css/bootstrap.min.css"/>
     </head>
 
     <body onbeforeunload="return f()">
@@ -35,11 +35,9 @@
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
-
                                     <li class="nav-item" href="{% url 'home' %}">
                                         <a class=" dd-menu collapsed" href="{% url 'home' %}">Home</a>
                                     </li>
-
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
@@ -59,11 +57,9 @@
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Collections</li>
-                                                    <li class="nav-item"><a href="#">ARISTROCRATIC</a></li>
-                                                    <li class="nav-item"><a href="#">IMAGINATIVE</a></li>
-                                                    <li class="nav-item"><a href="#">FUTURISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">BRUTALISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">SIMPLISTIC</a></li>
+                                                    {% for collection in collections %}
+                                                        <li class="nav-item"><a href="{% url 'stylecollections' collection.slug %}">{{ collection.name }}</a></li>
+                                                    {% endfor %}
                                                 </ul>
                                             </li>
                                         </ul>
@@ -341,7 +337,7 @@
             var token = $('input[name=csrfmiddlewaretoken]').val()
             $.ajax({
                 type: "POST",
-                url: "/collections/" + cat_slug,
+                url: "/categories/" + cat_slug,
                 data: {
                     'filter_value': filter_value,
                     'cat_slug': cat_slug,
@@ -359,12 +355,12 @@
         function f() {
             //console.log(this.find('categor_slug'));
             var end = 'ye';
-            console.log(end)
             var cat_slug = $('#categor_slug').val();
+            console.log(cat_slug)
             var token = $('input[name=csrfmiddlewaretoken]').val()
             $.ajax({
                 type: "POST",
-                url: "/collections/" + cat_slug,
+                url: "/categories/" + cat_slug,
                 data: {
                     'cat_slug': cat_slug,
                     'end': end,

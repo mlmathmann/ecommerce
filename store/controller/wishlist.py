@@ -10,7 +10,7 @@ from store.views import get_navbar_context
 def index(request):
     nav_context = get_navbar_context(request)
     wishlist = Wishlist.objects.filter(user=request.user)
-    context = {'wishlist': wishlist, 'categories': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')}
+    context = {'wishlist': wishlist, 'categories': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture'), 'collections': nav_context.get('collections')}
     return render(request, 'store/wishlist.html', context)
 
 

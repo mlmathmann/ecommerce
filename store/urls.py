@@ -8,9 +8,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
                   path('', views.home, name="home"),
-                  path('collections', views.collections, name="collections"),
-                  path('collections/<str:slug>', views.collectionsview, name="collectionsview"),
-                  path('collections/<str:cate_slug>/<str:prod_slug>', views.productview, name="productview"),
+                  path('categories/<str:slug>', views.collectionsview, name="collectionsview"),
+                  path('categories/<str:cate_slug>/<str:prod_slug>', views.productview, name="productview"),
+
+                  path('collections/<str:style>', views.stylecollections, name="stylecollections"),
+                  path('collections/<str:style>/products', views.stylecollectionsproducts, name="stylecollectionsproducts"),
 
                   path('register/', authview.register, name="register"),
                   path('login/', authview.loginpage, name="loginpage"),
