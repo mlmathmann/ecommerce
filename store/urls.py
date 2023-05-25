@@ -5,6 +5,7 @@ from django.contrib.auth import views as auth_views
 from .views import PasswordsChangeView
 from django.conf import settings
 from django.conf.urls.static import static
+import midjourneyapi.search as search
 
 urlpatterns = [
                   path('', views.home, name="home"),
@@ -12,7 +13,8 @@ urlpatterns = [
                   path('categories/<str:cate_slug>/<str:prod_slug>', views.productview, name="productview"),
 
                   path('collections/<str:style>', views.stylecollections, name="stylecollections"),
-                  path('collections/<str:style>/products', views.stylecollectionsproducts, name="stylecollectionsproducts"),
+                  path('collections/<str:style>/products', views.stylecollectionsproducts,
+                       name="stylecollectionsproducts"),
 
                   path('register/', authview.register, name="register"),
                   path('login/', authview.loginpage, name="loginpage"),
@@ -32,6 +34,7 @@ urlpatterns = [
                   path('delete-cart-item', cart.deletecartitem, name="deletecartitem"),
 
                   path('generate-custom-furniture', midjourney.generatecustomfurniture, name="generatecustomfurniture"),
+                  path('creation', search.creation, name="creation"),
 
                   path('wishlist', wishlist.index, name="wishlist"),
                   path('add-to-wishlist', wishlist.addtowishlist, name="addtowishlist"),

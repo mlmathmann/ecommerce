@@ -114,9 +114,7 @@ $(document).ready(function () {
             dataType: "",
             success: function (response) {
                 alertify.success(response.status)
-
             }
-
         });
     });
 
