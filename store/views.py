@@ -37,7 +37,6 @@ price_filter = ''
 
 def collectionsview(request, slug):
     nav_context = get_navbar_context(request)
-    price_sorted_products = ''
 
     if Category.objects.filter(slug=slug, status=0):
         products = Product.objects.filter(category__slug=slug)
@@ -65,7 +64,7 @@ def collectionsview(request, slug):
 
         context = {'products': products, 'category': category, 'categories': nav_context.get('categories'),
                    'profile_picture': nav_context.get('profile_picture'), 'style_way': style_way,
-                   'collections': nav_context.get('collections'), 'price_sorted_products': price_sorted_products, 'price_filter': price_filter}
+                   'collections': nav_context.get('collections'), 'price_filter': price_filter}
         return render(request, 'store/products/index.html', context)
     else:
         messages.warning(request, "No such category found")
@@ -122,8 +121,8 @@ def stylecollections(request, style):
     products = Product.objects.filter(style_way=style)
     context = {'collections': collections, 'collection': collection, 'products': products,
                'style_name': style_name.lower(),
-               'category': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture'),
-               'collections': nav_context.get('collections')}
+               'categories': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture'),
+               'collections_nav': nav_context.get('collections')}
     return render(request, "store/collections/view.html", context)
 
 
@@ -132,17 +131,22 @@ category = ''
 
 def stylecollectionsproducts(request, style):
     nav_context = get_navbar_context(request)
+
     products = Product.objects.filter()
     category_obj = ''
-
     global category
-
+    global price_filter
     if request.method == 'POST' and request.POST.get('end') == 'yeet':
         category = ''
+        price_filter = ''
 
     else:
         if request.method == 'POST':
-            category = request.POST.get('filter_value')
+            if request.POST.get('filter_value') is not None:
+                category = request.POST.get('filter_value')
+            if request.POST.get('price_filter_value') is not None:
+                price_filter = request.POST.get('price_filter_value')
+                print(price_filter)
 
         for choice in Product.StyleChoices.choices:
             if choice[1].lower() == style:
@@ -156,9 +160,14 @@ def stylecollectionsproducts(request, style):
                     products = products.filter(category__slug=category)
                     category_obj = Category.objects.filter(slug=category).first()
 
+                if price_filter != '' and price_filter == 'price desc':
+                    products = products.order_by('-selling_price')
+                    print(products)
+                else:
+                    products = products.order_by('selling_price')
+
     context = {'products': products, 'categories': nav_context.get('categories'),
                'profile_picture': nav_context.get('profile_picture'), 'style_name': style, 'category': category,
                'style_title': Collection.objects.filter(slug=style).first(), 'category_obj': category_obj,
-               'collections': nav_context.get('collections')}
-    print(context)
+               'collections': nav_context.get('collections'), 'price_filter': price_filter}
     return render(request, "store/collections/products.html", context)

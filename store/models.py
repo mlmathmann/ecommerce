@@ -58,7 +58,7 @@ class Product(models.Model):
     selling_price = models.FloatField(null=False, blank=False)
     status = models.BooleanField(default=False, help_text="0=default, 1=Hidden")
     trending = models.BooleanField(default=False, help_text="0=default, 1=Trending")
-    tag = models.CharField(max_length=150, null=False, blank=False)
+    tag = models.CharField(max_length=150, null=True, blank=True)
     meta_title = models.CharField(max_length=150, null=False, blank=False)
     meta_keywords = models.CharField(max_length=150, null=False, blank=False)
     meta_description = models.TextField(max_length=500, null=False, blank=False)
