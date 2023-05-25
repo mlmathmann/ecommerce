@@ -50,7 +50,7 @@ def index(request):
                'total_price_calc': total_price,
                'userprofile': userprofile,
                'user_country': user_country,
-               'category': nav_context.get('categories'),
+               'categories': nav_context.get('categories'),
                'profile_picture': nav_context.get('profile_picture'),
                'collections': nav_context.get('collections')
                }

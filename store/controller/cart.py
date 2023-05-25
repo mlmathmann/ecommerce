@@ -32,7 +32,7 @@ def addtocart(request):
 def viewcart(request):
     nav_context = get_navbar_context(request)
     cart = Cart.objects.filter(user=request.user)
-    context = {'cart': cart, 'category': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture'), 'collections': nav_context.get('collections')}
+    context = {'cart': cart, 'categories': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture'), 'collections': nav_context.get('collections')}
     return render(request, 'store/cart.html', context)
 
 
