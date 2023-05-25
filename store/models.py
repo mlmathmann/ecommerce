@@ -153,3 +153,25 @@ class Profile(models.Model):
     country = models.CharField(max_length=12, choices=CountryChoices.choices, default='Deutschland')
     created_at = models.DateTimeField(auto_now_add=True)
 
+
+class Creation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    email = models.CharField(max_length=150, null=False)
+    image = models.ImageField(upload_to=get_file_path, null=False, blank=False)
+    version = models.CharField(max_length=1, null=False)
+
+    creation_statuses = (
+        ('Requested', 'Requested'),
+        ('Approved', 'Approved'),
+        ('In production', 'In production'),
+        ('Out on delivery', 'Out on delivery'),
+        ('Completed', 'Completed')
+    )
+    status = models.CharField(max_length=150, choices=creation_statuses, default='Requested')
+    message = models.TextField(null=True)
+    tracking_no = models.CharField(max_length=150, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return '{} - {}'.format(self.id, self.tracking_no)
