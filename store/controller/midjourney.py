@@ -10,10 +10,10 @@ from store.views import get_navbar_context
 
 def generatecustomfurniture(request):
     nav_context = get_navbar_context(request)
-    gen_items = GeneratedItem.objects.all()
-    print(gen_items)
+    gen_items = GeneratedItem.objects.filter(user=request.user).order_by('-created_at')
+    gen_item = gen_items.first()
     return render(request, "store/midjourney.html", {'category': nav_context.get('categories'),
                                                      'nav_context': nav_context,
                                                      'profile_picture': nav_context.get('profile_picture'),
                                                      'collections': nav_context.get('collections'),
-                                                     'gen_items': gen_items})
+                                                     'gen_item': gen_item})

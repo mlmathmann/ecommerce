@@ -194,9 +194,9 @@
     <div class="container"><br><br>
         {% csrf_token %}
         <div class="row">
-            {% for gen_item in gen_items %}
+            {% if gen_item %}
                 <img src="{{ gen_item.image.url }}">
-            {% endfor %}
+            {% endif %}
             <!--Überschrift-->
             <div class="col-12">
                 <div class="section-title"><h2>Lass deiner Kreativität freien Lauf</h2></div>
