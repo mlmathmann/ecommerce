@@ -12,6 +12,10 @@ def get_file_path(request, filename):
     return os.path.join('uploads/', filename)
 
 
+def generated_file_path(request, filename):
+    return os.path.join('uploads/generated/', filename)
+
+
 class Category(models.Model):
     slug = models.CharField(max_length=150, null=False, blank=False)
     name = models.CharField(max_length=150, null=False, blank=False)
@@ -154,10 +158,17 @@ class Profile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
+class GeneratedItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=generated_file_path, null=False, blank=False)
+    prompt = models.CharField(max_length=150, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 class Creation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     email = models.CharField(max_length=150, null=False)
-    image = models.ImageField(upload_to=get_file_path, null=False, blank=False)
+    order = models.ForeignKey(GeneratedItem, on_delete=models.CASCADE)
     version = models.CharField(max_length=1, null=False)
 
     creation_statuses = (

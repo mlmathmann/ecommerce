@@ -5,7 +5,7 @@ import time
 import shutil
 
 from django.shortcuts import redirect, render
-from store.models import Product
+from store.models import GeneratedItem
 from store.views import get_navbar_context
 from django.contrib import messages
 from django.http import HttpResponse
@@ -33,6 +33,11 @@ def creation(request):
     # image_name = send_prompts_and_download_image
 
     # similar_image = find_similar_image_by_name(image_name)
+        item = GeneratedItem()
+        item.user = request.user
+        item.image = 'uploads/generated/johnjohn_fantasy_chair_crystal_8f4af673-a8c7-4926-b197-3969d5698754.png'
+        item.prompt = json_data
+        item.save()
     return HttpResponse(status=201)
 
 
