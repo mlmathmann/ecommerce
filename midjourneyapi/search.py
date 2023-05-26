@@ -12,27 +12,48 @@ from django.http import HttpResponse
 
 
 def creation(request):
+    categories = [('Tisch', 'desk'), ('Stuhl', 'chair'), ('Beistelltisch', 'coffee table'), ('Sessel', 'armchair'),
+                  ('Kunstobjekt', 'art object')]
+    styles = [('ARISTROCRATIC'), 'IMAGINATIVE', 'FUTURISTIC', 'BRUTALISTIC', 'SIMPLISTIC']
+    materials = [('Helles Holz', 'birch wood'), ('Dunkles Holz', 'dark wood'), ('Perlmutt', 'nacre'),
+                 ('Bernstein', 'amber'), ('Chrom', 'chrome'), ('Kristall', 'crystal'), ('Gold', 'gold'),
+                 ('Marmor', 'marble'), ('Porzellan', 'porcelain'), ('Beton', 'concrete'), ('Kaschmir', 'cashmere'),
+                 ('Nebel', 'fog'), ('Vulkangestein', 'volcanic stone'), ('Obsidian', 'obsidian')]
+
     if request.method == 'POST':
         style = request.POST.get('style')
         object = request.POST.get('objekt')
         material = request.POST.get('material')
+
+        for listed_category in categories:
+            if object == listed_category[0]:
+                object = listed_category[1]
+
+        for listed_style in styles:
+            if style == listed_style:
+                style = listed_style.lower()
+
+        for listed_material in materials:
+            if material == listed_material[0]:
+                material = listed_material[1]
+
         json_data = {
-            "style": style.lower(),
-            "objekt": object.lower(),
-            "material": material.lower()
+            "style": style,
+            "objekt": object,
+            "material": material
         }
         print(json_data)
-    # generated_prompt = prompt_extractor(None)
+        # generated_prompt = prompt_extractor(None)
 
-    # send_prompts_and_download_image = prompt_sender_reciever(generated_prompt)
+        # send_prompts_and_download_image = prompt_sender_reciever(generated_prompt)
 
-    # print(send_prompts_and_download_image)
+        # print(send_prompts_and_download_image)
 
-    # download()
+        # download()
 
-    # image_name = send_prompts_and_download_image
+        # image_name = send_prompts_and_download_image
 
-    # similar_image = find_similar_image_by_name(image_name)
+        # similar_image = find_similar_image_by_name(image_name)
         item = GeneratedItem()
         item.user = request.user
         item.image = 'uploads/generated/johnjohn_fantasy_chair_crystal_8f4af673-a8c7-4926-b197-3969d5698754.png'
