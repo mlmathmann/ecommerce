@@ -195,7 +195,13 @@
         {% csrf_token %}
         <div class="row">
             {% if gen_item %}
+                <div class="col-12 mt-5">
+                    <div class="section-title"><h2>Dein einzigartiges Möbelstück</h2></div>
+                </div>
                 <img src="{{ gen_item.image.url }}">
+                <div class="col-12 mt-5">
+                    <div class="section-title"><h2>Dein einzigartiges Möbelstück</h2></div>
+                </div>
             {% endif %}
             <!--Überschrift-->
             <div class="col-12">

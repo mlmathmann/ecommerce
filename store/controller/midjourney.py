@@ -8,6 +8,7 @@ from .dashboard import details, profile
 from store.views import get_navbar_context
 
 
+@login_required(login_url='loginpage')
 def generatecustomfurniture(request):
     nav_context = get_navbar_context(request)
     gen_items = GeneratedItem.objects.filter(user=request.user).order_by('-created_at')
