@@ -264,19 +264,12 @@
                                            href="{% url 'collectionsview' item.category.slug %}"><span
                                                 class="home-item-tag"> {{ item.category }} </span></a>
 
-                                        {% if item.style_way == 'A' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> ARISTROCRATIC </span></a>
-                                        {% elif item.style_way == 'I' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> IMAGINATIVE </span></a>
-                                        {% elif item.style_way == 'F' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> FUTURISTIC </span></a>
-                                        {% elif item.style_way == 'B' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> BRUTALISTIC </span></a>
-                                        {% elif item.style_way == 'I' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> IMAGINATIVE </span></a>
-                                        {% elif item.style_way == 'S' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> SIMPLISTIC </span></a>
-                                        {% endif %}
+                                        {% for collection in collections %}
+                                            {% if item.style_way == collection.style_sign %}
+                                                <a href="{% url 'stylecollections' collection.slug %}"><span
+                                                        class="home-item-tag text-uppercase">{{ collection.name }}</span></a>
+                                            {% endif %}
+                                        {% endfor %}
 
                                         <h3 class="title"><a
                                                 href="{% url 'productview' item.category.slug item.slug %}"> {{ item.name }} </a>
