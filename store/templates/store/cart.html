@@ -194,8 +194,8 @@
         <div class="py-5">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="card shadow cartdatacard">
+                    <div class="col-md-12 cartdatacard">
+                        <div class="card shadow">
                             <div class="card-body cartdata">
                                 {% if cart %}
                                     {% for item in cart %}
@@ -244,11 +244,12 @@
                                 {% endif %}
                             </div>
                         </div>
-                    </div>
                     <hr class="mt-4 mb-4">
-                    {% if cart %}
-                        <a href="{% url 'checkout' %}"><span class="checkout-btn">Checkout</span></a>
+                    {% if cart_count > 0 %}
+                        <a href="{% url 'checkout' %}" class="justify-content-center w-100"><span class="checkout-btn center">Checkout</span></a>
                     {% endif %}
+                    </div>
+
                 </div>
             </div>
         </div>
