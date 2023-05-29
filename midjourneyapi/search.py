@@ -12,97 +12,83 @@ from django.http import HttpResponse
 
 
 def creation(request):
-    if request.method == 'POST':
-        style = request.POST.get('style')
-        object = request.POST.get('objekt')
-        material = request.POST.get('material')
-        json_data = {
-            "style": style.lower(),
-            "objekt": object.lower(),
-            "material": material.lower()
-        }
-        print(json_data)
-    # generated_prompt = prompt_extractor(None)
 
-    # send_prompts_and_download_image = prompt_sender_reciever(generated_prompt)
+    style = request.POST.get('style')
+    object = request.POST.get('objekt')
+    material = request.POST.get('material')
 
-    # print(send_prompts_and_download_image)
+    json_data = {
+        "style": style.lower(),
+        "objekt": object.lower(),
+        "material": material.lower()
+    }
 
-    # download()
+    website_json = prompt_extractor(json_data)
 
-    # image_name = send_prompts_and_download_image
+    send_prompts_to_discord = prompt_sender(website_json)
 
-    # similar_image = find_similar_image_by_name(image_name)
-        item = GeneratedItem()
-        item.user = request.user
-        item.image = 'uploads/generated/johnjohn_fantasy_chair_crystal_8f4af673-a8c7-4926-b197-3969d5698754.png'
-        item.prompt = json_data
-        item.save()
+    download_created_image()
+
+    image_name = send_prompts_to_discord
+
+    image_in_folder = find_image_in_folder(image_name)
+    print("Result : ", image_in_folder)
+
+    item = GeneratedItem()
+    item.user = request.user
+    item.image = image_in_folder
+    item.prompt = json_data
+    item.save()
+
     return HttpResponse(status=201)
 
 
-# Hier werden die Prompts zusammen gesetzt
-# Hier muss der Request der Website rein und verarbeitet werden format des jsons ist momentan noch ausschlaggebend für
-# für die generierung
 def prompt_extractor(json_data):
-    if json_data is None:
-        json_data = '''
-            {
-                "style": "fantasy",
-                "objekt": "desk",
-                "material": "crystal"
-            }
-            '''
-
-    data = json.loads(json_data)
-
-    prompt = " ".join(data.values())
+    prompt = " ".join(json_data.values())
     print(prompt)
 
     return prompt
 
 
-def prompt_sender_reciever(prompt):
-    # dieser command erweitert den command für für das skript mit den prompts
-    promptcommand = "python3 sender.py --params sender_params.json --prompt " + prompt
+def prompt_sender(prompt):
+    promptcommand = "python3 midjourneyapi/sender.py --params midjourneyapi/sender_params.json --prompt " + prompt
 
     print(promptcommand)
 
-    # hier wird der command mit den prompts ausgeführt
-    # subprocess.run(['python3', 'sender.py', '--params', 'sender_params.json', '--prompt', prompt])
-
-    # warte zeit für die generierung
-    time.sleep(60)
+    subprocess.run(
+        ['python3', 'midjourneyapi/sender.py', '--params', 'midjourneyapi/sender_params.json', '--prompt', prompt])
 
     return prompt
 
 
-# def download():
+def download_created_image():
+    subprocess.Popen(
+        ['python3', 'midjourneyapi/receiver.py', '--params', 'midjourneyapi/sender_params.json', '--local_path',
+         'static/uploads'],)
 
-# command für das downloaden der generierten bilder
-# subprocess.Popen(['python3', 'receiver.py', '--params', 'sender_params.json', '--local_path', 'download'])
 
-# filterfunktion der bilder anhand des namens
-# bilder werden momentan in einen anderen ordner nach dem generieren verschoben um funktion zu testen
-def find_similar_image_by_name(image_name):
-    urspruenglicher_string = image_name
-    ergebnis_string = "johnjohn_" + urspruenglicher_string.replace(" ", "_").strip()
+def find_image_in_folder(prompt):
+    time.sleep(5)
+    print("60 sek sind over")
+    print(prompt)
+    full_image_name = "johnjohn_" + prompt.replace(" ", "_").strip()
 
-    print(ergebnis_string)
+    print(full_image_name)
 
-    ordner_pfad = "download"  # Geben Sie den Pfad zum Ordner an, in dem sich das Bild befindet
-    ziel_ordner_pfad = "test"  # Geben Sie den Pfad zum Zielordner an
+    file_path = "static/uploads"
 
-    gewuenschter_teil = "johnjohn_" + image_name.replace(" ", "_").strip()
+    full_image_name = "johnjohn_" + prompt.replace(" ", "_").strip()
 
     while True:
-        for datei_name in os.listdir(ordner_pfad):
-            if gewuenschter_teil in datei_name:
-                vollstaendiger_pfad = os.path.join(ordner_pfad, datei_name)
-                print("Gefundenes Bild:", vollstaendiger_pfad)
-                ziel_pfad = os.path.join(ziel_ordner_pfad, datei_name)
-                shutil.move(vollstaendiger_pfad, ziel_pfad)  # Move the file to the destination folder
-                print("Bild wurde erfolgreich verschoben:", ziel_pfad)
-                return image_name
 
-        time.sleep(10)  # Warte 10 Sekunden, bevor der Ordner erneut überprüft wird
+        for file_name in os.listdir(file_path):
+
+            if full_image_name in file_name:
+
+                vollstaendiger_pfad = os.path.join("uploads", file_name)
+
+                print(vollstaendiger_pfad)
+
+                return vollstaendiger_pfad
+
+        time.sleep(10)
