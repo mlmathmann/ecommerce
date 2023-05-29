@@ -25,8 +25,9 @@ def generatecustomfurniture(request):
             print("post", gen_comp)
 
         if gen_comp == 'true':
-            gen_items = GeneratedItem.objects.filter(user=request.user).order_by('-created_at')
-            gen_item = gen_items.first()
+            pass
+    gen_items = GeneratedItem.objects.filter(user=request.user).order_by('-created_at')
+    gen_item = gen_items.first()
 
     print(gen_item)
     return render(request, "store/midjourney.html", {'category': nav_context.get('categories'),

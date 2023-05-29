@@ -195,147 +195,173 @@
     <div class="container molotov">
         <br><br>
         {% csrf_token %}
-        <div class="row">
-            {% if gen_item != None %}
-                <div class="col-12 mt-5">
-                    <div class="section-title"><h2>Vier Versionen deiner Kreation</h2></div>
-                </div>
-                <img src="{{ gen_item.image.url }}">
-                <section class="how-works section" style="background-color: #fff;">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="section-title">
-                                    <h2>Wähle deinen Favoriten</h2>
+        {% if gen_item != None %}
+            <form action="{% url 'requestfurniture' %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-12 mt-5">
+                        <div class="section-title"><h2>Vier Versionen deiner Kreation</h2></div>
+                    </div>
+                    <img src="{{ gen_item.image.url }}">
+                    <section class="how-works section" style="background-color: #fff;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="section-title">
+                                        <h2>Wähle deinen Favoriten</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-lg-4 text-end pe-1" style="width: 25%">
+                                    <button class="single-work mb-2 gen-variation-select"
+                                            style="height: 42%; width: 66%" type="button"
+                                            id="gen-variation-select-1"
+                                            onclick="selectedFav1()">
+                                        <span class="serial1">01</span>
+                                    </button>
+                                    <input id="gen-variation-input-1" type="hidden" value="" name="sel1">
+                                    <button class="single-work mb-2 gen-variation-select"
+                                            style="height: 42%; width: 66%" type="button"
+                                            id="gen-variation-select-3"
+                                            onclick="selectedFav3()">
+                                        <span class="serial1">03</span>
+                                    </button>
+                                    <input id="gen-variation-input-3" type="hidden" value="">
+                                </div>
+                                <div class="col-lg-4 ps-1" style="width: 25%">
+                                    <button class="single-work mb-2 gen-variation-select"
+                                            style="height: 42%; width: 66%" type="button"
+                                            id="gen-variation-select-2"
+                                            onclick="selectedFav2()">
+                                        <span class="serial1">02</span>
+                                    </button>
+                                    <input id="gen-variation-input-2" type="hidden" value="">
+                                    <button class="single-work mb-2 gen-variation-select"
+                                            style="height: 42%; width: 66%" type="button"
+                                            id="gen-variation-select-4"
+                                            onclick="selectedFav4()">
+                                        <span class="serial1">04</span>
+                                    </button>
+                                    <input id="gen-variation-input-4" type="hidden" value="">
                                 </div>
                             </div>
                         </div>
-                        <div class="row justify-content-center">
-                            <div class="col-lg-4 text-end pe-1" style="width: 25%">
-                                <button class="single-work mb-2 gen-variation-select" style="height: 42%; width: 66%">
-                                    <span class="serial1">01</span>
-                                </button>
-                                <button class="single-work mb-2 gen-variation-select" style="height: 42%; width: 66%">
-                                    <span class="serial1">02</span>
-                                </button>
-                            </div>
-                            <div class="col-lg-4 ps-1" style="width: 25%">
-                                <button class="single-work mb-2 gen-variation-select" style="height: 42%; width: 66%">
-                                    <span class="serial1">03</span>
-                                </button>
-                                <button class="single-work mb-2 gen-variation-select" style="height: 42%; width: 66%">
-                                    <span class="serial1">04</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            {% else %}
+                        <input class="form-control" type="text" name="email" value="" placeholder="Ihre Emailadresse">
+                        <br>
+                        <input class="form-control" type="text" name="message" value="" placeholder="Ihre Maßangaben">
+                    </section>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        {% else %}
+            <div class="row">
                 <!--Überschrift-->
                 <div class="col-12">
                     <div class="section-title"><h2>Lass deiner Kreativität freien Lauf</h2></div>
-                </div></div>
-                <!--Alert-->
-                <div class="alert alert-secondary text-center" role="alert"><strong>Wähle eine Möbelkategorie, einen
-                    Stil und
-                    ein Mateial aus</strong>
+                </div>
+            </div>
+            <!--Alert-->
+            <div class="alert alert-secondary text-center" role="alert"><strong>Wähle eine Möbelkategorie, einen
+                Stil und
+                ein Mateial aus</strong>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <select id="category-dropdown" class="form-select">
+                        <option selected disabled>Wähle eine Möbelkategorie...</option>
+                        <option value="category1">Stuhl</option>
+                        <option value="category2">Tisch</option>
+                        <option value="category3">Sessel</option>
+                        <option value="category4">Beistelltisch</option>
+                        <option value="category5">Kunstobjekt</option>
+                    </select>
+                </div>
+            </div>
+            <br><br>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="category-button" data-category="category"
+                                style="background-image: url(../../static/assets/images/styles/aris.png);">
+                            ARISTROCRATIC
+                        </button>
+                        <button class="category-button" data-category="category"
+                                style="background-image: url(../../static/assets/images/styles/imagine.png);">
+                            IMAGINATIVE
+                        </button>
+                        <button class="category-button" data-category="category"
+                                style="background-image: url(../../static/assets/images/styles/future.png);">
+                            FUTURISTIC
+                        </button>
+                        <button class="category-button" data-category="category"
+                                style="background-image: url(../../static/assets/images/styles/brutal.png);">
+                            BRUTALISTIC
+                        </button>
+                        <button class="category-button" data-category="category"
+                                style="background-image: url(../../static/assets/images/styles/simpl.png);">
+                            SIMPLISTIC
+                        </button>
+                    </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-12">
-                        <select id="category-dropdown" class="form-select">
-                            <option selected disabled>Wähle eine Möbelkategorie...</option>
-                            <option value="category1">Stuhl</option>
-                            <option value="category2">Tisch</option>
-                            <option value="category3">Sessel</option>
-                            <option value="category4">Beistelltisch</option>
-                            <option value="category5">Kunstobjekt</option>
-                        </select>
+                        <div id="category" class="subcategory">
+                            <ul class="subcategory-btns">
+                                <button class="btn btn-lg btn-light subcategory-button" value="bright wood">Helles
+                                    Holz
+                                </button>
+                                <button class="btn btn-lg btn-light subcategory-button" value="dark wood">Dunkles
+                                    Holz
+                                </button>
+                                <button class="btn btn-lg btn-light subcategory-button" value="mother of pearl">
+                                    Perlmutt
+                                </button>
+                                <button class="btn btn-lg btn-light subcategory-button" value="amber">Bernstein
+                                </button>
+                                <button class="btn btn-lg btn-light subcategory-button" value="chrome">Chrom
+                                </button>
+                                <button class="btn btn-lg btn-light subcategory-button" value="crystal">Kristall
+                                </button>
+                                <button class="btn btn-lg btn-light subcategory-button" value="gold">Gold</button>
+                                <button class="btn btn-lg btn-light subcategory-button" value="marble">Marmor
+                                </button>
+                                <button class="btn btn-lg btn-light subcategory-button" value="porcelain">Porzelan
+                                </button>
+                                <button class="btn btn-lg btn-light subcategory-button" value="concrete">Beton
+                                </button>
+                                <button class="btn btn-lg btn-light subcategory-button" value="cashmere">Kaschmir
+                                </button>
+                                <button class="btn btn-lg btn-light subcategory-button" value="fog">Nebel</button>
+                                <button class="btn btn-lg btn-light subcategory-button" value="vulcanic rock">
+                                    Vulkangestein
+                                </button>
+                                <button class="btn btn-lg btn-light subcategory-button" value="obsidian">Obsidian
+                                </button>
+                            </ul>
+                            <br>
+                        </div>
                     </div>
                 </div>
-                <br><br>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button class="category-button" data-category="category"
-                                    style="background-image: url(../../static/assets/images/styles/aris.png);">
-                                ARISTROCRATIC
-                            </button>
-                            <button class="category-button" data-category="category"
-                                    style="background-image: url(../../static/assets/images/styles/imagine.png);">
-                                IMAGINATIVE
-                            </button>
-                            <button class="category-button" data-category="category"
-                                    style="background-image: url(../../static/assets/images/styles/future.png);">
-                                FUTURISTIC
-                            </button>
-                            <button class="category-button" data-category="category"
-                                    style="background-image: url(../../static/assets/images/styles/brutal.png);">
-                                BRUTALISTIC
-                            </button>
-                            <button class="category-button" data-category="category"
-                                    style="background-image: url(../../static/assets/images/styles/simpl.png);">
-                                SIMPLISTIC
-                            </button>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="category" class="subcategory">
-                                <ul class="subcategory-btns">
-                                    <button class="btn btn-lg btn-light subcategory-button" value="bright wood">Helles
-                                        Holz
-                                    </button>
-                                    <button class="btn btn-lg btn-light subcategory-button" value="dark wood">Dunkles
-                                        Holz
-                                    </button>
-                                    <button class="btn btn-lg btn-light subcategory-button" value="mother of pearl">
-                                        Perlmutt
-                                    </button>
-                                    <button class="btn btn-lg btn-light subcategory-button" value="amber">Bernstein
-                                    </button>
-                                    <button class="btn btn-lg btn-light subcategory-button" value="chrome">Chrom
-                                    </button>
-                                    <button class="btn btn-lg btn-light subcategory-button" value="crystal">Kristall
-                                    </button>
-                                    <button class="btn btn-lg btn-light subcategory-button" value="gold">Gold</button>
-                                    <button class="btn btn-lg btn-light subcategory-button" value="marble">Marmor
-                                    </button>
-                                    <button class="btn btn-lg btn-light subcategory-button" value="porcelain">Porzelan
-                                    </button>
-                                    <button class="btn btn-lg btn-light subcategory-button" value="concrete">Beton
-                                    </button>
-                                    <button class="btn btn-lg btn-light subcategory-button" value="cashmere">Kaschmir
-                                    </button>
-                                    <button class="btn btn-lg btn-light subcategory-button" value="fog">Nebel</button>
-                                    <button class="btn btn-lg btn-light subcategory-button" value="vulcanic rock">
-                                        Vulkangestein
-                                    </button>
-                                    <button class="btn btn-lg btn-light subcategory-button" value="obsidian">Obsidian
-                                    </button>
-                                </ul>
-                                <br>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row text-center">
-                        <div class="col">
-                            <h4>Deine Kreation</h4><br>
-                            <input type="text" id="input-field" class="form-control text-center" readonly>
-                        </div>
-                    </div>
-                    <br>
+                <br>
+                <div class="row text-center">
                     <div class="col">
-                        <div class="form-group button text-center crea">
-                            <button id="creation-btn" type="button" class="btn" onclick="creation.test()">Lass die Magie
-                                beginnen
-                            </button>
-                        </div>
+                        <h4>Deine Kreation</h4><br>
+                        <input type="text" id="input-field" class="form-control text-center" readonly>
                     </div>
                 </div>
-            {% endif %}
+                <br>
+                <div class="col">
+                    <div class="form-group button text-center crea">
+                        <button id="creation-btn" type="button" class="btn" onclick="creation.test()">Lass die Magie
+                            beginnen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     </div>
     </div>
 
@@ -523,6 +549,111 @@
                 }
             });
         }
+
+        function selectedFav1() {
+            var favInput1 = document.getElementById('gen-variation-input-1');
+            console.log(favInput1)
+            var favInput2 = document.getElementById('gen-variation-input-2');
+            console.log(favInput2)
+            var favInput3 = document.getElementById('gen-variation-input-3');
+            console.log(favInput3)
+            var favInput4 = document.getElementById('gen-variation-input-4');
+            console.log(favInput4)
+            favInput1.setAttribute('value', '1')
+            favInput1.setAttribute('class', 'form-control')
+            favInput1.setAttribute('name', 'selected')
+
+            favInput2.setAttribute('value', '')
+            favInput2.setAttribute('class', '')
+            favInput2.setAttribute('name', '')
+
+            favInput3.setAttribute('value', '')
+            favInput3.setAttribute('class', '')
+            favInput3.setAttribute('name', '')
+
+            favInput4.setAttribute('value', '')
+            favInput4.setAttribute('class', '')
+            favInput4.setAttribute('name', '')
+        }
+
+        function selectedFav2() {
+            var favInput1 = document.getElementById('gen-variation-input-1');
+            console.log(favInput1)
+            var favInput2 = document.getElementById('gen-variation-input-2');
+            console.log(favInput2)
+            var favInput3 = document.getElementById('gen-variation-input-3');
+            console.log(favInput3)
+            var favInput4 = document.getElementById('gen-variation-input-4');
+            console.log(favInput4)
+            favInput1.setAttribute('value', '')
+            favInput1.setAttribute('class', '')
+            favInput1.setAttribute('name', '')
+
+            favInput2.setAttribute('value', '2')
+            favInput2.setAttribute('class', 'form-control')
+            favInput2.setAttribute('name', 'selected')
+
+            favInput3.setAttribute('value', '')
+            favInput3.setAttribute('class', '')
+            favInput3.setAttribute('name', '')
+
+            favInput4.setAttribute('value', '')
+            favInput4.setAttribute('class', '')
+            favInput4.setAttribute('name', '')
+        }
+
+        function selectedFav3() {
+            var favInput1 = document.getElementById('gen-variation-input-1');
+            console.log(favInput1)
+            var favInput2 = document.getElementById('gen-variation-input-2');
+            console.log(favInput2)
+            var favInput3 = document.getElementById('gen-variation-input-3');
+            console.log(favInput3)
+            var favInput4 = document.getElementById('gen-variation-input-4');
+            console.log(favInput4)
+            favInput1.setAttribute('value', '')
+            favInput1.setAttribute('class', '')
+            favInput1.setAttribute('name', '')
+
+            favInput2.setAttribute('value', '')
+            favInput2.setAttribute('class', '')
+            favInput2.setAttribute('name', '')
+
+            favInput3.setAttribute('value', '3')
+            favInput3.setAttribute('class', 'form-control')
+            favInput3.setAttribute('name', 'selected')
+
+            favInput4.setAttribute('value', '')
+            favInput4.setAttribute('class', '')
+            favInput4.setAttribute('name', '')
+        }
+
+        function selectedFav4() {
+            var favInput1 = document.getElementById('gen-variation-input-1');
+            console.log(favInput1)
+            var favInput2 = document.getElementById('gen-variation-input-2');
+            console.log(favInput2)
+            var favInput3 = document.getElementById('gen-variation-input-3');
+            console.log(favInput3)
+            var favInput4 = document.getElementById('gen-variation-input-4');
+            console.log(favInput4)
+            favInput1.setAttribute('value', '')
+            favInput1.setAttribute('class', '')
+            favInput1.setAttribute('name', '')
+
+            favInput2.setAttribute('value', '')
+            favInput2.setAttribute('class', '')
+            favInput2.setAttribute('name', '')
+
+            favInput3.setAttribute('value', '')
+            favInput3.setAttribute('class', '')
+            favInput3.setAttribute('name', '')
+
+            favInput4.setAttribute('value', '4')
+            favInput4.setAttribute('class', 'form-control')
+            favInput4.setAttribute('name', 'selected')
+        }
+
 
     </script>
     </body>

@@ -50,3 +50,13 @@ def furniture_index(request):
 
 def furniture_view(request, furniture):
     pass
+
+
+def requestfurniture(request):
+    print(request.user)                     # user
+    print()                                 # die generierten items nach user filtern und neustes holen siehe oben
+    print(request.POST.get('selected'))     # version
+    print(request.POST.get('email'))        # email, kann auch auto complete sein
+    print(request.POST.get('message'))      # ist optional
+
+    return render(request, "store/midjourney.html")

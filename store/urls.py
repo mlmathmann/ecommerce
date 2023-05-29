@@ -35,6 +35,7 @@ urlpatterns = [
 
                   path('generate-custom-furniture', midjourney.generatecustomfurniture, name="generatecustomfurniture"),
                   path('creation', search.creation, name="creation"),
+                  path('request-custom-furniture', orders.requestfurniture, name="requestfurniture"),
 
                   path('wishlist', wishlist.index, name="wishlist"),
                   path('add-to-wishlist', wishlist.addtowishlist, name="addtowishlist"),
