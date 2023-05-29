@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="../../../static/assets/css/midjourney.css">
     </head>
 
-    <body>
+    <body onbeforeunload="return a()">
     <!--header-->
     <header class="header navbar-area">
         <div class="container">
@@ -193,8 +193,8 @@
 
     <div class="container"><br><br>
         {% csrf_token %}
-        <div class="row">
-            {% if gen_item != None and gen_item != '' %}
+        <div class="row molotov">
+            {% if gen_item != None %}
                 <div class="col-12 mt-5">
                     <div class="section-title"><h2>Vier Versionen deiner Kreation</h2></div>
                 </div>
@@ -335,6 +335,7 @@
                 </div>
                 </div>
             {% endif %}
+
     <!-- End Generator  -->
 
     <br><br><br>
@@ -464,15 +465,28 @@
         function creation(subcategoryButtonName) {
             creation.test = function test() {
                 console.log(data)
-                $.ajax({
-                    method: "POST",
-                    url: "/creation",
-                    data: data,
-                    success: function (responsec) {
-                        Swal.fire("Genration started!", 'Dieser Prozess kann bis zu 2 Minuten dauern, fühlen Sie sich frei den Shop weiter zu erkunden.', "success");
-                    }
-                });
-            }
+                Swal.fire("Genration started!", 'Dieser Prozess kann bis zu 2 Minuten dauern, bitte verlassen Sie die Seite nicht!', "success").then(
+                    $.ajax({
+                        method: "POST",
+                        url: "/creation",
+                        data: data,
+                        success: function (responsec) {
+                            $.ajax({
+                                method: "POST",
+                                url: "/generate-custom-furniture",
+                                data: {
+                                    'gen_comp': 'true',
+                                    csrfmiddlewaretoken: token,
+                                },
+                                success: function () {
+                                    //Swal.fire("Generation complete!", '', "success");
+                                    $('#molotov').load(document.URL + ' #molotov');
+                                }
+                            })
+                            //Swal.fire("Zwischenstep!", 'Dieser Prozess kann bis zu 2 Minuten dauern, bitte verlassen Sie die Seite nicht!', "success");
+                        }
+                    }))
+            };
 
             const selectedCategoryButton = document.querySelector(".category-button.selected");
             const categoryDropdown = document.getElementById("category-dropdown");
@@ -486,6 +500,24 @@
                 "material": subcategoryButtonName,
                 csrfmiddlewaretoken: token,
             }
+        }
+
+        function a() {
+            var end = 'ye';
+            var token = $('input[name=csrfmiddlewaretoken]').val()
+            $.ajax({
+                type: "POST",
+                url: "/generate-custom-furniture",
+                data: {
+                    'end': end,
+                    csrfmiddlewaretoken: token
+
+                },
+                success: function (response) {
+                    alertify.success("Reload");
+                    //window.location.reload()
+                }
+            });
         }
 
     </script>

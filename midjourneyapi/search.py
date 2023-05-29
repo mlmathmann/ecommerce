@@ -56,9 +56,11 @@ def creation(request):
         # similar_image = find_similar_image_by_name(image_name)
         item = GeneratedItem()
         item.user = request.user
-        item.image = 'uploads/generated/johnjohn_fantasy_chair_crystal_8f4af673-a8c7-4926-b197-3969d5698754.png'
+        item.image = 'uploads/generated/johnjohn_art_object_made_out_of_nacre_be7e519b-6e66-4d55-9b06-193514d944f1.png'
         item.prompt = json_data
         item.save()
+
+        time.sleep(5)
     return HttpResponse(status=201)
 
 

@@ -8,12 +8,26 @@ from .dashboard import details, profile
 from store.views import get_navbar_context
 
 
+gen_comp = ''
+
 @login_required(login_url='loginpage')
 def generatecustomfurniture(request):
     nav_context = get_navbar_context(request)
-    gen_items = GeneratedItem.objects.filter(user=request.user).order_by('-created_at')
-    print(gen_items)
-    gen_item = gen_items.first()
+    gen_item = None
+    global gen_comp
+    print("global", gen_comp)
+
+    if request.method == 'POST' and request.POST.get('end') == 'ye':
+        gen_comp = ''
+    else:
+        if request.method == 'POST':
+            gen_comp = request.POST.get('gen_comp')
+            print("post", gen_comp)
+
+        if gen_comp == 'true':
+            gen_items = GeneratedItem.objects.filter(user=request.user).order_by('-created_at')
+            gen_item = gen_items.first()
+
     print(gen_item)
     return render(request, "store/midjourney.html", {'category': nav_context.get('categories'),
                                                      'nav_context': nav_context,
