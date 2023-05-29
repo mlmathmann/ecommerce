@@ -201,7 +201,8 @@
                     <div class="col-md-5 col-lg-4 order-md-last">
                         <h4 class="d-flex justify-content-between align-items-center mb-3">
                             <span class="text" style="color: #5830E0">Ihre Bestellung</span>
-                            <span class="badge rounded-pill" style="background-color: #5830E0">{{ cart_item_count }}</span>
+                            <span class="badge rounded-pill"
+                                  style="background-color: #5830E0">{{ cart_item_count }}</span>
                         </h4>
                         <ul class="list-group mb-4">
                             {% if cartitems %}
@@ -214,7 +215,7 @@
                                             <small class="text-muted">{{ item.product.small_description }}</small>
                                         </div>
                                         <span class="text-muted"
-                                              style="min-width: fit-content; margin-left: auto">{{ item.product.selling_price }} €</span>
+                                              style="min-width: fit-content; margin-left: auto">{{ item.product.selling_price | floatformat:2 }} €</span>
                                     </li>
                                 {% endfor %}
                                 <br>
@@ -222,6 +223,8 @@
                                     style="background-color: #dbdbdb">
                                     <h6>Bestellsumme</h6>
                                     <h6>{{ total_price }} €</h6>
+                                    <input type="hidden" value="{{ total_price }}"
+                                           class="form-control" name="total_price">
                                 </li>
                                 </ul>
                             {% else %}
@@ -519,6 +522,7 @@
                     var postal_code = $("[name='postal_code']").val();
                     var city = $("[name='city']").val();
                     var country = $("[name='country']").val();
+                    var total_price = $("[name='total_price']").val();
                     var token = $('input[name=csrfmiddlewaretoken]').val();
 
                     data = {
@@ -532,6 +536,7 @@
                         "postal_code": postal_code,
                         "city": city,
                         "country": country,
+                        "total_price": total_price,
                         "payment_mode": "Paid with PayPal",
                         "payment_id": orderData.id,
                         csrfmiddlewaretoken: token,

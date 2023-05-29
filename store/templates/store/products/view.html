@@ -230,9 +230,9 @@
                                                         <p class="mt-4 mb-2"
                                                            style="font-family: Lato, sans-serif; color: #888888">{{ products.description }}</p>
                                                         <label class="me-3 mt-4">Original Price :
-                                                            <s>{{ products.original_price | stringformat:'d' }}€</s></label>
+                                                            <s>{{ products.original_price | floatformat:2 }}€</s></label>
                                                         <label class="fw-bold">Selling Price :
-                                                            {{ products.selling_price }}€</label>
+                                                            {{ products.selling_price | floatformat:2 }}€</label>
                                                         <hr>
                                                         {% if products.quantity > 0 %}
                                                             <label class="badge bg-success" style="font-size: 100%">In

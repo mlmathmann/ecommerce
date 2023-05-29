@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from store.controller import authview, cart, wishlist, checkout, dashboard, midjourney
+from store.controller import authview, cart, wishlist, checkout, dashboard, midjourney, orders
 from django.contrib.auth import views as auth_views
 from .views import PasswordsChangeView
 from django.conf import settings
@@ -42,6 +42,11 @@ urlpatterns = [
 
                   path('checkout', checkout.index, name="checkout"),
                   path('place-order', checkout.placeorder, name="placeorder"),
+
+                  path('my-orders', orders.orders_index, name="myorders"),
+                  path('my-orders/<str:order>', orders.orders_view, name="myordersdetails"),
+                  path('my-furniture', orders.furniture_index, name="myfurniture"),
+                  path('my-furniture/<str:furniture>', orders.furniture_view, name="myfurnituredetails"),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

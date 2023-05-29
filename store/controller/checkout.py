@@ -30,6 +30,7 @@ def index(request):
         format_str = '{{:,.{}f}}'.format(2)
         number_str = format_str.format(total_price)
         new_total_price = number_str.replace(',', 'X').replace('.', ',').replace('X', '.')
+    total_price = "{:.2f}".format(total_price)
 
     userprofile = Profile.objects.filter(user=request.user).first()
 
@@ -140,7 +141,7 @@ def placeorder(request):
         neworder.city = request.POST.get('city')
         neworder.country = request.POST.get('country')
 
-        # neworder.total_price = request.POST.get('total_price')
+        # neworder.total_price = request.POST.get('total_price_calc')
 
         neworder.payment_mode = request.POST.get('payment_mode')
         neworder.payment_id = request.POST.get('payment_id')
@@ -150,11 +151,11 @@ def placeorder(request):
         for item in cart:
             cart_total_price = cart_total_price + item.product.selling_price * item.product_quantity
 
-        neworder.total_price = cart_total_price
+        neworder.total_price = "{:.2f}".format(cart_total_price)
 
-        trackingno = 'miaggio#delivery#' + str(random.randint(1111111, 9999999))
+        trackingno = 'miaggio#order#' + str(random.randint(1111111, 9999999))
         while Order.objects.filter(tracking_no=trackingno) is None:
-            trackingno = 'miaggio#delivery#' + str(random.randint(1111111, 9999999))
+            trackingno = 'miaggio#order#' + str(random.randint(1111111, 9999999))
 
         neworder.tracking_no = trackingno
         neworder.save()
