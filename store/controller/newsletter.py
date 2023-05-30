@@ -1,11 +1,15 @@
 from django.shortcuts import redirect
 from store.models import Product, Profile, User
 from store.views import get_navbar_context
+from django.contrib.auth.models import AnonymousUser
 import sweetify
 
 
 def subscribe(request):
     if request.method == 'POST':
+        if str(request.user) == 'AnonymousUser':
+            sweetify.info(request, 'An account is needed for subscription.')
+            return redirect("/")
         email_address = request.POST.get('EMAIL')
 
         profile_user = Profile.objects.filter(user=request.user).first()

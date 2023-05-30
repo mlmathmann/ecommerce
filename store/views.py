@@ -5,6 +5,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from .models import *
 from django.urls import reverse_lazy
 from .forms import CustomPasswordChangeForm
+from django.contrib.auth.models import AnonymousUser
 from static.assets.images import hero
 
 # Create your views here.
@@ -20,6 +21,7 @@ def get_navbar_context(request):
         profile_picture = None
     categories = Category.objects.all()
     collections = Collection.objects.all()
+
 
     if request.user.is_authenticated:
         user_newsletter_subscription = Profile.objects.filter(user=request.user).values('newsletter_subscription')
