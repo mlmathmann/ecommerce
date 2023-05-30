@@ -10,6 +10,8 @@ from static.assets.images import hero
 # Create your views here.
 #
 def get_navbar_context(request):
+    user_newsletter_subscription = False
+
     if Profile.objects.filter(user=request.user.id).values('profile_picture').count() > 0:
         profile_picture = Profile.objects.filter(user=request.user).values('profile_picture')
         for picture in profile_picture:
@@ -18,10 +20,13 @@ def get_navbar_context(request):
         profile_picture = None
     categories = Category.objects.all()
     collections = Collection.objects.all()
-    user_newsletter_subscription = Profile.objects.filter(user=request.user).values('newsletter_subscription')
-    if user_newsletter_subscription:
-        for newsletter_subscription in user_newsletter_subscription:
-            user_newsletter_subscription = newsletter_subscription.get('newsletter_subscription')
+
+    if request.user.is_authenticated:
+        user_newsletter_subscription = Profile.objects.filter(user=request.user).values('newsletter_subscription')
+        if user_newsletter_subscription:
+            for newsletter_subscription in user_newsletter_subscription:
+                user_newsletter_subscription = newsletter_subscription.get('newsletter_subscription')
+
     context = {'categories': categories, 'profile_picture': profile_picture, 'collections': collections, 'user_newsletter_subscription': user_newsletter_subscription}
     return context
 
