@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from store.controller import authview, cart, wishlist, checkout, dashboard, midjourney, orders, newsletter
+from store.controller import authview, cart, wishlist, checkout, dashboard, midjourney, orders, newsletter, essentials
 from django.contrib.auth import views as auth_views
 from .views import PasswordsChangeView
 from django.conf import settings
@@ -19,6 +19,7 @@ urlpatterns = [
                   path('register/', authview.register, name="register"),
                   path('login/', authview.loginpage, name="loginpage"),
                   path('logout/', authview.logoutpage, name="logout"),
+
                   path('update-user/', authview.updateuser, name="updateuser"),
                   path('delete-profilepicture/', authview.deleteprofilepicture, name="deleteprofilepicture"),
                   path('update-password/', authview.updatepassword, name="updatepassword"),
@@ -52,6 +53,12 @@ urlpatterns = [
                   path('my-orders/<str:order>', orders.orders_view, name="myordersdetails"),
                   path('my-furniture', orders.furniture_index, name="myfurniture"),
                   path('my-furniture/<str:creation_tracking_no>', orders.furniture_view, name="myfurnituredetails"),
+
+                  path('about-us', essentials.about_us, name="about-us"),
+                  path('agb', essentials.agb, name="agb"),
+                  path('datenschutzrichtlinie', essentials.datenschutz, name="datenschutz"),
+                  path('faq', essentials.faq, name="faq"),
+                  path('impressum', essentials.impressum, name="impressum"),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

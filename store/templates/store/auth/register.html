@@ -75,11 +75,11 @@
                                            aria-label="Toggle navigation">Essentials</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
 
-                                            <li class="nav-item"><a href="../../../static/about-us.html">About
+                                            <li class="nav-item"><a href="{% url 'about-us' %}">About
                                                 Us</a></li>
-                                            <li class="nav-item"><a href="../../../static/contact.html">Contact
-                                                Us</a></li>
-                                            <li class="nav-item"><a href="../../../static/faq.html">FAQ</a></li>
+                                            <li class="nav-item"><a href="{% url 'home' %}">Creation</a>
+                                            </li>
+                                            <li class="nav-item"><a href="{% url 'faq' %}">FAQ</a></li>
 
                                         </ul>
                                     </li>
@@ -89,10 +89,10 @@
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
                                            aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
-                                            <li class="nav-item"><a href="../../../static/agb.html">AGB</a></li>
-                                            <li class="nav-item"><a href="../../../static/datenschutz.html">Datenschutzrichtlinie</a>
+                                            <li class="nav-item"><a href="{% url 'agb' %}">AGB</a></li>
+                                            <li class="nav-item"><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
                                             </li>
-                                            <li class="nav-item"><a href="../../../static/impressum.html">Impressum</a>
+                                            <li class="nav-item"><a href="{% url 'impressum' %}">Impressum</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -177,12 +177,12 @@
             <div class="row align-items-center">
                 <div class="col">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Registeration</h1>
+                        <h1 class="page-title">Register</h1>
                     </div>
                 </div>
                 <div class="col">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="{% url 'home' %}">Home</a></li>
                         <li>Register</li>
                     </ul>
                 </div>
@@ -250,17 +250,30 @@
                     <div class="col-lg-6 ">
                         <div class="title">
                             <h2>Newsletter</h2>
-                            <p>We don't send spam so don't worry.</p>
+                            <p>We don't send spam, don't worry.</p>
                         </div>
                     </div>
                     <div class="col-lg-6 ">
                         <div class="form">
-                            <form action="#" method="get" target="_blank" class="newsletter-form">
-                                <input name="EMAIL" placeholder="Your email address" type="email">
-                                <div class="button">
-                                    <button class="btn">Subscribe<span class="dir-part"></span></button>
-                                </div>
-                            </form>
+                            {% if user_newsletter_subscription == True %}
+                                <form action="{% url 'unsubscribenewsletter' %}" method="POST" class="newsletter-form">
+                                    {% csrf_token %}
+                                    <input name="EMAIL" value="Newsletter abbestellen? Ganz einfach." readonly>
+                                    <div class="button">
+                                        <button type="submit" class="btn">Unsubscribe<span class="dir-part"></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            {% else %}
+                                <form action="{% url 'subscribenewsletter' %}" method="POST" class="newsletter-form">
+                                    {% csrf_token %}
+                                    <input name="EMAIL" placeholder="Your email address" type="email">
+                                    <div class="button">
+                                        <button type="submit" class="btn">Subscribe<span class="dir-part"></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -278,9 +291,9 @@
                         <div class="single-footer f-link">
                             <h3>Locations</h3>
                             <ul>
-                                <li><a href="#">Oelde</a></li>
-                                <li><a href="#">Beckum</a></li>
-                                <li><a href="#">Ahlen</a></li>
+                                <li style="color: #f0f0f0">Oelde</li>
+                                <li style="color: #f0f0f0">Beckum</li>
+                                <li style="color: #f0f0f0">Ahlen</li>
                             </ul>
                         </div>
                     </div>
@@ -288,10 +301,15 @@
                         <div class="single-footer f-link">
                             <h3>Quick Links</h3>
                             <ul>
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="register.html">Signup</a></li>
-                                <li><a href="faq.html">FAQ</a></li>
+                                {% if request.user.is_authenticated %}
+                                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                                    <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                                    <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                    <li><a href="{% url 'loginpage' %}">Login</a></li>
+                                    <li><a href="{% url 'register' %}">Signup</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -316,9 +334,9 @@
                         <div class="col-12">
                             <div class="content">
                                 <ul class="footer-bottom-links">
-                                    <li><a href="agb.html">AGB</a></li>
-                                    <li><a href="datenschutz.html">Datenschutzrichtlinie</a></li>
-                                    <li><a href="impressum.html">Impressum</a></li>
+                                    <li><a href="{% url 'agb' %}">AGB</a></li>
+                                    <li><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a></li>
+                                    <li><a href="{% url 'impressum' %}">Impressum</a></li>
                                 </ul>
                             </div>
                         </div>

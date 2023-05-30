@@ -18,23 +18,22 @@ def get_navbar_context(request):
         profile_picture = None
     categories = Category.objects.all()
     collections = Collection.objects.all()
-    context = {'categories': categories, 'profile_picture': profile_picture, 'collections': collections}
-    return context
-
-
-def home(request):
-
     user_newsletter_subscription = Profile.objects.filter(user=request.user).values('newsletter_subscription')
     if user_newsletter_subscription:
         for newsletter_subscription in user_newsletter_subscription:
             user_newsletter_subscription = newsletter_subscription.get('newsletter_subscription')
+    context = {'categories': categories, 'profile_picture': profile_picture, 'collections': collections, 'user_newsletter_subscription': user_newsletter_subscription}
+    return context
+
+
+def home(request):
 
     nav_context = get_navbar_context(request)
     products = Product.objects.all()
 
     context = {'category': nav_context.get('categories'), 'products': products,
                'profile_picture': nav_context.get('profile_picture'), 'collections': nav_context.get('collections'),
-               'user_newsletter_subscription': user_newsletter_subscription}
+               'user_newsletter_subscription': nav_context.get('user_newsletter_subscription')}
     return render(request, "store/index.html", context)
 
 

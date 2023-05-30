@@ -47,7 +47,7 @@
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Categories</li>
-                                                    {% for item in categories %}
+                                                    {% for item in category %}
                                                         <li class="nav-item"><a
                                                                 href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
                                                         </li>
@@ -123,12 +123,12 @@
                                                         style="border: none; margin: unset; padding: unset; width: 100%">
                                                     <a class="profile-btn p-2"
                                                        style="width: 100%; color: #888888; font-size: 14px"
-                                                       href="{% url 'home' %}">My Orders</a></li>
+                                                       href="{% url 'myorders' %}">My Orders</a></li>
                                                 <li
                                                         style="border: none; margin: unset; padding: unset; width: 100%">
                                                     <a class="profile-btn p-2"
                                                        style="width: 100%; color: #888888; font-size: 14px"
-                                                       href="{% url 'home' %}">My Furniture</a></li>
+                                                       href="{% url 'myfurniture' %}">My Furniture</a></li>
                                                 <hr style="margin: 5px">
                                                 <li
                                                         style="border: none; margin: unset; padding: unset; width: 100%">
@@ -170,19 +170,19 @@
     </header>
     <!--header-->
 
-    <!-- Start Breadcrumbs -->
+        <!-- Start Breadcrumbs -->
     <div class="breadcrumbs">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col">
+                <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">{{ creation }}</h1>
+                        <h1 class="page-title">Allgemeine Geschäftsbedingungen</h1>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="{% url 'myfurniture' %}">My Creations</a></li>
-                        <li>{{ creation }}</li>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li>AGB</li>
                     </ul>
                 </div>
             </div>
@@ -190,59 +190,60 @@
     </div>
     <!-- End Breadcrumbs -->
 
-    <div class="container">
-        <main>
-            <div class="py-5 text-center">
-                <h2 class="mb-3 text" style="color: #5830E0">Letzte Änderungen</h2>
-                <div class="text">{{ creation.created_at }} # Pending</div>
-                {% if creation.status != "Pending" %}
-                    <div class="text">{{ creation.updated_at }} # {{ creation.status }}</div>
-                {% endif %}
-            </div>
-            <br>
+    <!-- Start About Area -->
+    <section class="about-us section">
+        <div class="container">
+                <div class="col">
+                    <!-- content-1 start -->
+                    <div class="content-right wow fadeInRight">
+                        <!-- Heading -->
+                        <h2>Allgemeine Geschäftsbedingungen</h2>
+                        <strong>§ 1 Grundlegende Bestimmungen</strong><p>1 Die nachstehenden Geschäftsbedingungen gelten für Verträge die mit Miaggio geschlossen werden. Soweit nicht anders vereinbart, wird eigens von Ihnen verwendeten Bedingungen widersprochen. </p><p>2) Verbraucher im Sinne dieser Regelung ist jede natürliche Person, die ein Rechtsgeschäft mit privaten Anliegen abschließt. Unternehmer ist jede natürliche oder juristische Person, die bei Abschluss des Rechtsgeschäfts im Sinne ihrer beruflichen oder gewerblichen Interessen handelt. </p><strong><br>§ 2 Zustandekommen des Vertrages</strong><p>1) Vertragsgegenstand ist der Verkauf von Waren. </p><p>2) Mit der Bereitstellung eines Produktes in unserem Shop unterbreiten wir unseren Kunden ein verbindliches Angebot zum Abschluss eines Kaufvertrages. </p><p>3) Alle zum Kauf beabsichtigten Produkte werden vom Kunden im Warenkorb abgelegt. Nach Eingabe der persönlichen Daten und Zahlungsinformationen hat der Kunde die Möglichkeit alle eingegebenen Informationen zu überprüfen. Mit dem Absenden der Bestellung durch Klick auf die dafür vorgesehene Schaltfläche erklärt der Kunde rechtsverbindlich die Annahme des Angebotes. Damit ist der Kaufvertrag zustande gekommen. Bei der Zahlungs-Option über Payment-Dienstleister wie PayPal oder Sofortüberweisung, wird der Kunde von unserem unserem Onlineshop auf die Webseite des Anbieters weitergeleitet. Nach Eingabe aller erforderlichen Daten wird der Kunde abschließend zurück in unseren Shop geleitet. </p><p>4) Die Übermittlung aller Informationen im Zusammenhang mit dem Vertragsschluss erfolgt automatisiert per E-Mail. Der Kunde hat daher sicherzustellen, dass die bei uns hinterlegte E-Mail-Adresse erreichbar ist. </p><strong><br>§ 3 Eigentumsvorbehalt und Zurückbehaltungsrecht</strong><p>1) Ein Zurückbehaltungsrecht kann vom Kunden nur dann ausgeübt werden, sofern es nicht Forderungen aus selbigem Vertragsverhältnis sind. </p><p>2) Bis zur vollständigen Zahlung des Kaufpreises bleibt die Ware Eigentum des Shop-Betreibers. </p><strong><br>§ 4 Bestimmungen zur Haftung</strong><p>1) Für Schäden an Körper oder der Gesundheit haften wir uneingeschränkt, sowie in Fällen des Vorsatzes und grober Fahrlässigkeit. Weiterhin bei arglistigem Verschweigen eines Mangels und in allen anderen gesetzlich geregelten Fällen. Die Haftung für Mängel im Rahmen der gesetzlichen Gewährleistung ist der entsprechenden Regelung in unseren Kundeninformationen zu entnehmen. </p><p>2) Sofern wesentliche Vertragspflichten nicht erfüllt werden, ist die Haftung des Onlineshops bei leichter Fahrlässigkeit auf den vorhersehbaren, vertragstypischen Schaden beschränkt. </p><p>3) Bei der Verletzung unwesentlicher Pflichten die aus dem Vertrag hervorgehen, ist die Haftung bei leicht fahrlässigen Pflichtverletzungen ausgeschlossen. </p><p>4) Es erfolgt keine Haftung für die stetige Verfügbarkeit dieser Website und der darauf angebotenen Waren. </p><strong><br>§ 5 Rechtswahl</strong><p>1) Es gilt deutsches Recht. Die Bestimmungen des UN-Kaufrechts finden ausdrücklich keine Anwendung. </p><strong><br>§ 6 Streitbeilegung</strong><p>1) Die Europäische Kommission stellt für die außergerichtliche Online-Streitbeilegung eine Plattform bereit(OS-Plattform), die unter <a href="http://ec.europa.eu/odr" target="_blank">http://ec.europa.eu/odr</a> abrufbar ist.<p><br>§ 7 Vertragssprache, Vertragstextspeicherung</strong><p>1) Vertragssprache ist deutsch. </p><p>2) Der vollständige Vertragstext wird von uns nicht gespeichert. Kunden können dies vor Absenden der Bestellung über die Druckfunktion des Browsers elektronisch sichern. </p><strong><br>§ 8 Preise und Zahlungsmodalitäten Merkmale der Waren</strong><p>1) Die ausgewiesenen Preise sowie die Versandkosten stellen Brutto-Preise dar. </p><p>2) Versandkosten sind nicht im Kaufpreis enthalten. Sie sind explizit gekennzeichnet oder werden im Laufe des Bestellvorganges gesondert ausgewiesen und sind vom Kunden zusätzlich zu tragen, soweit nicht eine kostenfreie Lieferung zugesagt ist. </p><p>3) Die zur Verfügung stehenden Zahlungsmethoden sind auf unserer Webseite oder in der jeweiligen Artikelbeschreibung ausgewiesen, spätestens aber im abschließenden Bestellprozess an der "Kasse" genannt. Soweit nicht anders angegeben, sind die Zahlungsansprüche aus dem Vertrag unmittelbar zur Zahlung fällig. </p><p>4) Die wesentlichen Merkmale der Ware und/oder Dienstleistung finden sich in der Artikelbeschreibung und den ergänzenden Angaben auf unserer Internetseite. </p><strong><br>§ 9 Lieferbedingungen</strong><p>1) Lieferbedingungen,Lieferzeit sowie ggf. bestehende Beschränkungen zur Lieferung finden sich unter dem entsprechend bezeichneten Link in unserem Onlineshop oder in der jeweiligen Artikelbeschreibung. </p><p>2) Für Verbraucher gilt, dass die Gefahr des zufälligen Untergangs oder der Verschlechterung der verkauften Ware während der Versendung erst mit der Übergabe der Ware an den Kunden übergeht. Die Regelung gilt unabhängig davon,ob die Versendung versichert oder unversichert erfolgt. </p><strong><br>§ 10 Gesetzliches Mängelhaftungsrecht</strong><p>1) Die gesetzlichen Mängelhaftungsrechte haben bestand. </p><p>2) Verbraucher werden gebeten, die Ware bei Lieferung auf Vollständigkeit, offensichtliche Mängel und Transportschäden zu überprüfen und dem Shop-Betreiber schnellstmöglich mitzuteilen. Wird dem nicht vom Kunden nachgekommen hat dies keine Auswirkung auf seine gesetzlichen Gewährleistungsansprüche. </p>
+                    </div>
+                </div>
+        </div>
+    </section>
+    <!-- End About Area -->
 
-            <div class="section-title mb-0">
-                <h2>Ihre Kreation</h2>
-                <span class="sub-heading"
-                      style=" display: inline-block; font-weight: 500; font-size: 17px; color: #5830E0; background-color: #f9f9f9;
-                       padding: 5px 20px; border-radius: 4px;">
-                    "{{ creation_prompt }}"
-                </span>
-            </div>
-
-            <div class="card product_data" style="border: unset; width: fit-content; padding-left: 7%;">
-                <div class="card-body" style="width: fit-content">
-                    <div class="row" style="width: fit-content">
-                        <div class="col-lg-12" style="width: fit-content">
-                            <div class="card shadow" style="width: fit-content">
-                                <div class="card-body" style="width: fit-content">
-                                    <img id="creation-image" src="{{ creation.order.image.url }}" alt="image"
-                                         style="width: 1024px; height: 1024px; object-fit: none;
-                                                 {% if creation.version == '1' %}
-                                                     object-position: 0% 0%;
-                                                 {% elif creation.version == '2' %}
-                                                     object-position: 100% 0%;
-                                                 {% elif creation.version == '3' %}
-                                                     object-position: 0% 100%;
-                                                 {% elif creation.version == '4' %}
-                                                     object-position: 100% 100%;
-                                                 {% endif %}">
-                                </div>
-                            </div>
+    <!--Newsletter-->
+    <div class="newsletter section">
+        <div class="container">
+            <div class="inner-content">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 ">
+                        <div class="title">
+                            <h2>Newsletter</h2>
+                            <p>We don't send spam, don't worry.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 ">
+                        <div class="form">
+                            {% if user_newsletter_subscription == True %}
+                                <form action="{% url 'unsubscribenewsletter' %}" method="POST" class="newsletter-form">
+                                    {% csrf_token %}
+                                    <input name="EMAIL" value="Newsletter abbestellen? Ganz einfach." readonly>
+                                    <div class="button">
+                                        <button type="submit" class="btn">Unsubscribe<span class="dir-part"></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            {% else %}
+                                <form action="{% url 'subscribenewsletter' %}" method="POST" class="newsletter-form">
+                                    {% csrf_token %}
+                                    <input name="EMAIL" placeholder="Your email address" type="email">
+                                    <div class="button">
+                                        <button type="submit" class="btn">Subscribe<span class="dir-part"></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
-            <br>
-
-            <hr class="my-4">
-
-            <hr class="my-4">
-            <br>
-            <br>
-            <br>
-        </main>
+        </div>
     </div>
+    <!--Newsletter-->
 
     <!--Footer-->
     <footer class="footer">
@@ -316,8 +317,13 @@
     <!--scroll-top-->
 
     <!--JS-->
-
     </body>
     </html>
-{% endblock %}
+{% endblock content %}
+{% load sweetify %}
+{% sweetify %}
+
+
+
+
 
