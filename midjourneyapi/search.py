@@ -43,7 +43,7 @@ def creation(request):
             "material": material
         }
         print(json_data)
-        '''
+
         website_json = prompt_extractor(json_data)
     
         send_prompts_to_discord = prompt_sender(website_json)
@@ -60,15 +60,7 @@ def creation(request):
         item.image = image_in_folder
         item.prompt = json_data
         item.save()
-        '''
-        item = GeneratedItem()
-        item.user = request.user
-        item.image = "uploads/johnjohn_art_object_made_out_of_nacre_be7e519b-6e66-4d55-9b06-193514d944f1.png"
-        item.prompt = json_data
-        item.save()
 
-    #timer sitzt hier nur damit wir die zeit nachahmen können und er durchläuft
-    time.sleep(5)
     return HttpResponse(status=201)
 
 
