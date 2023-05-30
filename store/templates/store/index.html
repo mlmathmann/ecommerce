@@ -76,7 +76,8 @@
 
                                             <li class="nav-item"><a href="../../../static/about-us.html">About
                                                 Us</a></li>
-                                            <li class="nav-item"><a href="../../../static/contact.html">Generate</a></li>
+                                            <li class="nav-item"><a href="../../../static/contact.html">Generate</a>
+                                            </li>
                                             <li class="nav-item"><a href="../../../static/faq.html">FAQ</a></li>
 
                                         </ul>
@@ -184,7 +185,7 @@
         <!-- The slideshow/carousel -->
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="5000"><img
-                    src="../../../static/assets/images/hero/hero-carooo.jpg" 
+                    src="../../../static/assets/images/hero/hero-carooo.jpg"
                     alt="#" style="width: 100%"></div>
             <div class="carousel-item" data-bs-interval="5000"><img
                     src="../../../static/assets/images/hero/hero-caro1.jpg"
@@ -203,7 +204,7 @@
                     alt="#" style="width: 100%"></div>
             <div class="carousel-item" data-bs-interval="5000"><img
                     src="../../../static/assets/images/hero/hero7.jpg"
-                    alt="#" style="width: 100%"></div>     
+                    alt="#" style="width: 100%"></div>
         </div>
         <!-- Left and right controls -->
         <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev"><span
@@ -267,7 +268,8 @@
                                     </div>
                                     <div class="bottom-content">
                                         <a class="a-home-item-tag"
-                                           href="{% url 'productview' item.category.slug item.slug %}"><p>Mehr erfahren></p></a>
+                                           href="{% url 'productview' item.category.slug item.slug %}"><p>Mehr
+                                            erfahren></p></a>
                                     </div>
                                 </div>
                             </div>
@@ -304,7 +306,8 @@
                         </div>
                         <div class="col">
                             <div class="single-list"><h4>Benutzerfreundlich</h4>
-                                <p>Eine einfache und intuitive Plattform für ein reibungsloses Einkaufserlebnis.</p></div>
+                                <p>Eine einfache und intuitive Plattform für ein reibungsloses Einkaufserlebnis.</p>
+                            </div>
                         </div>
                         <span></span>
                         <div class="col">
@@ -377,17 +380,30 @@
                     <div class="col-lg-6 ">
                         <div class="title">
                             <h2>Newsletter</h2>
-                            <p>Von uns bekommen Sie keinen Spam, keine Sorge.</p>
+                            <p>We don't send spam, don't worry.</p>
                         </div>
                     </div>
                     <div class="col-lg-6 ">
                         <div class="form">
-                            <form action="#" method="get" target="_blank" class="newsletter-form">
-                                <input name="EMAIL" placeholder="Ihre Emailadresse" type="email">
-                                <div class="button">
-                                    <button class="btn">Abonnieren<span class="dir-part"></span></button>
-                                </div>
-                            </form>
+                            {% if user_newsletter_subscription == True %}
+                                <form action="{% url 'unsubscribenewsletter' %}" method="POST" class="newsletter-form">
+                                    {% csrf_token %}
+                                    <input name="EMAIL" value="Newsletter abbestellen? Ganz einfach." readonly>
+                                    <div class="button">
+                                        <button type="submit" class="btn">Unsubscribe<span class="dir-part"></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            {% else %}
+                                <form action="{% url 'subscribenewsletter' %}" method="POST" class="newsletter-form">
+                                    {% csrf_token %}
+                                    <input name="EMAIL" placeholder="Your email address" type="email">
+                                    <div class="button">
+                                        <button type="submit" class="btn">Subscribe<span class="dir-part"></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

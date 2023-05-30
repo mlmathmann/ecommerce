@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from store.controller import authview, cart, wishlist, checkout, dashboard, midjourney, orders
+from store.controller import authview, cart, wishlist, checkout, dashboard, midjourney, orders, newsletter
 from django.contrib.auth import views as auth_views
 from .views import PasswordsChangeView
 from django.conf import settings
@@ -27,6 +27,9 @@ urlpatterns = [
 
                   path('myprofile/<str:user>', dashboard.profile, name="profile"),
                   path('myprofile/<str:user>/details', dashboard.details, name="details"),
+
+                  path('subscribe-to-newsletter', newsletter.subscribe, name="subscribenewsletter"),
+                  path('unsubscribe-to-newsletter', newsletter.unsubscribe, name="unsubscribenewsletter"),
 
                   path('add-to-cart', cart.addtocart, name="addtocart"),
                   path('cart', cart.viewcart, name="cart"),

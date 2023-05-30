@@ -155,6 +155,7 @@ class Profile(models.Model):
     postal_code = models.CharField(max_length=150, null=False)
     city = models.CharField(max_length=150, null=False)
     country = models.CharField(max_length=12, choices=CountryChoices.choices, default='Deutschland')
+    newsletter_subscription = models.BooleanField(default=False, help_text="0=default, 1=Subscribed")
     created_at = models.DateTimeField(auto_now_add=True)
 
 

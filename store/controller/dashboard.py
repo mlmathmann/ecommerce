@@ -79,13 +79,20 @@ def profile(request, user):
     else:
         user_country = ''
 
+    user_newsletter_subscription = Profile.objects.filter(user=request.user).values('newsletter_subscription')
+    if user_newsletter_subscription:
+        for newsletter_subscription in user_newsletter_subscription:
+            user_newsletter_subscription = newsletter_subscription.get('newsletter_subscription')
+    else:
+        user_newsletter_subscription = ''
+
     user_time = Profile.objects.filter(user=request.user).values('created_at')
     if user_time:
         for time in user_time:
             user_time = time.get('created_at')
     else:
         user_time = ''
-        # TODO: Ausgabe auf deutsch und nur das Datum/ Jahr
+
     context = {'user': user,
                'user_fname': user_fname,
                'user_lname': user_lname,
@@ -102,7 +109,8 @@ def profile(request, user):
                'user_country': user_country,
                'user_time': user_time,
                'user_obj': user_obj,
-               'profile': profile}
+               'profile': profile,
+               'user_newsletter_subscription': user_newsletter_subscription}
     return render(request, "store/profile.html", context)
 
 

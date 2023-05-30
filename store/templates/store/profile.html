@@ -202,11 +202,12 @@
                                         <div class="d-flex align-items-center">
                                             <a href="#" class="avatar avatar-sm bg-warning rounded-circle text-white">
                                                 {% if profile_picture != '' and profile_picture != None %}
-                                                    <img alt="picture" width="80" height="80" style="border-radius: 12px"
-                                                     src="../../../static/{{ profile_picture }}">
+                                                    <img alt="picture" width="80" height="80"
+                                                         style="border-radius: 12px"
+                                                         src="../../../static/{{ profile_picture }}">
                                                 {% else %}
                                                     <img alt="picture" width="80" height="80"
-                                                     src="../../../static/assets/images/blank.jpg">
+                                                         src="../../../static/assets/images/blank.jpg">
                                                 {% endif %}
                                             </a>
                                             <div class="ms-4">
@@ -221,14 +222,14 @@
                                                 style="position: absolute; bottom: 0px; right: 20px"
                                                 src="../../../static/assets/images/pencil.png" width="25px"
                                                 height="25px"></a>
-                                    <div class="modal fade" id="#img" tabindex="-1"
-                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <form action="#">
-                                            <input type="file" id="img" name="img" accept="image/*">
-                                            <input type="submit">
-                                        </form>
+                                        <div class="modal fade" id="#img" tabindex="-1"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <form action="#">
+                                                <input type="file" id="img" name="img" accept="image/*">
+                                                <input type="submit">
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
                                 </div>
                                 <hr>
                                 <div class="row">
@@ -237,7 +238,10 @@
                                         <p>Vorname: {{ user_fname }}</p><br>
                                         <p>Nachname: {{ user_lname }}</p><br>
                                         <p>Telefon: {{ user_phone }}</p><br>
-                                        <p>Mitglied seit: {{ user_time }}</p><br>
+                                        <p>Mitglied seit: {{ user_time }}</p><br><br><br>
+                                        {% if user_newsletter_subscription == True %}
+                                            <p>Newsletter Subscription: Subscribed</p>
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-6">
                                         <h3>Addresse</h3><br>
@@ -255,6 +259,12 @@
                         <p>Hinweis: Stimmt dies nicht mit Ihren Angaben überein?
                             <a href="{% url 'details' request.user %}" class="btn btn-sm btn-primary">Daten ändern</a>
                         </p>
+                    <br>
+                        {% if user_newsletter_subscription == True %}
+                            <p>Wollen Sie sich vom Newsletter abmelden?
+                                <a href="{% url 'unsubscribenewsletter' %}" class="btn btn-sm btn-primary">Unsubscribe</a>
+                            </p>
+                        {% endif %}
                     </div>
                     <br>
                 </div>
