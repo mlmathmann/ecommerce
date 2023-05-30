@@ -256,7 +256,7 @@
 
     {% comment %} Alerting via Alertify JS {% endcomment %}
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.5/sweetalert2.all.min.js"></script>
     <script>
         alertify.set('notifier', 'position', 'top-right');
         {% for msg in messages %}
@@ -267,3 +267,5 @@
 {% endblock %}
 </body>
 </html>
+{% load sweetify %}
+{% sweetify %}
