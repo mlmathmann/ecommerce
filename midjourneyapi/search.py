@@ -12,7 +12,6 @@ from django.http import HttpResponse
 
 
 def creation(request):
-    pass
     categories = [('Tisch', 'desk'), ('Stuhl', 'chair'), ('Beistelltisch', 'coffee table'), ('Sessel', 'armchair'),
                   ('Kunstobjekt', 'art object')]
     styles = [('ARISTROCRATIC'), 'IMAGINATIVE', 'FUTURISTIC', 'BRUTALISTIC', 'SIMPLISTIC']

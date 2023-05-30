@@ -37,10 +37,10 @@ urlpatterns = [
                   path('update-cart', cart.updatecart, name='updatecart'),
                   path('delete-cart-item', cart.deletecartitem, name="deletecartitem"),
 
-                  path('generate-custom-furniture', midjourney.generatecustomfurniture, name="generatecustomfurniture"),
-                  path('cancel-custom-furniture', midjourney.cancelcustomfurniture, name="cancelcustomfurniture"),
-                  path('creation', search.creation, name="creation"),
-                  path('request-custom-furniture', midjourney.requestfurniture, name="requestfurniture"),
+                  path('generate-creation', midjourney.generatecustomfurniture, name="generatecustomfurniture"),
+                  path('cancel-creation', midjourney.cancelcustomfurniture, name="cancelcustomfurniture"),
+                  path('create', search.creation, name="creation"),
+                  path('request-creation', midjourney.requestfurniture, name="requestfurniture"),
 
                   path('wishlist', wishlist.index, name="wishlist"),
                   path('add-to-wishlist', wishlist.addtowishlist, name="addtowishlist"),
@@ -51,8 +51,8 @@ urlpatterns = [
 
                   path('my-orders', orders.orders_index, name="myorders"),
                   path('my-orders/<str:order>', orders.orders_view, name="myordersdetails"),
-                  path('my-furniture', orders.furniture_index, name="myfurniture"),
-                  path('my-furniture/<str:creation_tracking_no>', orders.furniture_view, name="myfurnituredetails"),
+                  path('my-creations', orders.furniture_index, name="myfurniture"),
+                  path('my-creations/<str:creation_tracking_no>', orders.furniture_view, name="myfurnituredetails"),
 
                   path('about-us', essentials.about_us, name="about-us"),
                   path('agb', essentials.agb, name="agb"),
