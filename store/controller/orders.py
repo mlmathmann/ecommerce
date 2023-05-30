@@ -64,10 +64,18 @@ def furniture_view(request, creation_tracking_no):
     nav_context = get_navbar_context(request)
     creation = Creation.objects.filter(tracking_no=creation_tracking_no).first()
     prompt = creation.order.prompt
-    #promp_json = json.load(prompt)
-    #print(prompt)
-    #print(promp_json)
-    creation_prompt = ''
+    promp_json = json.loads(prompt.replace("'", '"'))
+    style = promp_json.get('style')
+    object = promp_json.get('objekt')
+    material = promp_json.get('material')
+    creation_prompt = f'A {style} {object} made out of {material}'
+
+    version = creation.version
+    # object-position: 0% 0%; - 1
+    # object-position: 100% 0%; - 2
+    # object-position: 0% 100%; - 3
+    # object-position: 100% 100%; - 4
+
 
     context = {'creation': creation, 'categories': nav_context.get('categories'),
                'profile_picture': nav_context.get('profile_picture'), 'collections': nav_context.get('collections'),
