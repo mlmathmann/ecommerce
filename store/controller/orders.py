@@ -1,8 +1,10 @@
+import json
+
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from store.models import Order, OrderItem, Profile
+from store.models import Order, OrderItem, Profile, GeneratedItem, Creation
 from store.views import get_navbar_context
 
 
@@ -45,9 +47,30 @@ def orders_view(request, order):
 
 
 def furniture_index(request):
-    pass
+    nav_context = get_navbar_context(request)
+    creations = Creation.objects.filter(user=request.user).order_by('-created_at')
+    items_list = []
+
+    for creation in creations:
+        gen_item = GeneratedItem.objects.filter(creation__tracking_no=creation.tracking_no)
+        items_list.append(gen_item)
+
+    context = {'creations': creations, 'items_list': items_list, 'categories': nav_context.get('categories'),
+               'profile_picture': nav_context.get('profile_picture'), 'collections': nav_context.get('collections')}
+    return render(request, 'store/orders/myfurniture.html', context)
 
 
-def furniture_view(request, furniture):
-    pass
+def furniture_view(request, creation_tracking_no):
+    nav_context = get_navbar_context(request)
+    creation = Creation.objects.filter(tracking_no=creation_tracking_no).first()
+    prompt = creation.order.prompt
+    #promp_json = json.load(prompt)
+    #print(prompt)
+    #print(promp_json)
+    creation_prompt = ''
+
+    context = {'creation': creation, 'categories': nav_context.get('categories'),
+               'profile_picture': nav_context.get('profile_picture'), 'collections': nav_context.get('collections'),
+               'creation_prompt': creation_prompt}
+    return render(request, 'store/orders/myfurnituredetails.html', context)
 

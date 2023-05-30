@@ -48,7 +48,7 @@ urlpatterns = [
                   path('my-orders', orders.orders_index, name="myorders"),
                   path('my-orders/<str:order>', orders.orders_view, name="myordersdetails"),
                   path('my-furniture', orders.furniture_index, name="myfurniture"),
-                  path('my-furniture/<str:furniture>', orders.furniture_view, name="myfurnituredetails"),
+                  path('my-furniture/<str:creation_tracking_no>', orders.furniture_view, name="myfurnituredetails"),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

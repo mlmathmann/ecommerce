@@ -52,7 +52,7 @@ def requestfurniture(request):
         creation.order = gen_items.first()
         creation.version = request.POST.get('selected')
         creation.message = request.POST.get('message')
-        creation.tracking_no = 'miaggio#rcreation#' + str(random.randint(1111111, 9999999))
+        creation.tracking_no = 'miaggio#creation#' + str(random.randint(1111111, 9999999))
         creation.save()
         sweetify.success(request, 'Ihre Anfrage wurde erstellt!')
         return redirect('/')
