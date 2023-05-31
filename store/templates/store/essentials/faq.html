@@ -76,7 +76,8 @@
 
                                             <li class="nav-item"><a href="{% url 'about-us' %}">About
                                                 Us</a></li>
-                                            <li class="nav-item"><a href="{% url 'generatecustomfurniture' %}">Creation</a>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'generatecustomfurniture' %}">Creation</a>
                                             </li>
                                             <li class="nav-item"><a href="{% url 'faq' %}">FAQ</a></li>
 
@@ -89,7 +90,8 @@
                                            aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
                                             <li class="nav-item"><a href="{% url 'agb' %}">AGB</a></li>
-                                            <li class="nav-item"><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
                                             </li>
                                             <li class="nav-item"><a href="{% url 'impressum' %}">Impressum</a>
                                             </li>
@@ -171,135 +173,184 @@
     <!--header-->
 
     <!-- Start Breadcrumbs -->
-<div class="breadcrumbs">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
-                <div class="breadcrumbs-content">
-                    <h1 class="page-title">FAQ</h1>
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">FAQ</h1>
+                    </div>
+                </div>
+                <div class="col">
+                    <ul class="breadcrumb-nav">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li>FAQ</li>
+                    </ul>
                 </div>
             </div>
-            <div class="col">
-                <ul class="breadcrumb-nav">
-                    <li><a href="{% url 'home' %}">Home</a></li>
-                    <li>FAQ</li>
-                </ul>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+    <br><br>
+    <!--FAQ-->
+    <div class="container">
+        <h3 class="text-center fw-bold">FAQ's</h3>
+        <p class="text-center mb-4">Click the question, get the answer.</p>
+        <div class="accordion" id="accordionExample">
+
+            <!--Accordation Start 1-->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Welche Zahlungsmethoden akzeptieren Sie?
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Wir akzeptieren Zahlungen per Kreditkarte (Visa, Mastercard, American Express), PayPal und
+                        Banküberweisung.
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
-<!-- End Breadcrumbs -->
-<br><br>
-<!--FAQ-->
-<div class="container">
-<h3 class="text-center fw-bold">FAQ's</h3>
-    <p class="text-center mb-4">Click the question, get the answer.</p>
-<div class="accordion" id="accordionExample">
+            <!--Accordation End 1-->
 
-    <!--Accordation Start 1-->
-    <div class="accordion-item">
-    <h2 class="accordion-header" id="headingOne">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        Welche Zahlungsmethoden akzeptieren Sie?
-        </button>
-    </h2>
-    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-        Wir akzeptieren Zahlungen per Kreditkarte (Visa, Mastercard, American Express), PayPal und Banküberweisung.
-        </div>
-    </div>
-    </div>
-    <!--Accordation End 1-->
+            <!--Accordation Start 2-->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Wie lange dauert der Versand?
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Die Versandzeit variiert je nach Standort. Im Allgemeinen dauert der Versand innerhalb
+                        Deutschlands etwa 3-5 Werktage. Internationale Lieferungen können länger dauern, abhängig vom
+                        Bestimmungsort.
+                    </div>
+                </div>
+            </div>
+            <!--Accordation End 2-->
 
-    <!--Accordation Start 2-->
-    <div class="accordion-item">
-    <h2 class="accordion-header" id="headingTwo">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        Wie lange dauert der Versand?
-        </button>
-    </h2>
-    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-        Die Versandzeit variiert je nach Standort. Im Allgemeinen dauert der Versand innerhalb Deutschlands etwa 3-5 Werktage. Internationale Lieferungen können länger dauern, abhängig vom Bestimmungsort.
-        </div>
-    </div>
-    </div>
-    <!--Accordation End 2-->
+            <!--Accordation Start 3-->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Bieten Sie eine Rückgabegarantie an?
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Ja, wir bieten eine 30-tägige Rückgabegarantie an. Wenn Sie mit Ihrem Kauf nicht zufrieden sind,
+                        kontaktieren Sie bitte unseren Kundenservice, um eine Rücksendung zu arrangieren.
+                    </div>
+                </div>
+            </div>
+            <!--Accordation End 3-->
 
-    <!--Accordation Start 3-->
-    <div class="accordion-item">
-    <h2 class="accordion-header" id="headingThree">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        Bieten Sie eine Rückgabegarantie an?
-        </button>
-    </h2>
-    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-        Ja, wir bieten eine 30-tägige Rückgabegarantie an. Wenn Sie mit Ihrem Kauf nicht zufrieden sind, kontaktieren Sie bitte unseren Kundenservice, um eine Rücksendung zu arrangieren.
-        </div>
-    </div>
-    </div>
-    <!--Accordation End 3-->
+            <!--Accordation Start 4-->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        Sind die Möbel vormontiert oder müssen sie selbst zusammengebaut werden?
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Alle unsere Möbel werden vormontiert geliefert.
+                    </div>
+                </div>
+            </div>
+            <!--Accordation End 4-->
 
-    <!--Accordation Start 4-->
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingFour">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-        Sind die Möbel vormontiert oder müssen sie selbst zusammengebaut werden?
-        </button>
-        </h2>
-        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-        Die meisten unserer Möbel werden zerlegt geliefert und müssen vom Kunden selbst zusammengebaut werden. Eine detaillierte Anleitung und alle erforderlichen Werkzeuge werden jedoch mitgeliefert.
-        </div>
-        </div>
-    </div>
-    <!--Accordation End 4-->
+            <!--Accordation Start 5-->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFive">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        Gibt es eine Garantie auf die Möbel?
+                    </button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Ja, wir bieten eine Garantie von einem Jahr auf alle unsere Möbel. Diese Garantie deckt
+                        Herstellungsfehler und Schäden ab, die nicht durch unsachgemäße Verwendung oder normale
+                        Abnutzung verursacht wurden.
+                    </div>
+                </div>
+            </div>
+            <!--Accordation End 5-->
 
-    <!--Accordation Start 5-->
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingFive">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-        Gibt es eine Garantie auf die Möbel?
-        </button>
-        </h2>
-        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-        Ja, wir bieten eine Garantie von einem Jahr auf alle unsere Möbel. Diese Garantie deckt Herstellungsfehler und Schäden ab, die nicht durch unsachgemäße Verwendung oder normale Abnutzung verursacht wurden.
-        </div>
-        </div>
-    </div>
-    <!--Accordation End 5-->
+            <!--Accordation Start 6-->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingSix">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                        Kann ich meine generierten Möbel vor dem Kauf ansehen?
+                    </button>
+                </h2>
+                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Ja, wir bieten auf der Creations-Page eine interaktive Vorschau-Funktion. Nachdem Sie Ihre
+                        Auswahl getroffen haben, können Sie eine detaillierte Version Ihres generierten Möbelstücks
+                        unter "My Creations" und "Details" einsehen. Dadurch erhalten Sie einen realistischen Eindruck
+                        davon, wie Ihre Creation später aussehen wird.
+                    </div>
+                </div>
+            </div>
+            <!--Accordation End 6-->
 
-    <!--Accordation Start 6-->
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingSix">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-        Kann ich meine generierten Möbel vor dem Kauf ansehen?
-        </button>
-        </h2>
-        <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-        Ja, Midjourney bietet eine interaktive Vorschau-Funktion. Nachdem Sie Ihre Auswahl getroffen haben, können Sie eine detaillierte 3D-Vorschau Ihres generierten Möbelstücks anzeigen. Dadurch erhalten Sie einen realistischen Eindruck davon, wie es aussehen wird.        </div>
-        </div>
-    </div>
-    <!--Accordation End 6-->
+            <!--Accordation Start 7-->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingSeven">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                        Wie funktioniert die Generierung von Möbeln?
+                    </button>
+                </h2>
+                <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Mit der KI "Midjourney" können wir Ihnen die Möglichkeit geben, Ihre eigenen Möbelstücke
+                        zuentwerfen. Wählen Sie dazu auf der "Creation" Page unter "Essentials" zuerst den gewünschten
+                        Möbeltyp, dann den Stil und das gewünschte Material aus. Anschließend wird Ihnen eine Vorschau
+                        des generierten Möbelstücks angezeigt.
+                    </div>
+                </div>
+            </div>
+            <!--Accordation End 7-->
 
-    <!--Accordation Start 7-->
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingSeven">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-        Wie funktioniert die Generierung von Möbeln mit Midjourney?
-        </button>
-        </h2>
-        <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-        Mit Midjourney können Sie Ihre eigenen Möbelstücke entwerfen. Wählen Sie zuerst den gewünschten Möbeltyp, dann die Materialien und den Stil aus. Anschließend wird Ihnen eine Vorschau des generierten Möbelstücks angezeigt.        </div>
+            <!--Accordation Start 8-->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingEight">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                        Wie lange dauert es, bis meine Creation fertig ist?
+                    </button>
+                </h2>
+                <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Das hängt von vielen Faktoren ab. Da wäre zuerst die Dauer des Emaiverkehrs zwischen Ihnen und
+                        unserer Creations-Abteilung. Wurde sich auf eine Anfertigung geeinigt, kann die Produktion je
+                        nach Material und Maßfertigung 2-4 Monate in Anspruch nehmen. Die Lieferung erfolgt innerhalb
+                        von 3-5 Werktagen.
+                    </div>
+                </div>
+            </div>
+            <!--Accordation End 8-->
         </div>
     </div>
-    <!--Accordation End 7-->
-</div>
-</div>
+    <br><br>
 
     <!--Newsletter-->
     <div class="newsletter section">
