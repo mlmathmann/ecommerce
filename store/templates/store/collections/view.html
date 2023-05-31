@@ -223,7 +223,7 @@
                                                         <div class="row mt-2">
                                                             <div class="col-md-9 ps-1 ms-2 mt-2">
                                                                 <a href="{% url 'stylecollectionsproducts' style_name %}"><button type="button"
-                                                                        class="btn btn-outline-secondary me-3 float-start">
+                                                                        class="btn miaggio-btn-secondary me-3 float-start">
                                                                     Produkte ansehen >
                                                                     </button></a>
                                                             </div>
@@ -286,7 +286,7 @@
                                                         <div class="row mt-2">
                                                             <div class="col-md-9 ps-1 ms-2 mt-2">
                                                                 <a href="{% url 'stylecollectionsproducts' item.slug %}"><button type="button"
-                                                                        class="btn btn-outline-secondary me-3 float-start">
+                                                                        class="btn miaggio-btn-secondary me-3 float-start">
                                                                     Produkte ansehen >
                                                                     </button></a>
                                                             </div>
@@ -311,49 +311,65 @@
 
     </div>
 
-    <!-- Start How Works Area -->
-    <section class="how-works section pt-0 mt-4" style="background-color: #fff;">
+    <!--Creations-->
+    <section class="how-works section" style="background-color: #fff;">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Create custom furniture</h2>
-                        <p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
-                            Ipsum available, but the majority have suffered alteration in some form.</p>
+                        <h2>Generate your furniture</h2>
                     </div>
+                    <p class="text-center" style="font-size: 18px;">Mit Stolz präsentiert MIAGGIO Ihnen die Möglichkeit,
+                        Ihre ganz persönliche Vision in Form eines Möbelstücks zum Leben zu erwecken. Lassen Sie Ihrer
+                        Kreativität freien Lauf und entdecken Sie die grenzenlosen Möglichkeiten, die unsere innovative
+                        Lösung bietet. Verabschieden Sie sich von der Vorstellung des Gewöhnlichen und tauchen Sie ein
+                        in eine Welt, in der Ihre Träume und Ideen Wirklichkeit werden.<br><br><br><br>
+                    <h3 class=" text-center"
+                        style="
+                       padding: 5px 20px; border-radius: 4px;">
+                        "Creation" - vollkommen einzigartig und individuell, wie noch nie zuvor gesehen
+                    </h3>
+                    </p>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                 </div>
             </div>
+
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-12">
-                    <!-- Start Single Work -->
-                    <div class="single-work wow fadeInUp" data-wow-delay=".2s">
-                        <span class="serial">01</span>
-                        <h3>Create Account</h3>
-                    </div>
-                    <!-- End Single Work -->
+
+                <div class="col-lg-4 ">
+                    {% if request.user.is_authenticated %}
+
+                        <div class="single-work"><span class="serial">01</span>
+                            <h3>Erstelle einen Account</h3></div>
+
+                    {% else %}
+                        <a href="{% url 'register' %}" style="display: block">
+                            <div class="single-work"><span class="serial">01</span>
+                                <h3>Erstelle einen Account</h3></div>
+                        </a>
+                    {% endif %}
                 </div>
-                <div class="col-lg-4 col-md-4 col-12">
-                    <!-- Start Single Work -->
-                    <div class="single-work wow fadeInUp" data-wow-delay=".4s">
-                        <span class="serial">02</span>
-                        <h3>Generate Furniture</h3>
-                    </div>
-                    <!-- End Single Work -->
+
+                <div class="col-lg-4 ">
+                    <a href="{% url 'generatecustomfurniture' %}" style="display: block">
+                        <div class="single-work"><span class="serial">02</span>
+                            <h3>Generiere ein Möbelstück</h3></div>
+                    </a>
                 </div>
-                <div class="col-lg-4 col-md-4 col-12">
-                    <!-- Start Single Work -->
-                    <div class="single-work wow fadeInUp" data-wow-delay=".6s">
-                        <span class="serial">03</span>
-                        <h3>Buy Your Item</h3>
-                    </div>
-                    <!-- End Single Work -->
+
+                <div class="col-lg-4 ">
+                    <div class="single-work"><span class="serial">03</span>
+                        <h3>Bestellen</h3></div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- End How Works Area -->
+    <!--Creations-->
 
-        <!-- Start Achievement Area -->
+    <!-- Start Achievement Area -->
     <section class="our-achievement section">
         <div class="container">
             <div class="row">
@@ -379,46 +395,6 @@
         </div>
     </section>
     <!-- End Achievement Area -->
-
-    <!--Newsletter-->
-    <div class="newsletter section">
-        <div class="container">
-            <div class="inner-content">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 ">
-                        <div class="title">
-                            <h2>Newsletter</h2>
-                            <p>We don't send spam, don't worry.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 ">
-                        <div class="form">
-                            {% if user_newsletter_subscription == True %}
-                                <form action="{% url 'unsubscribenewsletter' %}" method="POST" class="newsletter-form">
-                                    {% csrf_token %}
-                                    <input name="EMAIL" value="Newsletter abbestellen? Ganz einfach." readonly>
-                                    <div class="button">
-                                        <button type="submit" class="btn">Unsubscribe<span class="dir-part"></span>
-                                        </button>
-                                    </div>
-                                </form>
-                            {% else %}
-                                <form action="{% url 'subscribenewsletter' %}" method="POST" class="newsletter-form">
-                                    {% csrf_token %}
-                                    <input name="EMAIL" placeholder="Your email address" type="email">
-                                    <div class="button">
-                                        <button type="submit" class="btn">Subscribe<span class="dir-part"></span>
-                                        </button>
-                                    </div>
-                                </form>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Newsletter-->
 
     <!--Footer-->
     <footer class="footer">
