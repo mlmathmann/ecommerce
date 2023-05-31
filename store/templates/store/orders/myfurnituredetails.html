@@ -76,7 +76,8 @@
 
                                             <li class="nav-item"><a href="{% url 'about-us' %}">About
                                                 Us</a></li>
-                                            <li class="nav-item"><a href="{% url 'generatecustomfurniture' %}">Creation</a>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'generatecustomfurniture' %}">Creation</a>
                                             </li>
                                             <li class="nav-item"><a href="{% url 'faq' %}">FAQ</a></li>
 
@@ -89,7 +90,8 @@
                                            aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
                                             <li class="nav-item"><a href="{% url 'agb' %}">AGB</a></li>
-                                            <li class="nav-item"><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
                                             </li>
                                             <li class="nav-item"><a href="{% url 'impressum' %}">Impressum</a>
                                             </li>
@@ -203,11 +205,13 @@
 
             <div class="section-title mb-0">
                 <h2>Ihre Kreation</h2>
-                <span class="sub-heading"
-                      style=" display: inline-block; font-weight: 500; font-size: 17px; color: #5830E0; background-color: #f9f9f9;
+                <h3 class=" text-center"
+                    style="
                        padding: 5px 20px; border-radius: 4px;">
                     "{{ creation_prompt }}"
-                </span>
+                </h3>
+                <br>
+                <br>
             </div>
 
             <div class="card product_data" style="border: unset; width: fit-content; padding-left: 7%;">
