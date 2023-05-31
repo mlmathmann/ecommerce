@@ -1,7 +1,5 @@
 from django.shortcuts import redirect
 from store.models import Product, Profile, User
-from store.views import get_navbar_context
-from django.contrib.auth.models import AnonymousUser
 import sweetify
 
 

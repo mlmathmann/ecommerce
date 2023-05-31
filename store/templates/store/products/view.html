@@ -77,7 +77,8 @@
 
                                             <li class="nav-item"><a href="{% url 'about-us' %}">About
                                                 Us</a></li>
-                                            <li class="nav-item"><a href="{% url 'generatecustomfurniture' %}">Creation</a>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'generatecustomfurniture' %}">Creation</a>
                                             </li>
                                             <li class="nav-item"><a href="{% url 'faq' %}">FAQ</a></li>
 
@@ -90,7 +91,8 @@
                                            aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
                                             <li class="nav-item"><a href="{% url 'agb' %}">AGB</a></li>
-                                            <li class="nav-item"><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
                                             </li>
                                             <li class="nav-item"><a href="{% url 'impressum' %}">Impressum</a>
                                             </li>
@@ -222,16 +224,17 @@
                                                         <h2 class="mb-0" style="font-family: Lato, sans-serif">
                                                             {{ products.name }}
                                                             {% if products.trending %}
-                                                                <label style="font-size: 16px;"
-                                                                       class="float-end badge bg-danger trending_tag">Trending </label>
+                                                                <label title="Trending"
+                                                                       class="float-end trending_tag"><img class="icon"
+                                                                                                           src="../../../../static/assets/images/trending.png"
+                                                                                                           style="height: 48px; width: 48px"></label>
                                                             {% endif %}
                                                         </h2>
                                                         <hr>
                                                         <p class="mt-4 mb-2"
                                                            style="font-family: Lato, sans-serif; color: #888888">{{ products.description }}</p>
-                                                        <label class="me-3 mt-4">Original Price :
-                                                            <s>{{ products.original_price | floatformat:2 }}€</s></label>
-                                                        <label class="fw-bold">Selling Price :
+                                                        <br>
+                                                        <label class="fw-bold">
                                                             {{ products.selling_price | floatformat:2 }}€</label>
                                                         <hr>
                                                         {% if products.quantity > 0 %}
@@ -277,19 +280,19 @@
                                                             </div>
                                                             <div class="col-md-9 ps-1 ms-0">
                                                                 <br/>
-                                                                {% if products.quantity > 0 %}
-                                                                    <button type="button"
-                                                                            class="btn btn-primary me-3 float-start addToCartBtn">
-                                                                        Add to
-                                                                        Cart
-                                                                        <i class="fa fa-shopping-cart"></i></button>
-                                                                {% endif %}
                                                                 <button type="button"
-                                                                        class="btn btn-success me-3 addToWishlist float-start">
+                                                                        class="btn miaggio-btn-secondary me-3 addToWishlist float-start">
                                                                     Add
                                                                     to
                                                                     Wishlist
                                                                     <i class="fa fa-heart"></i></button>
+                                                                {% if products.quantity > 0 %}
+                                                                    <button type="button"
+                                                                            class="btn miaggio-btn-success me-3 float-start addToCartBtn">
+                                                                        Add to
+                                                                        Cart
+                                                                        <i class="fa fa-shopping-cart"></i></button>
+                                                                {% endif %}
                                                             </div>
                                                         </div>
                                                         <!-- End Heading -->
@@ -401,7 +404,7 @@
     </section>
     <!-- End How Works Area -->
 
-        <!-- Start Achievement Area -->
+    <!-- Start Achievement Area -->
     <section class="our-achievement section">
         <div class="container">
             <div class="row">

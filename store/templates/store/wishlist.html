@@ -215,7 +215,7 @@
                                                 <input type="hidden" class="prod_id" value="{{ item.product_id }}">
                                                 {% csrf_token %}
                                                 <a href="{% url 'productview' item.product.category.slug item.product.slug %}"
-                                                   class="btn btn-primary"> View Product <i class="fa fa-eye"></i></a>
+                                                   class="btn miaggio-btn-success"> View Product <i class="fa fa-eye"></i></a>
                                             </div>
                                             <div class="col-md-2 ms-1 my-auto" style="text-align: right">
                                                 <button class="btn btn-danger delete-wishlist-item"> Remove <i

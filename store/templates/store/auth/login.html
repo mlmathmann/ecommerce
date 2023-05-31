@@ -18,7 +18,6 @@
     </head>
 
     <body>
-
     <!--header-->
     <header class="header navbar-area">
         <div class="container">
@@ -91,7 +90,8 @@
                                            aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
                                             <li class="nav-item"><a href="{% url 'agb' %}">AGB</a></li>
-                                            <li class="nav-item"><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
                                             </li>
                                             <li class="nav-item"><a href="{% url 'impressum' %}">Impressum</a>
                                             </li>
@@ -200,14 +200,14 @@
                     <div class="card shadow-2-strong" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-center">
 
-                            <h3 class="mb-4">Sign in</h3>
+                            <h3 class="mb-4">Login</h3>
                             <form action="" method="post">
                                 {% csrf_token %}
                                 <div class="text-center">
                                 </div>
                                 <hr>
                                 <div class="form-group">
-                                    <label for="">Username : </label>
+                                    <label class="text-start">Username : </label>
                                     <input type="text" class="form-control" name="username"
                                            placeholder="Enter Username">
                                 </div>
@@ -217,8 +217,8 @@
                                            placeholder="Enter Password">
                                 </div>
                                 <br>
-
-                                <button type="submit" class="btn shadow btn-success px-4">Login</button>
+                                <button type="submit" class="btn shadow miaggio-btn-success px-4">Login</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -226,7 +226,6 @@
         </div>
     </section>
     <!-- End Sign in -->
-
 
     <!--Newsletter-->
     <div class="newsletter section">
@@ -342,6 +341,5 @@
     <!--JS-->
     </body>
 
+    </html>
 {% endblock content %}
-
-</html>

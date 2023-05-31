@@ -22,7 +22,6 @@ def get_navbar_context(request):
     categories = Category.objects.all()
     collections = Collection.objects.all()
 
-
     if request.user.is_authenticated:
         user_newsletter_subscription = Profile.objects.filter(user=request.user).values('newsletter_subscription')
         if user_newsletter_subscription:
@@ -37,6 +36,7 @@ def home(request):
 
     nav_context = get_navbar_context(request)
     products = Product.objects.all()
+    products = products.order_by('-created_at')[:9]
 
     context = {'category': nav_context.get('categories'), 'products': products,
                'profile_picture': nav_context.get('profile_picture'), 'collections': nav_context.get('collections'),

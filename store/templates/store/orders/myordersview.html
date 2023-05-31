@@ -231,7 +231,7 @@
                                                 <input type="hidden" class="prod_id" value="{{ item.product_id }}">
                                                 {% csrf_token %}
                                                 <a href="{% url 'myordersdetails' item.tracking_no %}"
-                                                   class="btn btn-primary"> View Order <i class="fa fa-eye"></i></a>
+                                                   class="btn miaggio-btn-success"> View Order <i class="fa fa-eye"></i></a>
                                             </div>
                                         </div>
                                     {% endfor %}

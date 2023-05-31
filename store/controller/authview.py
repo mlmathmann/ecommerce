@@ -19,7 +19,8 @@ def register(request):
             return redirect('/login')
     context = {'form': form, 'categories': nav_context.get('categories'),
                'profile_picture': nav_context.get('profile_picture'),
-               'collections': nav_context.get('collections')}
+               'collections': nav_context.get('collections'),
+               'user_newsletter_subscription': nav_context.get('user_newsletter_subscription')}
     return render(request, "store/auth/register.html", context)
 
 
@@ -44,7 +45,8 @@ def loginpage(request):
                 return redirect('/login')
         context = {'categories': nav_context.get('categories'),
                    'profile_picture': nav_context.get('profile_picture'),
-                   'collections': nav_context.get('collections')}
+                   'collections': nav_context.get('collections'),
+                   'user_newsletter_subscription': nav_context.get('user_newsletter_subscription')}
         return render(request, "store/auth/login.html", context)
 
 
