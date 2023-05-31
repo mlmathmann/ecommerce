@@ -519,12 +519,12 @@
                 Swal.fire("Genration started!", 'Dieser Prozess kann bis zu 2 Minuten dauern, bitte verlassen Sie die Seite nicht!', "success").then(
                     $.ajax({
                         method: "POST",
-                        url: "/creation",
+                        url: "/create",
                         data: data,
                         success: function (responsec) {
                             $.ajax({
                                 method: "POST",
-                                url: "/generate-custom-furniture",
+                                url: "/generate-creation",
                                 data: {
                                     'gen_comp': 'true',
                                     csrfmiddlewaretoken: token,
@@ -559,7 +559,7 @@
             var token = $('input[name=csrfmiddlewaretoken]').val()
             $.ajax({
                 type: "POST",
-                url: "/generate-custom-furniture",
+                url: "/generate-creation",
                 data: {
                     'end': end,
                     csrfmiddlewaretoken: token

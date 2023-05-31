@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(data)
         $.ajax({
             method: "POST",
-            url: "/creation",
+            url: "/create",
             data: data,
             success: function (responsec) {
                 Swal.fire("Generation begins!", responsec.status, "success");
