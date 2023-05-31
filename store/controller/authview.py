@@ -9,6 +9,7 @@ from store.views import get_navbar_context
 
 
 def register(request):
+    nav_context = get_navbar_context(request)
     form = CustomUserForm()
     if request.method == "POST":
         form = CustomUserForm(request.POST)
@@ -16,11 +17,15 @@ def register(request):
             form.save()
             messages.success(request, "Registration succsessful! Please log in to continue!")
             return redirect('/login')
-    context = {'form': form}
+    context = {'form': form, 'categories': nav_context.get('categories'),
+               'profile_picture': nav_context.get('profile_picture'),
+               'collections': nav_context.get('collections'),
+               'user_newsletter_subscription': nav_context.get('user_newsletter_subscription')}
     return render(request, "store/auth/register.html", context)
 
 
 def loginpage(request):
+    nav_context = get_navbar_context(request)
     if request.user.is_authenticated:
         messages.warning(request, "You are already logged in!")
         return redirect("/")
@@ -38,7 +43,11 @@ def loginpage(request):
             else:
                 messages.error(request, "Invalid Username or Password!")
                 return redirect('/login')
-        return render(request, "store/auth/login.html")
+        context = {'categories': nav_context.get('categories'),
+                   'profile_picture': nav_context.get('profile_picture'),
+                   'collections': nav_context.get('collections'),
+                   'user_newsletter_subscription': nav_context.get('user_newsletter_subscription')}
+        return render(request, "store/auth/login.html", context)
 
 
 def logoutpage(request):
@@ -126,7 +135,38 @@ def updateprofile(request):
 def updateuser(request):
     nav_context = get_navbar_context(request)
     current_user = User.objects.get(id=request.user.id)
+
+    if not Profile.objects.filter(user=request.user):
+        profile_user = Profile()
+        profile_user.user = request.user
+        profile_user.email = ''
+        profile_user.phone = ''
+        profile_user.street = ''
+        profile_user.house_number = ''
+        profile_user.address_info = ''
+        profile_user.postal_code = ''
+        profile_user.city = ''
+        profile_user.country = ''
+        profile_user.save()
+
     profile_user = Profile.objects.filter(user=request.user).first()
+    print("profileuser1")
+
+    if not Profile.objects.filter(user=request.user):
+        profile_user = Profile()
+        profile_user.user = request.user
+        profile_user.email = ""
+        profile_user.phone = ""
+        profile_user.street = ""
+        profile_user.house_number = ""
+        profile_user.address_info = ""
+        profile_user.postal_code = ""
+        profile_user.city = ""
+        profile_user.country = ""
+        profile_user.save()
+
+    profile_user = Profile.objects.filter(user=request.user).first()
+    print("profileuser2", profile_user)
     user_form = CustomUserChangeForm(None, instance=current_user)
     profile_form = ProfilePictureChangeForm(None, request.FILES or None, instance=profile_user)
     if request.method == "POST":
@@ -141,13 +181,19 @@ def updateuser(request):
             if request.POST.get('username') == current_user.get_username() and request.POST.get(
                     'email') == current_user.__getattribute__('email'):
                 messages.success(request, "No changes detected!")
-                return render(request, "store/updateuser.html", {'user_form': user_form, 'profile_form': profile_form, 'category': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')})
+                return render(request, "store/updateuser.html", {'user_form': user_form, 'profile_form': profile_form,
+                                                                 'category': nav_context.get('categories'),
+                                                                 'profile_picture': nav_context.get('profile_picture'),
+                                                                 'collections': nav_context.get('collections')})
             if user_form.is_valid() and profile_form.is_valid():
                 user_form.save()
                 profile_form.save()
                 messages.success(request, "User Info changed successfully!")
                 return redirect("profile", request.POST.get('username'))
-    return render(request, "store/updateuser.html", {'user_form': user_form, 'profile_form': profile_form, 'category': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')})
+    return render(request, "store/updateuser.html",
+                  {'user_form': user_form, 'profile_form': profile_form, 'categories': nav_context.get('categories'),
+                   'profile_picture': nav_context.get('profile_picture'),
+                   'collections': nav_context.get('collections')})
 
 
 @login_required(login_url='loginpage')
@@ -165,8 +211,13 @@ def updatepassword(request):
             for error in form.error_messages:
                 msg = form.error_messages.get(f'{error}')
                 messages.warning(request, f"{msg}")
-            return render(request, "store/updatepassword.html", {'form': form, 'category': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')})
-    return render(request, "store/updatepassword.html", {'form': form, 'category': nav_context.get('categories'), 'profile_picture': nav_context.get('profile_picture')})
+            return render(request, "store/updatepassword.html",
+                          {'form': form, 'categories': nav_context.get('categories'),
+                           'profile_picture': nav_context.get('profile_picture'),
+                           'collections': nav_context.get('collections')})
+    return render(request, "store/updatepassword.html", {'form': form, 'categories': nav_context.get('categories'),
+                                                         'profile_picture': nav_context.get('profile_picture'),
+                                                         'collections': nav_context.get('collections')})
 
 
 @login_required(login_url='loginpage')

@@ -35,11 +35,9 @@
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
-
                                     <li class="nav-item" href="{% url 'home' %}">
                                         <a class=" dd-menu collapsed" href="{% url 'home' %}">Home</a>
                                     </li>
-
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
@@ -59,11 +57,11 @@
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Collections</li>
-                                                    <li class="nav-item"><a href="#">ARISTROCRATIC</a></li>
-                                                    <li class="nav-item"><a href="#">IMAGINATIVE</a></li>
-                                                    <li class="nav-item"><a href="#">FUTURISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">BRUTALISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">SIMPLISTIC</a></li>
+                                                    {% for collection in collections %}
+                                                        <li class="nav-item"><a
+                                                                href="{% url 'stylecollections' collection.slug %}">{{ collection.name }}</a>
+                                                        </li>
+                                                    {% endfor %}
                                                 </ul>
                                             </li>
                                         </ul>
@@ -73,26 +71,16 @@
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                           aria-label="Toggle navigation">Pages</a>
-                                        <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
-                                            <li class="single-block">
-                                                <ul>
-                                                    <li class="mega-menu-title">Essential Pages</li>
-                                                    <li class="nav-item"><a href="../../../static/about-us.html">About
-                                                        Us</a></li>
-                                                    <li class="nav-item"><a href="../../../static/contact.html">Contact
-                                                        Us</a></li>
-                                                    <li class="nav-item"><a href="../../../static/faq.html">FAQ</a></li>
-                                                </ul>
+                                           aria-label="Toggle navigation">Essentials</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-5">
+
+                                            <li class="nav-item"><a href="{% url 'about-us' %}">About
+                                                Us</a></li>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'generatecustomfurniture' %}">Creation</a>
                                             </li>
-                                            <li class="single-block">
-                                                <ul>
-                                                    <li class="mega-menu-title">Dashboard</li>
-                                                    <li class="nav-item"><a href="{% url 'profile' user %}">My
-                                                        Profile</a></li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
-                                                </ul>
-                                            </li>
+                                            <li class="nav-item"><a href="{% url 'faq' %}">FAQ</a></li>
+
                                         </ul>
                                     </li>
                                     <li class="nav-item">
@@ -101,10 +89,11 @@
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
                                            aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
-                                            <li class="nav-item"><a href="../../../static/agb.html">AGB</a></li>
-                                            <li class="nav-item"><a href="../../../static/datenschutz.html">Datenschutzrichtlinie</a>
+                                            <li class="nav-item"><a href="{% url 'agb' %}">AGB</a></li>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
                                             </li>
-                                            <li class="nav-item"><a href="../../../static/impressum.html">Impressum</a>
+                                            <li class="nav-item"><a href="{% url 'impressum' %}">Impressum</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -116,7 +105,7 @@
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" href="#" role="button"
                                                data-bs-toggle="dropdown"
-                                               aria-expanded="false">
+                                               aria-expanded="false" style="padding-left: unset;">
                                                 {% if profile_picture != '' and profile_picture != None %}
                                                     <img alt="picture" width="25" height="25"
                                                          src="../../../static/{{ profile_picture }}"
@@ -124,11 +113,33 @@
                                                 {% endif %}
                                                 {{ request.user }}
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="{% url 'profile' request.user %}">My
-                                                    Profile</a></li>
-                                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+
+                                            <ul class="dropdown-menu shadow"
+                                                style="border-radius: unset; border: none; padding: 10px">
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'profile' request.user %}">My Profile</a></li>
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'myorders' %}">My Orders</a></li>
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'myfurniture' %}">My Creations</a></li>
+                                                <hr style="margin: 5px">
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'logout' %}">Logout</a>
+                                                </li>
                                             </ul>
+
                                         </li>
                                     {% else %}
                                         <li class="nav-item">
@@ -162,23 +173,40 @@
     <!--header-->
 
     <!-- Carousel -->
-    <div id="demo" class="carousel slide" data-bs-ride="carousel">
+    <div id="demo" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <!-- Indicators/dots -->
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
             <button type="button" data-bs-target="#demo" data-bs-slide-to="1" class="active"></button>
             <button type="button" data-bs-target="#demo" data-bs-slide-to="2" class="active"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="3" class="active"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="4" class="active"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="5" class="active"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="6" class="active"></button>
         </div>
         <!-- The slideshow/carousel -->
         <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="3000"><img
-                    src="../../../static/assets/images/hero/hero-caro.jpg" alt="#"></div>
-            <div class="carousel-item" data-bs-interval="3000"><img
-                    src="../../../static/assets/images/hero/hero-caro2.jpg"
-                    alt="#"></div>
-            <div class="carousel-item" data-bs-interval="3000"><img
-                    src="../../../static/assets/images/hero/hero-caro3.jpg"
-                    alt="#"></div>
+            <div class="carousel-item active" data-bs-interval="5000"><img
+                    src="../../../static/assets/images/hero/homepage-1.jpg"
+                    alt="#" style="width: 100%"></div>
+            <div class="carousel-item" data-bs-interval="5000"><img
+                    src="../../../static/assets/images/hero/homepage-2.jpg"
+                    alt="#" style="width: 100%"></div>
+            <div class="carousel-item" data-bs-interval="5000"><img
+                    src="../../../static/assets/images/hero/homepage-3.jpg"
+                    alt="#" style="width: 100%"></div>
+            <div class="carousel-item" data-bs-interval="5000"><img
+                    src="../../../static/assets/images/hero/homepage-4.jpg"
+                    alt="#" style="width: 100%"></div>
+            <div class="carousel-item" data-bs-interval="5000"><img
+                    src="../../../static/assets/images/hero/homepage-5.jpg"
+                    alt="#" style="width: 100%"></div>
+            <div class="carousel-item" data-bs-interval="5000"><img
+                    src="../../../static/assets/images/hero/homepage-6.jpg"
+                    alt="#" style="width: 100%"></div>
+            <div class="carousel-item" data-bs-interval="5000"><img
+                    src="../../../static/assets/images/hero/homepage-7.jpg"
+                    alt="#" style="width: 100%"></div>
         </div>
         <!-- Left and right controls -->
         <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev"><span
@@ -228,19 +256,12 @@
                                            href="{% url 'collectionsview' item.category.slug %}"><span
                                                 class="home-item-tag"> {{ item.category }} </span></a>
 
-                                        {% if item.style_way == 'A' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> ARISTROCRATIC </span></a>
-                                        {% elif item.style_way == 'I' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> IMAGINATIVE </span></a>
-                                        {% elif item.style_way == 'F' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> FUTURISTIC </span></a>
-                                        {% elif item.style_way == 'B' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> BRUTALISTIC </span></a>
-                                        {% elif item.style_way == 'I' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> IMAGINATIVE </span></a>
-                                        {% elif item.style_way == 'S' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> SIMPLISTIC </span></a>
-                                        {% endif %}
+                                        {% for collection in collections %}
+                                            {% if item.style_way == collection.style_sign %}
+                                                <a href="{% url 'stylecollections' collection.slug %}"><span
+                                                        class="home-item-tag text-uppercase">{{ collection.name }}</span></a>
+                                            {% endif %}
+                                        {% endfor %}
 
                                         <h3 class="title"><a
                                                 href="{% url 'productview' item.category.slug item.slug %}"> {{ item.name }} </a>
@@ -249,8 +270,8 @@
                                     </div>
                                     <div class="bottom-content">
                                         <a class="a-home-item-tag"
-                                           href="{% url 'productview' item.category.slug item.slug %}"><p>Mehr erfahren
-                                            ></p></a>
+                                           href="{% url 'productview' item.category.slug item.slug %}"><p>Mehr
+                                            erfahren></p></a>
                                     </div>
                                 </div>
                             </div>
@@ -278,29 +299,30 @@
                 <div class="choose-content">
                     <div class="row">
                         <div class="col">
-                            <div class="single-list"><h4>Punkt</h4>
-                                <p>Lorem Ipsum</p></div>
+                            <div class="single-list"><h4>Einzigartige Individualität</h4>
+                                <p>Maßgeschneiderte Möbelstücke für eine einzigartige, persönliche Note.</p></div>
                         </div>
                         <div class="col">
-                            <div class="single-list"><h4>Punkt</h4>
-                                <p>Lorem Ipsum</p></div>
+                            <div class="single-list"><h4>Unglaubliche Vielfalt</h4>
+                                <p>Eine breite Auswahl an extravaganten Möbeln in verschiedenen Stilen.</p></div>
                         </div>
                         <div class="col">
-                            <div class="single-list"><h4>Punkt</h4>
-                                <p>Lorem Ipsum</p></div>
+                            <div class="single-list"><h4>Benutzerfreundlich</h4>
+                                <p>Eine einfache und intuitive Plattform für ein reibungsloses Einkaufserlebnis.</p>
+                            </div>
                         </div>
                         <span></span>
                         <div class="col">
-                            <div class="single-list"><h4>Punkt</h4>
-                                <p>Lorem Ipsum</p></div>
+                            <div class="single-list"><h4>Stilsichere Qualität</h4>
+                                <p>Moderne und hochwertige Möbel mit zeitlosem Design.</p></div>
                         </div>
                         <div class="col">
-                            <div class="single-list"><h4>Punkt</h4>
-                                <p>Lorem Ipsum</p></div>
+                            <div class="single-list"><h4>Kundenzentrierter Ansatz</h4>
+                                <p>Die individuellen Bedürfnisse und Wünsche der Kunden stehen im Mittelpunkt.</p></div>
                         </div>
                         <div class="col">
-                            <div class="single-list"><h4>Punkt</h4>
-                                <p>Lorem Ipsum</p></div>
+                            <div class="single-list"><h4>Inspirierende Möglichkeiten</h4>
+                                <p>Inspiriert Kunden mit kreativer Gestaltung ihre Traummöbel zu kreieren.</p></div>
                         </div>
                     </div>
                 </div>
@@ -309,14 +331,29 @@
     </section>
     <!--Why Choose-->
 
-    <!--How Works-->
+    <!--Creations-->
     <section class="how-works section" style="background-color: #fff;">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2>Create custom furniture</h2>
+                        <h2>Generate your furniture</h2>
                     </div>
+                    <p class="text-center" style="font-size: 18px;">Mit Stolz präsentiert MIAGGIO Ihnen die Möglichkeit,
+                        Ihre ganz persönliche Vision in Form eines Möbelstücks zum Leben zu erwecken. Lassen Sie Ihrer
+                        Kreativität freien Lauf und entdecken Sie die grenzenlosen Möglichkeiten, die unsere innovative
+                        Lösung bietet. Verabschieden Sie sich von der Vorstellung des Gewöhnlichen und tauchen Sie ein
+                        in eine Welt, in der Ihre Träume und Ideen Wirklichkeit werden.<br><br><br><br>
+                    <h3 class=" text-center"
+                        style="
+                       padding: 5px 20px; border-radius: 4px;">
+                        "Creation" - vollkommen einzigartig und individuell, wie noch nie zuvor gesehen
+                    </h3>
+                    </p>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                 </div>
             </div>
 
@@ -350,7 +387,7 @@
             </div>
         </div>
     </section>
-    <!--How Works-->
+    <!--Creations-->
 
     <!--Newsletter-->
     <div class="newsletter section">
@@ -360,17 +397,30 @@
                     <div class="col-lg-6 ">
                         <div class="title">
                             <h2>Newsletter</h2>
-                            <p>We don't send spam so don't worry.</p>
+                            <p>We don't send spam, don't worry.</p>
                         </div>
                     </div>
                     <div class="col-lg-6 ">
                         <div class="form">
-                            <form action="#" method="get" target="_blank" class="newsletter-form">
-                                <input name="EMAIL" placeholder="Your email address" type="email">
-                                <div class="button">
-                                    <button class="btn">Subscribe<span class="dir-part"></span></button>
-                                </div>
-                            </form>
+                            {% if user_newsletter_subscription == True %}
+                                <form action="{% url 'unsubscribenewsletter' %}" method="POST" class="newsletter-form">
+                                    {% csrf_token %}
+                                    <input name="EMAIL" value="Newsletter abbestellen? Ganz einfach." readonly>
+                                    <div class="button">
+                                        <button type="submit" class="btn">Unsubscribe<span class="dir-part"></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            {% else %}
+                                <form action="{% url 'subscribenewsletter' %}" method="POST" class="newsletter-form">
+                                    {% csrf_token %}
+                                    <input name="EMAIL" placeholder="Your email address" type="email">
+                                    <div class="button">
+                                        <button type="submit" class="btn">Subscribe<span class="dir-part"></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -388,9 +438,9 @@
                         <div class="single-footer f-link">
                             <h3>Locations</h3>
                             <ul>
-                                <li><a href="#">Oelde</a></li>
-                                <li><a href="#">Beckum</a></li>
-                                <li><a href="#">Ahlen</a></li>
+                                <li style="color: #f0f0f0">Oelde</li>
+                                <li style="color: #f0f0f0">Beckum</li>
+                                <li style="color: #f0f0f0">Ahlen</li>
                             </ul>
                         </div>
                     </div>
@@ -398,10 +448,15 @@
                         <div class="single-footer f-link">
                             <h3>Quick Links</h3>
                             <ul>
-                                <li><a href="../../../static/about-us.html">About Us</a></li>
-                                <li><a href="../../../static/login.html">Login</a></li>
-                                <li><a href="../../../static/register.html">Signup</a></li>
-                                <li><a href="../../../static/faq.html">FAQ</a></li>
+                                {% if request.user.is_authenticated %}
+                                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                                    <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                                    <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                    <li><a href="{% url 'loginpage' %}">Login</a></li>
+                                    <li><a href="{% url 'register' %}">Signup</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -426,9 +481,9 @@
                         <div class="col-12">
                             <div class="content">
                                 <ul class="footer-bottom-links">
-                                    <li><a href="../../../static/agb.html">AGB</a></li>
-                                    <li><a href="../../../static/datenschutz.html">Datenschutzrichtlinie</a></li>
-                                    <li><a href="../../../static/impressum.html">Impressum</a></li>
+                                    <li><a href="{% url 'agb' %}">AGB</a></li>
+                                    <li><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a></li>
+                                    <li><a href="{% url 'impressum' %}">Impressum</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -449,6 +504,8 @@
     </body>
     </html>
 {% endblock content %}
+{% load sweetify %}
+{% sweetify %}
 
 
 

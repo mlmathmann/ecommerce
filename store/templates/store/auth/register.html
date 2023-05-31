@@ -25,8 +25,9 @@
                 <div class="col-lg-12">
                     <div class="nav-inner">
                         <nav class="navbar navbar-expand-lg ">
-                            <a class="navbar-brand" href="{% url 'home' %}">
-                                <img src="../../../static/assets/images/logo/logo.png" alt="Logo">
+                            <a class="navbar-brand mt-1" style="vertical-align: middle; margin-right: unset"
+                               href="{% url 'home' %}">
+                                <div class="logo-nav-pic"></div>
                             </a>
                             <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -35,25 +36,35 @@
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
-
-                                    <li class="nav-item">
-                                        <a class=" dd-menu collapsed" href="{% url 'home' %}"
-                                           data-bs-toggle="collapse" data-bs-target="#submenu-1-1"
-                                           aria-controls="navbarSupportedContent" aria-expanded="false"
-                                           aria-label="Toggle navigation">Home</a>
+                                    <li class="nav-item" href="{% url 'home' %}">
+                                        <a class=" dd-menu collapsed" href="{% url 'home' %}">Home</a>
                                     </li>
-
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
                                            aria-label="Toggle navigation">Categories</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-5">
-                                            {% for item in category %}
-                                                <li class="nav-item"><a
-                                                        href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
-                                                </li>
-                                            {% endfor %}
+                                        <ul class="sub-menu mega-menu collapse" id="submenu-1-5">
+                                            <li class="single-block">
+                                                <ul>
+                                                    <li class="mega-menu-title">Categories</li>
+                                                    {% for item in categories %}
+                                                        <li class="nav-item"><a
+                                                                href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                            <li class="single-block">
+                                                <ul>
+                                                    <li class="mega-menu-title">Collections</li>
+                                                    {% for collection in collections %}
+                                                        <li class="nav-item"><a
+                                                                href="{% url 'stylecollections' collection.slug %}">{{ collection.name }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
                                         </ul>
                                     </li>
 
@@ -61,26 +72,15 @@
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                           aria-label="Toggle navigation">Pages</a>
-                                        <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
-                                            <li class="single-block">
-                                                <ul>
-                                                    <li class="mega-menu-title">Essential Pages</li>
-                                                    <li class="nav-item"><a href="../../../static/about-us.html">About
-                                                        Us</a></li>
-                                                    <li class="nav-item"><a href="../../../static/contact.html">Contact
-                                                        Us</a></li>
-                                                    <li class="nav-item"><a href="../../../static/faq.html">FAQ</a></li>
-                                                </ul>
+                                           aria-label="Toggle navigation">Essentials</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-5">
+
+                                            <li class="nav-item"><a href="{% url 'about-us' %}">About
+                                                Us</a></li>
+                                            <li class="nav-item"><a href="{% url 'home' %}">Creation</a>
                                             </li>
-                                            <li class="single-block">
-                                                <ul>
-                                                    <li class="mega-menu-title">Dashboard</li>
-                                                    <li class="nav-item"><a href="{% url 'profile' request.user %}">My
-                                                        Profile</a></li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
-                                                </ul>
-                                            </li>
+                                            <li class="nav-item"><a href="{% url 'faq' %}">FAQ</a></li>
+
                                         </ul>
                                     </li>
                                     <li class="nav-item">
@@ -89,10 +89,10 @@
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
                                            aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
-                                            <li class="nav-item"><a href="../../../static/agb.html">AGB</a></li>
-                                            <li class="nav-item"><a href="../../../static/datenschutz.html">Datenschutzrichtlinie</a>
+                                            <li class="nav-item"><a href="{% url 'agb' %}">AGB</a></li>
+                                            <li class="nav-item"><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
                                             </li>
-                                            <li class="nav-item"><a href="../../../static/impressum.html">Impressum</a>
+                                            <li class="nav-item"><a href="{% url 'impressum' %}">Impressum</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -104,13 +104,41 @@
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" href="#" role="button"
                                                data-bs-toggle="dropdown"
-                                               aria-expanded="false">
+                                               aria-expanded="false" style="padding-left: unset;">
+                                                {% if profile_picture != '' and profile_picture != None %}
+                                                    <img alt="picture" width="25" height="25"
+                                                         src="../../../static/{{ profile_picture }}"
+                                                         class="rounded-circle me-1">
+                                                {% endif %}
                                                 {{ request.user }}
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#">Dashboard?</a></li>
-                                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+
+                                            <ul class="dropdown-menu shadow"
+                                                style="border-radius: unset; border: none; padding: 10px">
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'profile' request.user %}">My Profile</a></li>
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'home' %}">My Orders</a></li>
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'myfurniture' %}">My Creations</a></li>
+                                                <hr style="margin: 5px">
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'logout' %}">Logout</a>
+                                                </li>
                                             </ul>
+
                                         </li>
                                     {% else %}
                                         <li class="nav-item">
@@ -125,9 +153,11 @@
                                     <li>
                                         <a href="{% url 'wishlist' %}"><i class="lni lni-cart"></i>Wunschliste</a>
                                     </li>
-                                    <li>
-                                        <a href="{% url 'cart' %}"><i
-                                                class="lni lni-cart"></i>Warenkorb</a>
+                                    <li class="nav-item" style="vertical-align: middle">
+                                        <a href="{% url 'cart' %}" title="Warenkorb">
+                                            <div class="cart-nav-pic">
+                                            </div>
+                                        </a>
                                     </li>
 
                                 </ul>
@@ -147,12 +177,12 @@
             <div class="row align-items-center">
                 <div class="col">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Registeration</h1>
+                        <h1 class="page-title">Register</h1>
                     </div>
                 </div>
                 <div class="col">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="{% url 'home' %}">Home</a></li>
                         <li>Register</li>
                     </ul>
                 </div>
@@ -198,8 +228,8 @@
                                         <label class="text-danger"> {{ form.errors.password2 }} </label>
                                     {% endif %}
                                 </div>
-                                <button type="submit" class="btn float-end shadow btn-success px-4">Register</button>
-                                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a
+                                <button type="submit" class="btn float-end shadow miaggio-btn-success px-4">Register</button>
+                                <p class="text-center text-muted mt-5 mb-0">Already have an account? <a
                                         href="{% url 'loginpage' %}"
                                         class="fw-bold text-body"><u>Login
                                     here</u></a></p>
@@ -220,17 +250,30 @@
                     <div class="col-lg-6 ">
                         <div class="title">
                             <h2>Newsletter</h2>
-                            <p>We don't send spam so don't worry.</p>
+                            <p>We don't send spam, don't worry.</p>
                         </div>
                     </div>
                     <div class="col-lg-6 ">
                         <div class="form">
-                            <form action="#" method="get" target="_blank" class="newsletter-form">
-                                <input name="EMAIL" placeholder="Your email address" type="email">
-                                <div class="button">
-                                    <button class="btn">Subscribe<span class="dir-part"></span></button>
-                                </div>
-                            </form>
+                            {% if user_newsletter_subscription == True %}
+                                <form action="{% url 'unsubscribenewsletter' %}" method="POST" class="newsletter-form">
+                                    {% csrf_token %}
+                                    <input name="EMAIL" value="Newsletter abbestellen? Ganz einfach." readonly>
+                                    <div class="button">
+                                        <button type="submit" class="btn">Unsubscribe<span class="dir-part"></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            {% else %}
+                                <form action="{% url 'subscribenewsletter' %}" method="POST" class="newsletter-form">
+                                    {% csrf_token %}
+                                    <input name="EMAIL" placeholder="Your email address" type="email">
+                                    <div class="button">
+                                        <button type="submit" class="btn">Subscribe<span class="dir-part"></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -248,9 +291,9 @@
                         <div class="single-footer f-link">
                             <h3>Locations</h3>
                             <ul>
-                                <li><a href="#">Oelde</a></li>
-                                <li><a href="#">Beckum</a></li>
-                                <li><a href="#">Ahlen</a></li>
+                                <li style="color: #f0f0f0">Oelde</li>
+                                <li style="color: #f0f0f0">Beckum</li>
+                                <li style="color: #f0f0f0">Ahlen</li>
                             </ul>
                         </div>
                     </div>
@@ -258,10 +301,15 @@
                         <div class="single-footer f-link">
                             <h3>Quick Links</h3>
                             <ul>
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="register.html">Signup</a></li>
-                                <li><a href="faq.html">FAQ</a></li>
+                                {% if request.user.is_authenticated %}
+                                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                                    <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                                    <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                    <li><a href="{% url 'loginpage' %}">Login</a></li>
+                                    <li><a href="{% url 'register' %}">Signup</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -286,9 +334,9 @@
                         <div class="col-12">
                             <div class="content">
                                 <ul class="footer-bottom-links">
-                                    <li><a href="agb.html">AGB</a></li>
-                                    <li><a href="datenschutz.html">Datenschutzrichtlinie</a></li>
-                                    <li><a href="impressum.html">Impressum</a></li>
+                                    <li><a href="{% url 'agb' %}">AGB</a></li>
+                                    <li><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a></li>
+                                    <li><a href="{% url 'impressum' %}">Impressum</a></li>
                                 </ul>
                             </div>
                         </div>

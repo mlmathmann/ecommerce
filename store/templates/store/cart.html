@@ -34,11 +34,9 @@
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
-
                                     <li class="nav-item" href="{% url 'home' %}">
                                         <a class=" dd-menu collapsed" href="{% url 'home' %}">Home</a>
                                     </li>
-
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
@@ -47,8 +45,8 @@
                                         <ul class="sub-menu mega-menu collapse" id="submenu-1-5">
                                             <li class="single-block">
                                                 <ul>
-                                                <li class="mega-menu-title">Categories</li>
-                                                    {% for item in category %}
+                                                    <li class="mega-menu-title">Categories</li>
+                                                    {% for item in categories %}
                                                         <li class="nav-item"><a
                                                                 href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
                                                         </li>
@@ -58,11 +56,11 @@
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Collections</li>
-                                                    <li class="nav-item"><a href="#">ARISTROCRATIC</a></li>
-                                                    <li class="nav-item"><a href="#">IMAGINATIVE</a></li>
-                                                    <li class="nav-item"><a href="#">FUTURISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">BRUTALISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">SIMPLISTIC</a></li>
+                                                    {% for collection in collections %}
+                                                        <li class="nav-item"><a
+                                                                href="{% url 'stylecollections' collection.slug %}">{{ collection.name }}</a>
+                                                        </li>
+                                                    {% endfor %}
                                                 </ul>
                                             </li>
                                         </ul>
@@ -72,26 +70,15 @@
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                           aria-label="Toggle navigation">Pages</a>
-                                        <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
-                                            <li class="single-block">
-                                                <ul>
-                                                    <li class="mega-menu-title">Essential Pages</li>
-                                                    <li class="nav-item"><a href="../../../static/about-us.html">About
-                                                        Us</a></li>
-                                                    <li class="nav-item"><a href="../../../static/contact.html">Contact
-                                                        Us</a></li>
-                                                    <li class="nav-item"><a href="../../../static/faq.html">FAQ</a></li>
-                                                </ul>
+                                           aria-label="Toggle navigation">Essentials</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-5">
+
+                                            <li class="nav-item"><a href="{% url 'about-us' %}">About
+                                                Us</a></li>
+                                            <li class="nav-item"><a href="{% url 'home' %}">Creation</a>
                                             </li>
-                                            <li class="single-block">
-                                                <ul>
-                                                    <li class="mega-menu-title">Dashboard</li>
-                                                    <li class="nav-item"><a href="{% url 'profile' user %}">My
-                                                        Profile</a></li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
-                                                </ul>
-                                            </li>
+                                            <li class="nav-item"><a href="{% url 'faq' %}">FAQ</a></li>
+
                                         </ul>
                                     </li>
                                     <li class="nav-item">
@@ -100,10 +87,10 @@
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
                                            aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
-                                            <li class="nav-item"><a href="../../../static/agb.html">AGB</a></li>
-                                            <li class="nav-item"><a href="../../../static/datenschutz.html">Datenschutzrichtlinie</a>
+                                            <li class="nav-item"><a href="{% url 'agb' %}">AGB</a></li>
+                                            <li class="nav-item"><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
                                             </li>
-                                            <li class="nav-item"><a href="../../../static/impressum.html">Impressum</a>
+                                            <li class="nav-item"><a href="{% url 'impressum' %}">Impressum</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -115,7 +102,7 @@
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" href="#" role="button"
                                                data-bs-toggle="dropdown"
-                                               aria-expanded="false">
+                                               aria-expanded="false" style="padding-left: unset;">
                                                 {% if profile_picture != '' and profile_picture != None %}
                                                     <img alt="picture" width="25" height="25"
                                                          src="../../../static/{{ profile_picture }}"
@@ -123,11 +110,33 @@
                                                 {% endif %}
                                                 {{ request.user }}
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="{% url 'profile' request.user %}">My
-                                                    Profile</a></li>
-                                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+
+                                            <ul class="dropdown-menu shadow"
+                                                style="border-radius: unset; border: none; padding: 10px">
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'profile' request.user %}">My Profile</a></li>
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'home' %}">My Orders</a></li>
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'myfurniture' %}">My Creations</a></li>
+                                                <hr style="margin: 5px">
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'logout' %}">Logout</a>
+                                                </li>
                                             </ul>
+
                                         </li>
                                     {% else %}
                                         <li class="nav-item">
@@ -171,7 +180,7 @@
                 </div>
                 <div class="col">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="{% url 'home' %}">Home</a></li>
                         <li>Warenkorb</li>
                     </ul>
                 </div>
@@ -185,7 +194,7 @@
         <div class="py-5">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 cartdatacard">
                         <div class="card shadow">
                             <div class="card-body cartdata">
                                 {% if cart %}
@@ -224,7 +233,7 @@
                                                     <h6>Out of stock</h6>
                                                 {% endif %}
                                             </div>
-                                            <div class="col-md-2 my-auto">
+                                            <div class="col-md-2 ms-1 my-auto" style="text-align: right">
                                                 <button class="btn btn-danger delete-cart-item"> Remove <i
                                                         class="fa fa-trash"></i></button>
                                             </div>
@@ -235,11 +244,12 @@
                                 {% endif %}
                             </div>
                         </div>
-                    </div>
                     <hr class="mt-4 mb-4">
-                    {% if cart %}
-                        <a href="{% url 'checkout' %}"><span class="checkout-btn">Checkout</span></a>
+                    {% if cart_count > 0 %}
+                        <a href="{% url 'checkout' %}" class="justify-content-center w-100"><span class="checkout-btn center">Checkout</span></a>
                     {% endif %}
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -254,9 +264,9 @@
                         <div class="single-footer f-link">
                             <h3>Locations</h3>
                             <ul>
-                                <li><a href="#">Oelde</a></li>
-                                <li><a href="#">Beckum</a></li>
-                                <li><a href="#">Ahlen</a></li>
+                                <li style="color: #f0f0f0">Oelde</li>
+                                <li style="color: #f0f0f0">Beckum</li>
+                                <li style="color: #f0f0f0">Ahlen</li>
                             </ul>
                         </div>
                     </div>
@@ -264,10 +274,15 @@
                         <div class="single-footer f-link">
                             <h3>Quick Links</h3>
                             <ul>
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="register.html">Signup</a></li>
-                                <li><a href="faq.html">FAQ</a></li>
+                                {% if request.user.is_authenticated %}
+                                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                                    <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                                    <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                    <li><a href="{% url 'loginpage' %}">Login</a></li>
+                                    <li><a href="{% url 'register' %}">Signup</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -292,9 +307,9 @@
                         <div class="col-12">
                             <div class="content">
                                 <ul class="footer-bottom-links">
-                                    <li><a href="agb.html">AGB</a></li>
-                                    <li><a href="datenschutz.html">Datenschutzrichtlinie</a></li>
-                                    <li><a href="impressum.html">Impressum</a></li>
+                                    <li><a href="{% url 'agb' %}">AGB</a></li>
+                                    <li><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a></li>
+                                    <li><a href="{% url 'impressum' %}">Impressum</a></li>
                                 </ul>
                             </div>
                         </div>

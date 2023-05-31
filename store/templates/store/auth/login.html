@@ -6,28 +6,28 @@
 
 {% block content %}
 
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <title>MIAGGIO</title>
-    <meta name="description" content=""/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../static/assets/images/favicon.png"/>
-    <!--CSS-->
-    <link rel="stylesheet" href="../../../../static/assets/css/bootstrap.min.css"/>
-</head>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+        <title>MIAGGIO</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="shortcut icon" type="image/x-icon" href="../../../../static/assets/images/favicon.png"/>
+        <!--CSS-->
+        <link rel="stylesheet" href="../../../../static/assets/css/bootstrap.min.css"/>
+    </head>
 
-<body>
-
-<!--header-->
-<header class="header navbar-area">
+    <body>
+    <!--header-->
+    <header class="header navbar-area">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <div class="nav-inner">
                         <nav class="navbar navbar-expand-lg ">
-                            <a class="navbar-brand" href="{% url 'home' %}">
-                                <img src="../../../../static/assets/images/logo/logo.png" alt="Logo">
+                            <a class="navbar-brand mt-1" style="vertical-align: middle; margin-right: unset"
+                               href="{% url 'home' %}">
+                                <div class="logo-nav-pic"></div>
                             </a>
                             <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -36,22 +36,35 @@
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
-
-                                    <li class="nav-item">
-                                        <a class=" dd-menu collapsed" href="{% url 'home' %}"
-                                           data-bs-toggle="collapse" data-bs-target="#submenu-1-1"
-                                           aria-controls="navbarSupportedContent" aria-expanded="false"
-                                           aria-label="Toggle navigation">Home</a>
+                                    <li class="nav-item" href="{% url 'home' %}">
+                                        <a class=" dd-menu collapsed" href="{% url 'home' %}">Home</a>
                                     </li>
-
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
                                            aria-label="Toggle navigation">Categories</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-5">
-                                            <li class="nav-item"><a href="javascript:void(0)">Stuhl</a></li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Tisch</a></li>
+                                        <ul class="sub-menu mega-menu collapse" id="submenu-1-5">
+                                            <li class="single-block">
+                                                <ul>
+                                                    <li class="mega-menu-title">Categories</li>
+                                                    {% for item in categories %}
+                                                        <li class="nav-item"><a
+                                                                href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                            <li class="single-block">
+                                                <ul>
+                                                    <li class="mega-menu-title">Collections</li>
+                                                    {% for collection in collections %}
+                                                        <li class="nav-item"><a
+                                                                href="{% url 'stylecollections' collection.slug %}">{{ collection.name }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
                                         </ul>
                                     </li>
 
@@ -59,26 +72,15 @@
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                           aria-label="Toggle navigation">Pages</a>
-                                        <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
-                                            <li class="single-block">
-                                                <ul>
-                                                    <li class="mega-menu-title">Essential Pages</li>
-                                                    <li class="nav-item"><a href="../../../../static/about-us.html">About
-                                                        Us</a></li>
-                                                    <li class="nav-item"><a href="../../../../static/contact.html">Contact
-                                                        Us</a></li>
-                                                    <li class="nav-item"><a href="../../../../static/faq.html">FAQ</a></li>
-                                                </ul>
+                                           aria-label="Toggle navigation">Essentials</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-5">
+
+                                            <li class="nav-item"><a href="{% url 'about-us' %}">About
+                                                Us</a></li>
+                                            <li class="nav-item"><a href="{% url 'home' %}">Creation</a>
                                             </li>
-                                            <li class="single-block">
-                                                <ul>
-                                                    <li class="mega-menu-title">Dashboard</li>
-                                                    <li class="nav-item"><a href="../profile.html">My
-                                                        Profile</a></li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
-                                                </ul>
-                                            </li>
+                                            <li class="nav-item"><a href="{% url 'faq' %}">FAQ</a></li>
+
                                         </ul>
                                     </li>
                                     <li class="nav-item">
@@ -87,10 +89,11 @@
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
                                            aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
-                                            <li class="nav-item"><a href="../../../../static/agb.html">AGB</a></li>
-                                            <li class="nav-item"><a href="../../../../static/datenschutz.html">Datenschutzrichtlinie</a>
+                                            <li class="nav-item"><a href="{% url 'agb' %}">AGB</a></li>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
                                             </li>
-                                            <li class="nav-item"><a href="../../../../static/impressum.html">Impressum</a>
+                                            <li class="nav-item"><a href="{% url 'impressum' %}">Impressum</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -102,13 +105,41 @@
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" href="#" role="button"
                                                data-bs-toggle="dropdown"
-                                               aria-expanded="false">
+                                               aria-expanded="false" style="padding-left: unset;">
+                                                {% if profile_picture != '' and profile_picture != None %}
+                                                    <img alt="picture" width="25" height="25"
+                                                         src="../../../static/{{ profile_picture }}"
+                                                         class="rounded-circle me-1">
+                                                {% endif %}
                                                 {{ request.user }}
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#">Dashboard?</a></li>
-                                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+
+                                            <ul class="dropdown-menu shadow"
+                                                style="border-radius: unset; border: none; padding: 10px">
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'profile' request.user %}">My Profile</a></li>
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'home' %}">My Orders</a></li>
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'myfurniture' %}">My Creations</a></li>
+                                                <hr style="margin: 5px">
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'logout' %}">Logout</a>
+                                                </li>
                                             </ul>
+
                                         </li>
                                     {% else %}
                                         <li class="nav-item">
@@ -121,11 +152,13 @@
                                         </li>
                                     {% endif %}
                                     <li>
-                                        <a href="../wishlist.html"><i class="lni lni-cart"></i>Wunschliste</a>
+                                        <a href="{% url 'wishlist' %}"><i class="lni lni-cart"></i>Wunschliste</a>
                                     </li>
-                                    <li>
-                                        <a href="../../../../static/checkout.html"><i
-                                                class="lni lni-cart"></i>Warenkorb</a>
+                                    <li class="nav-item" style="vertical-align: middle">
+                                        <a href="{% url 'cart' %}" title="Warenkorb">
+                                            <div class="cart-nav-pic">
+                                            </div>
+                                        </a>
                                     </li>
 
                                 </ul>
@@ -137,158 +170,176 @@
             </div> <!-- row -->
         </div> <!-- container -->
     </header>
-<!--header-->
+    <!--header-->
 
-<!-- Start Breadcrumbs -->
-<div class="breadcrumbs">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
-                <div class="breadcrumbs-content">
-                    <h1 class="page-title">Sign in</h1>
-                </div>
-            </div>
-            <div class="col">
-                <ul class="breadcrumb-nav">
-                    <li><a href="{% url 'home' %}">Home</a></li>
-                    <li>Sign in</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Breadcrumbs -->
-
-<!-- Start Sign in -->
-<section class="w-auto p-3" style="background-color: #ffffff;">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <div class="card shadow-2-strong" style="border-radius: 1rem;">
-                    <div class="card-body p-5 text-center">
-
-                        <h3 class="mb-4">Sign in</h3>
-                        <form action="" method="post">
-                            {% csrf_token %}
-                            <div class="text-center">
-                            </div>
-                            <hr>
-                            <div class="form-group">
-                                <label for="" >Username : </label>
-                                <input type="text" class="form-control" name="username" placeholder="Enter Username">
-                            </div>
-                            <div class="form-group">
-                                <label for="" >Password : </label>
-                                <input type="password" class="form-control" name="password" placeholder="Enter Password">
-                            </div>
-                            <br>
-
-                        <button type="submit" class="btn shadow btn-success px-4">Login</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Sign in -->
-
-
-<!--Newsletter-->
-<div class="newsletter section">
-    <div class="container">
-        <div class="inner-content">
-            <div class="row align-items-center">
-                <div class="col-lg-6 ">
-                    <div class="title">
-                        <h2>Newsletter</h2>
-                        <p>We don't send spam so don't worry.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 ">
-                    <div class="form">
-                        <form action="#" method="get" target="_blank" class="newsletter-form">
-                            <input name="EMAIL" placeholder="Your email address" type="email">
-                            <div class="button">
-                                <button class="btn">Subscribe<span class="dir-part"></span></button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--Newsletter-->
-
-<!--Footer-->
-<footer class="footer">
-    <div class="footer-top">
+    <!-- Start Breadcrumbs -->
+    <div class="breadcrumbs">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-5">
-                    <div class="single-footer f-link">
-                        <h3>Locations</h3>
-                        <ul>
-                            <li><a href="#">Oelde</a></li>
-                            <li><a href="#">Beckum</a></li>
-                            <li><a href="#">Ahlen</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="single-footer f-link">
-                        <h3>Quick Links</h3>
-                        <ul>
-                            <li><a href="about-us.html">About Us</a></li>
-                            <li><a href="login.html">Login</a></li>
-                            <li><a href="register.html">Signup</a></li>
-                            <li><a href="faq.html">FAQ</a></li>
-                        </ul>
+            <div class="row align-items-center">
+                <div class="col">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">Login</h1>
                     </div>
                 </div>
                 <div class="col">
-                    <div class="single-footer f-contact">
-                        <h3>Contact</h3>
-                        <ul>
-                            <li>MIAGGIO GmbH<br> Musterstr 4<br> 59269 Beckum, DE</li>
-                            <li>Tel. +49 123456 <br> support@miaggio.com</li>
-                        </ul>
-                    </div>
+                    <ul class="breadcrumb-nav">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li>Login</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+    <!-- End Breadcrumbs -->
 
-    <!--Footer Bottom-->
-    <div class="footer-bottom">
+    <!-- Start Sign in -->
+    <section class="w-auto p-3" style="background-color: #ffffff;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+
+                            <h3 class="mb-4">Login</h3>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <div class="text-center">
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label class="text-start">Username : </label>
+                                    <input type="text" class="form-control" name="username"
+                                           placeholder="Enter Username">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Password : </label>
+                                    <input type="password" class="form-control" name="password"
+                                           placeholder="Enter Password">
+                                </div>
+                                <br>
+                                <button type="submit" class="btn shadow miaggio-btn-success px-4">Login</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Sign in -->
+
+    <!--Newsletter-->
+    <div class="newsletter section">
         <div class="container">
-            <div class="inner">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="content">
-                            <ul class="footer-bottom-links">
-                                <li><a href="agb.html">AGB</a></li>
-                                <li><a href="datenschutz.html">Datenschutzrichtlinie</a></li>
-                                <li><a href="impressum.html">Impressum</a></li>
-                            </ul>
+            <div class="inner-content">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 ">
+                        <div class="title">
+                            <h2>Newsletter</h2>
+                            <p>We don't send spam, don't worry.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 ">
+                        <div class="form">
+                            {% if user_newsletter_subscription == True %}
+                                <form action="{% url 'unsubscribenewsletter' %}" method="POST" class="newsletter-form">
+                                    {% csrf_token %}
+                                    <input name="EMAIL" value="Newsletter abbestellen? Ganz einfach." readonly>
+                                    <div class="button">
+                                        <button type="submit" class="btn">Unsubscribe<span class="dir-part"></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            {% else %}
+                                <form action="{% url 'subscribenewsletter' %}" method="POST" class="newsletter-form">
+                                    {% csrf_token %}
+                                    <input name="EMAIL" placeholder="Your email address" type="email">
+                                    <div class="button">
+                                        <button type="submit" class="btn">Subscribe<span class="dir-part"></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</footer>
-<!--Footer-->
+    <!--Newsletter-->
 
-<!--scroll-top-->
-<a href="#" class="scroll-top btn-hover">
-    <i class="lni lni-chevron-up">^</i>
-</a>
-<!--scroll-top-->
+    <!--Footer-->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="single-footer f-link">
+                            <h3>Locations</h3>
+                            <ul>
+                                <li style="color: #f0f0f0">Oelde</li>
+                                <li style="color: #f0f0f0">Beckum</li>
+                                <li style="color: #f0f0f0">Ahlen</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="single-footer f-link">
+                            <h3>Quick Links</h3>
+                            <ul>
+                                {% if request.user.is_authenticated %}
+                                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                                    <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                                    <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                    <li><a href="{% url 'loginpage' %}">Login</a></li>
+                                    <li><a href="{% url 'register' %}">Signup</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="single-footer f-contact">
+                            <h3>Contact</h3>
+                            <ul>
+                                <li>MIAGGIO GmbH<br> Musterstr 4<br> 59269 Beckum, DE</li>
+                                <li>Tel. +49 123456 <br> support@miaggio.com</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<!--JS-->
-</body>
+        <!--Footer Bottom-->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="content">
+                                <ul class="footer-bottom-links">
+                                    <li><a href="{% url 'agb' %}">AGB</a></li>
+                                    <li><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a></li>
+                                    <li><a href="{% url 'impressum' %}">Impressum</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--Footer-->
 
+    <!--scroll-top-->
+    <a href="#" class="scroll-top btn-hover">
+        <i class="lni lni-chevron-up">^</i>
+    </a>
+    <!--scroll-top-->
+
+    <!--JS-->
+    </body>
+
+    </html>
 {% endblock content %}
-
-</html>

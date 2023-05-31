@@ -11,9 +11,9 @@
         <title>MIAGGIO</title>
         <meta name="description" content=""/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="shortcut icon" type="image/x-icon" href="../../../static/assets/images/favicon.png"/>
+        <link rel="shortcut icon" type="image/x-icon" href="../../../../static/assets/images/favicon.png"/>
         <!--CSS-->
-        <link rel="stylesheet" href="../../../static/assets/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../../../../static/assets/css/bootstrap.min.css"/>
     </head>
 
     <body onbeforeunload="return f()">
@@ -35,11 +35,9 @@
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
-
                                     <li class="nav-item" href="{% url 'home' %}">
                                         <a class=" dd-menu collapsed" href="{% url 'home' %}">Home</a>
                                     </li>
-
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
@@ -59,11 +57,11 @@
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Collections</li>
-                                                    <li class="nav-item"><a href="#">ARISTROCRATIC</a></li>
-                                                    <li class="nav-item"><a href="#">IMAGINATIVE</a></li>
-                                                    <li class="nav-item"><a href="#">FUTURISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">BRUTALISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">SIMPLISTIC</a></li>
+                                                    {% for collection in collections %}
+                                                        <li class="nav-item"><a
+                                                                href="{% url 'stylecollections' collection.slug %}">{{ collection.name }}</a>
+                                                        </li>
+                                                    {% endfor %}
                                                 </ul>
                                             </li>
                                         </ul>
@@ -73,26 +71,15 @@
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                           aria-label="Toggle navigation">Pages</a>
-                                        <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
-                                            <li class="single-block">
-                                                <ul>
-                                                    <li class="mega-menu-title">Essential Pages</li>
-                                                    <li class="nav-item"><a href="../../../static/about-us.html">About
-                                                        Us</a></li>
-                                                    <li class="nav-item"><a href="../../../static/contact.html">Contact
-                                                        Us</a></li>
-                                                    <li class="nav-item"><a href="../../../static/faq.html">FAQ</a></li>
-                                                </ul>
+                                           aria-label="Toggle navigation">Essentials</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-5">
+
+                                            <li class="nav-item"><a href="{% url 'about-us' %}">About
+                                                Us</a></li>
+                                            <li class="nav-item"><a href="{% url 'home' %}">Creation</a>
                                             </li>
-                                            <li class="single-block">
-                                                <ul>
-                                                    <li class="mega-menu-title">Dashboard</li>
-                                                    <li class="nav-item"><a href="{% url 'profile' user %}">My
-                                                        Profile</a></li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
-                                                </ul>
-                                            </li>
+                                            <li class="nav-item"><a href="{% url 'faq' %}">FAQ</a></li>
+
                                         </ul>
                                     </li>
                                     <li class="nav-item">
@@ -101,10 +88,10 @@
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
                                            aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
-                                            <li class="nav-item"><a href="../../../static/agb.html">AGB</a></li>
-                                            <li class="nav-item"><a href="../../../static/datenschutz.html">Datenschutzrichtlinie</a>
+                                            <li class="nav-item"><a href="{% url 'agb' %}">AGB</a></li>
+                                            <li class="nav-item"><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
                                             </li>
-                                            <li class="nav-item"><a href="../../../static/impressum.html">Impressum</a>
+                                            <li class="nav-item"><a href="{% url 'impressum' %}">Impressum</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -116,7 +103,7 @@
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" href="#" role="button"
                                                data-bs-toggle="dropdown"
-                                               aria-expanded="false">
+                                               aria-expanded="false" style="padding-left: unset;">
                                                 {% if profile_picture != '' and profile_picture != None %}
                                                     <img alt="picture" width="25" height="25"
                                                          src="../../../static/{{ profile_picture }}"
@@ -124,11 +111,33 @@
                                                 {% endif %}
                                                 {{ request.user }}
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="{% url 'profile' request.user %}">My
-                                                    Profile</a></li>
-                                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+
+                                            <ul class="dropdown-menu shadow"
+                                                style="border-radius: unset; border: none; padding: 10px">
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'profile' request.user %}">My Profile</a></li>
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'home' %}">My Orders</a></li>
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'myfurniture' %}">My Creations</a></li>
+                                                <hr style="margin: 5px">
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'logout' %}">Logout</a>
+                                                </li>
                                             </ul>
+
                                         </li>
                                     {% else %}
                                         <li class="nav-item">
@@ -172,7 +181,7 @@
                 </div>
                 <div class="col">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="{% url 'home' %}">Home</a></li>
                         <li>{{ category.name }}</li>
                     </ul>
                 </div>
@@ -187,23 +196,51 @@
         <div class="container">
             {% csrf_token %}
 
-            <div class="button text-center mensch">
+            <div class="button text-center style-filter-select">
                 <input id="categor_slug" type="hidden" value="{{ category.slug }}">
                 <button type="button" class="btn filter-btn" value="" onclick="bitch(this.value)">ALL</button>
-                <button type="button" class="btn filter-btn btn-dark btn-lg" value="A" onclick="bitch(this.value)">
+                <button type="button" class="btn filter-btn btn-dark btn-lg"
+                        {% if style_way == 'A' %}style="background-color: #1a1e21" {% endif %} value="A"
+                        onclick="bitch(this.value)">
                     ARISTROCRATIC
                 </button>
-                <button type="button" class="btn filter-btn btn-dark btn-lg" value="I" onclick="bitch(this.value)">
+                <button type="button" class="btn filter-btn btn-dark btn-lg"
+                        {% if style_way == 'I' %}style="background-color: #1a1e21" {% endif %} value="I"
+                        onclick="bitch(this.value)">
                     IMAGINATIVE
                 </button>
-                <button type="button" class="btn filter-btn btn-dark btn-lg" value="F" onclick="bitch(this.value)">
+                <button type="button" class="btn filter-btn btn-dark btn-lg"
+                        {% if style_way == 'F' %}style="background-color: #1a1e21" {% endif %} value="F"
+                        onclick="bitch(this.value)">
                     FUTURISTIC
                 </button>
-                <button type="button" class="btn filter-btn btn-dark btn-lg" value="B" onclick="bitch(this.value)">
+                <button type="button" class="btn filter-btn btn-dark btn-lg"
+                        {% if style_way == 'B' %}style="background-color: #1a1e21" {% endif %} value="B"
+                        onclick="bitch(this.value)">
                     BRUTALISTIC
                 </button>
-                <button type="button" class="btn filter-btn btn-dark btn-lg" value="S" onclick="bitch(this.value)">
+                <button type="button" class="btn filter-btn btn-dark btn-lg"
+                        {% if style_way == 'S' %}style="background-color: #1a1e21" {% endif %} value="S"
+                        onclick="bitch(this.value)">
                     SIMPLISTIC
+                </button>
+            </div>
+            <div class="button text-center mt-2 price-filter-select">
+                <input id="categor_slug" type="hidden" value="{{ category.slug }}">
+                <button type="button" class="btn filter-btn" value="" onclick="priceselect(this.value)"
+                        style="height: 52px; width: 52px; background-image: url(../../../../static/assets/images/imageedit_29_4812862319.png); background-size: cover; background-position: center;">
+                </button>
+                <button type="button" class="btn filter-btn btn-dark btn-lg"
+                        {% if price_filter == 'price desc' %}style="background-color: #1a1e21" {% endif %}
+                        value="price desc"
+                        onclick="priceselect(this.value)">
+                    Höchster Preis
+                </button>
+                <button type="button" class="btn filter-btn btn-dark btn-lg"
+                        {% if price_filter == 'price asc' %}style="background-color: #1a1e21" {% endif %}
+                        value="price asc"
+                        onclick="priceselect(this.value)">
+                    Niedrigster Preis
                 </button>
             </div>
             <br><br>
@@ -214,7 +251,6 @@
             </div>
             <div class="single-head">
                 <div class="row">
-
                     {% for item in products %}
                         <div class="col-lg-3 ">
                             <div class="single-grid">
@@ -227,19 +263,12 @@
                                            href="{% url 'collectionsview' item.category.slug %}"><span
                                                 class="home-item-tag"> {{ item.category }} </span></a>
 
-                                        {% if item.style_way == 'A' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> ARISTROCRATIC </span></a>
-                                        {% elif item.style_way == 'I' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> IMAGINATIVE </span></a>
-                                        {% elif item.style_way == 'F' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> FUTURISTIC </span></a>
-                                        {% elif item.style_way == 'B' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> BRUTALISTIC </span></a>
-                                        {% elif item.style_way == 'I' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> IMAGINATIVE </span></a>
-                                        {% elif item.style_way == 'S' %}
-                                            <a href="{% url 'home' %}"><span class="home-item-tag text-uppercase"> SIMPLISTIC </span></a>
-                                        {% endif %}
+                                        {% for collection in collections %}
+                                            {% if item.style_way == collection.style_sign %}
+                                                <a href="{% url 'stylecollections' collection.slug %}"><span
+                                                        class="home-item-tag text-uppercase">{{ collection.name }}</span></a>
+                                            {% endif %}
+                                        {% endfor %}
 
                                         <h3 class="title"><a
                                                 href="{% url 'productview' item.category.slug item.slug %}"> {{ item.name }} </a>
@@ -265,7 +294,6 @@
 
     <!--Items-->
 
-
     <!--Footer-->
     <footer class="footer">
         <div class="footer-top">
@@ -275,9 +303,9 @@
                         <div class="single-footer f-link">
                             <h3>Locations</h3>
                             <ul>
-                                <li><a href="#">Oelde</a></li>
-                                <li><a href="#">Beckum</a></li>
-                                <li><a href="#">Ahlen</a></li>
+                                <li style="color: #f0f0f0">Oelde</li>
+                                <li style="color: #f0f0f0">Beckum</li>
+                                <li style="color: #f0f0f0">Ahlen</li>
                             </ul>
                         </div>
                     </div>
@@ -285,10 +313,15 @@
                         <div class="single-footer f-link">
                             <h3>Quick Links</h3>
                             <ul>
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="register.html">Signup</a></li>
-                                <li><a href="faq.html">FAQ</a></li>
+                                {% if request.user.is_authenticated %}
+                                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                                    <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                                    <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                    <li><a href="{% url 'loginpage' %}">Login</a></li>
+                                    <li><a href="{% url 'register' %}">Signup</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -313,9 +346,9 @@
                         <div class="col-12">
                             <div class="content">
                                 <ul class="footer-bottom-links">
-                                    <li><a href="agb.html">AGB</a></li>
-                                    <li><a href="datenschutz.html">Datenschutzrichtlinie</a></li>
-                                    <li><a href="impressum.html">Impressum</a></li>
+                                    <li><a href="{% url 'agb' %}">AGB</a></li>
+                                    <li><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a></li>
+                                    <li><a href="{% url 'impressum' %}">Impressum</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -341,7 +374,7 @@
             var token = $('input[name=csrfmiddlewaretoken]').val()
             $.ajax({
                 type: "POST",
-                url: "/collections/" + cat_slug,
+                url: "/categories/" + cat_slug,
                 data: {
                     'filter_value': filter_value,
                     'cat_slug': cat_slug,
@@ -349,7 +382,27 @@
 
                 },
                 success: function (response) {
-                    alertify.success("YESSS");
+                    // alertify.success("YESSS");
+                    $('#ihate').load(document.URL + ' #ihate');
+                    //window.location.reload()
+                }
+            });
+        }
+
+        function priceselect(filter_value) {
+            console.log(filter_value);
+            var cat_slug = $('#categor_slug').val();
+            var token = $('input[name=csrfmiddlewaretoken]').val()
+            $.ajax({
+                type: "POST",
+                url: "/categories/" + cat_slug,
+                data: {
+                    'price_filter_value': filter_value,
+                    'cat_slug': cat_slug,
+                    csrfmiddlewaretoken: token
+                },
+                success: function (response) {
+                    // alertify.success("YESSS");
                     $('#ihate').load(document.URL + ' #ihate');
                     //window.location.reload()
                 }
@@ -359,12 +412,12 @@
         function f() {
             //console.log(this.find('categor_slug'));
             var end = 'ye';
-            console.log(end)
             var cat_slug = $('#categor_slug').val();
+            console.log(cat_slug)
             var token = $('input[name=csrfmiddlewaretoken]').val()
             $.ajax({
                 type: "POST",
-                url: "/collections/" + cat_slug,
+                url: "/categories/" + cat_slug,
                 data: {
                     'cat_slug': cat_slug,
                     'end': end,

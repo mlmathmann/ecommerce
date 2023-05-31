@@ -12,6 +12,10 @@ def get_file_path(request, filename):
     return os.path.join('uploads/', filename)
 
 
+def generated_file_path(request, filename):
+    return os.path.join('uploads/generated/', filename)
+
+
 class Category(models.Model):
     slug = models.CharField(max_length=150, null=False, blank=False)
     name = models.CharField(max_length=150, null=False, blank=False)
@@ -23,6 +27,17 @@ class Category(models.Model):
     meta_keywords = models.CharField(max_length=150, null=False, blank=False)
     meta_description = models.TextField(max_length=500, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Collection(models.Model):
+    name = models.CharField(max_length=150, null=False, blank=False)
+    slug = models.CharField(max_length=150, null=False, blank=False, default='')
+    style_sign = models.CharField(max_length=1, null=False, blank=False, default='')
+    image = models.ImageField(upload_to=get_file_path, null=True, blank=True)
+    description = models.TextField(max_length=500, null=False, blank=False, default='')
 
     def __str__(self):
         return self.name
@@ -47,7 +62,7 @@ class Product(models.Model):
     selling_price = models.FloatField(null=False, blank=False)
     status = models.BooleanField(default=False, help_text="0=default, 1=Hidden")
     trending = models.BooleanField(default=False, help_text="0=default, 1=Trending")
-    tag = models.CharField(max_length=150, null=False, blank=False)
+    tag = models.CharField(max_length=150, null=True, blank=True)
     meta_title = models.CharField(max_length=150, null=False, blank=False)
     meta_keywords = models.CharField(max_length=150, null=False, blank=False)
     meta_description = models.TextField(max_length=500, null=False, blank=False)
@@ -140,5 +155,36 @@ class Profile(models.Model):
     postal_code = models.CharField(max_length=150, null=False)
     city = models.CharField(max_length=150, null=False)
     country = models.CharField(max_length=12, choices=CountryChoices.choices, default='Deutschland')
+    newsletter_subscription = models.BooleanField(default=False, help_text="0=default, 1=Subscribed")
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class GeneratedItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=generated_file_path, null=False, blank=False)
+    prompt = models.CharField(max_length=150, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Creation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    email = models.CharField(max_length=150, null=False)
+    order = models.ForeignKey(GeneratedItem, on_delete=models.CASCADE)
+    version = models.CharField(max_length=1, null=False)
+
+    creation_statuses = (
+        ('Requested', 'Requested'),
+        ('Approved', 'Approved'),
+        ('In production', 'In production'),
+        ('Out on delivery', 'Out on delivery'),
+        ('Completed', 'Completed')
+    )
+    status = models.CharField(max_length=150, choices=creation_statuses, default='Requested')
+    message = models.TextField(null=True)
+    tracking_no = models.CharField(max_length=150, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return '{} - {}'.format(self.id, self.tracking_no)
 

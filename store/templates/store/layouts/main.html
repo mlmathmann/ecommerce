@@ -119,6 +119,44 @@
             content: url("https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/arrow_down2-1024.png");
         }
 
+        .gen-variation-select {
+            transition: all 0.4s ease;
+        }
+
+        .gen-variation-select:focus {
+            background-color: #5830E0 !important;
+        }
+
+        .gen-variation-select:focus .serial1 {
+            color: #5830E0;
+            background-color: #f0f0f0;
+            border-color: #5830E0;
+        }
+
+
+        .serial1 {
+            height: 80px;
+            width: 80px;
+            line-height: 68px;
+            background-color: #5830E0;
+            color: #fff;
+            text-align: center;
+            border-radius: 50%;
+            border: 6px solid #b29cfb;
+            display: inline-block;
+            margin-bottom: 25px;
+            font-weight: 700;
+            font-size: 25px;
+            -webkit-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+
+        .gen-variation-select:hover .serial1 {
+            color: #5830E0;
+            background-color: #f0f0f0;
+            border-color: #5830E0;
+        }
+
         .home-item-tag {
             display: inline-block;
             margin-bottom: 10px;
@@ -132,19 +170,19 @@
             -webkit-transition: all 0.4s ease;
         }
 
-        .home-item-tag:hover{
+        .home-item-tag:hover {
             color: #f9f9f9;
             background-color: #5830E0;
         }
 
-        .a-home-item-tag{
+        .a-home-item-tag {
             color: #7e7e7e;
             font-family: Lato, sans-serif;
             transition: all 0.4s ease;
             -webkit-transition: all 0.4s ease;
         }
 
-        .a-home-item-tag:hover{
+        .a-home-item-tag:hover {
             color: #5830E0;
         }
 
@@ -164,8 +202,18 @@
             -webkit-transition: all 0.4s ease;
         }
 
-        .checkout-btn:hover{
+        .checkout-btn:hover {
             color: #f9f9f9;
+            background-color: #5830E0;
+        }
+
+        .profile-btn {
+            background-color: white;
+            transition: all 0.4s ease;
+        }
+
+        .profile-btn:hover {
+            color: #f9f9f9 !important;
             background-color: #5830E0;
         }
 
@@ -188,6 +236,35 @@
             color: #ffffff;
             flex-direction: column;
         }
+
+        .miaggio-btn-success {
+            transition: all 0.4s ease;
+            -webkit-transition: all 0.4s ease;
+            color: #f9f9f9 !important;
+            background-color: #5830E0 !important;
+            border-color: #5830E0 !important;
+        }
+
+        .miaggio-btn-success:hover {
+            color: #ffffff !important;
+            background-color: #071828 !important;
+            border-color: #071828 !important;
+        }
+
+        .miaggio-btn-secondary {
+            transition: all 0.4s ease;
+            -webkit-transition: all 0.4s ease;
+            color: #5830E0 !important;
+            background-color: transparent !important;
+            border-color: #5830E0 !important;
+        }
+
+        .miaggio-btn-secondary:hover {
+            color: #ffffff !important;
+            background-color: #5830E0 !important;
+            border-color: #5830E0 !important;
+        }
+
     </style>
 </head>
 <body>
@@ -208,7 +285,7 @@
 
     {% comment %} Alerting via Alertify JS {% endcomment %}
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.5/sweetalert2.all.min.js"></script>
     <script>
         alertify.set('notifier', 'position', 'top-right');
         {% for msg in messages %}
@@ -219,3 +296,5 @@
 {% endblock %}
 </body>
 </html>
+{% load sweetify %}
+{% sweetify %}

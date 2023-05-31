@@ -36,11 +36,9 @@
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
-
                                     <li class="nav-item" href="{% url 'home' %}">
                                         <a class=" dd-menu collapsed" href="{% url 'home' %}">Home</a>
                                     </li>
-
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
@@ -49,8 +47,8 @@
                                         <ul class="sub-menu mega-menu collapse" id="submenu-1-5">
                                             <li class="single-block">
                                                 <ul>
-                                                <li class="mega-menu-title">Categories</li>
-                                                    {% for item in category %}
+                                                    <li class="mega-menu-title">Categories</li>
+                                                    {% for item in categories %}
                                                         <li class="nav-item"><a
                                                                 href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
                                                         </li>
@@ -60,11 +58,11 @@
                                             <li class="single-block">
                                                 <ul>
                                                     <li class="mega-menu-title">Collections</li>
-                                                    <li class="nav-item"><a href="#">ARISTROCRATIC</a></li>
-                                                    <li class="nav-item"><a href="#">IMAGINATIVE</a></li>
-                                                    <li class="nav-item"><a href="#">FUTURISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">BRUTALISTIC</a></li>
-                                                    <li class="nav-item"><a href="#">SIMPLISTIC</a></li>
+                                                    {% for collection in collections %}
+                                                        <li class="nav-item"><a
+                                                                href="{% url 'stylecollections' collection.slug %}">{{ collection.name }}</a>
+                                                        </li>
+                                                    {% endfor %}
                                                 </ul>
                                             </li>
                                         </ul>
@@ -74,26 +72,16 @@
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                            data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
-                                           aria-label="Toggle navigation">Pages</a>
-                                        <ul class="sub-menu mega-menu collapse" id="submenu-1-4">
-                                            <li class="single-block">
-                                                <ul>
-                                                    <li class="mega-menu-title">Essential Pages</li>
-                                                    <li class="nav-item"><a href="../../../static/about-us.html">About
-                                                        Us</a></li>
-                                                    <li class="nav-item"><a href="../../../static/contact.html">Contact
-                                                        Us</a></li>
-                                                    <li class="nav-item"><a href="../../../static/faq.html">FAQ</a></li>
-                                                </ul>
+                                           aria-label="Toggle navigation">Essentials</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-5">
+
+                                            <li class="nav-item"><a href="{% url 'about-us' %}">About
+                                                Us</a></li>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'generatecustomfurniture' %}">Creation</a>
                                             </li>
-                                            <li class="single-block">
-                                                <ul>
-                                                    <li class="mega-menu-title">Dashboard</li>
-                                                    <li class="nav-item"><a href="{% url 'profile' user %}">My
-                                                        Profile</a></li>
-                                                    <li class="nav-item"><a href="javascript:void(0)">Messages</a></li>
-                                                </ul>
-                                            </li>
+                                            <li class="nav-item"><a href="{% url 'faq' %}">FAQ</a></li>
+
                                         </ul>
                                     </li>
                                     <li class="nav-item">
@@ -102,10 +90,11 @@
                                            aria-controls="navbarSupportedContent" aria-expanded="false"
                                            aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
-                                            <li class="nav-item"><a href="../../../static/agb.html">AGB</a></li>
-                                            <li class="nav-item"><a href="../../../static/datenschutz.html">Datenschutzrichtlinie</a>
+                                            <li class="nav-item"><a href="{% url 'agb' %}">AGB</a></li>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
                                             </li>
-                                            <li class="nav-item"><a href="../../../static/impressum.html">Impressum</a>
+                                            <li class="nav-item"><a href="{% url 'impressum' %}">Impressum</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -117,7 +106,7 @@
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" href="#" role="button"
                                                data-bs-toggle="dropdown"
-                                               aria-expanded="false">
+                                               aria-expanded="false" style="padding-left: unset;">
                                                 {% if profile_picture != '' and profile_picture != None %}
                                                     <img alt="picture" width="25" height="25"
                                                          src="../../../static/{{ profile_picture }}"
@@ -125,11 +114,33 @@
                                                 {% endif %}
                                                 {{ request.user }}
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="{% url 'profile' request.user %}">My
-                                                    Profile</a></li>
-                                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+
+                                            <ul class="dropdown-menu shadow"
+                                                style="border-radius: unset; border: none; padding: 10px">
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'profile' request.user %}">My Profile</a></li>
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'home' %}">My Orders</a></li>
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'myfurniture' %}">My Creations</a></li>
+                                                <hr style="margin: 5px">
+                                                <li
+                                                        style="border: none; margin: unset; padding: unset; width: 100%">
+                                                    <a class="profile-btn p-2"
+                                                       style="width: 100%; color: #888888; font-size: 14px"
+                                                       href="{% url 'logout' %}">Logout</a>
+                                                </li>
                                             </ul>
+
                                         </li>
                                     {% else %}
                                         <li class="nav-item">
@@ -168,13 +179,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Produktansicht</h1>
+                        <h1 class="page-title">Productview</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li>Produktansicht</li>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li>Productview</li>
                     </ul>
                 </div>
             </div>
@@ -213,17 +224,18 @@
                                                         <h2 class="mb-0" style="font-family: Lato, sans-serif">
                                                             {{ products.name }}
                                                             {% if products.trending %}
-                                                                <label style="font-size: 16px;"
-                                                                       class="float-end badge bg-danger trending_tag">Trending </label>
+                                                                <label title="Trending"
+                                                                       class="float-end trending_tag"><img class="icon"
+                                                                                                           src="../../../../static/assets/images/trending.png"
+                                                                                                           style="height: 48px; width: 48px"></label>
                                                             {% endif %}
                                                         </h2>
                                                         <hr>
                                                         <p class="mt-4 mb-2"
                                                            style="font-family: Lato, sans-serif; color: #888888">{{ products.description }}</p>
-                                                        <label class="me-3 mt-4">Original Price :
-                                                            <s>{{ products.original_price | stringformat:'d' }}€</s></label>
-                                                        <label class="fw-bold">Selling Price :
-                                                            {{ products.selling_price }}€</label>
+                                                        <br>
+                                                        <label class="fw-bold">
+                                                            {{ products.selling_price | floatformat:2 }}€</label>
                                                         <hr>
                                                         {% if products.quantity > 0 %}
                                                             <label class="badge bg-success" style="font-size: 100%">In
@@ -268,19 +280,19 @@
                                                             </div>
                                                             <div class="col-md-9 ps-1 ms-0">
                                                                 <br/>
-                                                                {% if products.quantity > 0 %}
-                                                                    <button type="button"
-                                                                            class="btn btn-primary me-3 float-start addToCartBtn">
-                                                                        Add to
-                                                                        Cart
-                                                                        <i class="fa fa-shopping-cart"></i></button>
-                                                                {% endif %}
                                                                 <button type="button"
-                                                                        class="btn btn-success me-3 addToWishlist float-start">
+                                                                        class="btn miaggio-btn-secondary me-3 addToWishlist float-start">
                                                                     Add
                                                                     to
                                                                     Wishlist
                                                                     <i class="fa fa-heart"></i></button>
+                                                                {% if products.quantity > 0 %}
+                                                                    <button type="button"
+                                                                            class="btn miaggio-btn-success me-3 float-start addToCartBtn">
+                                                                        Add to
+                                                                        Cart
+                                                                        <i class="fa fa-shopping-cart"></i></button>
+                                                                {% endif %}
                                                             </div>
                                                         </div>
                                                         <!-- End Heading -->
@@ -300,48 +312,113 @@
             </div>
         </div>
     </div>
+    <section class="items-grid section" style="background-color: white; padding-top: unset">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title"><h2>Passend dazu</h2></div>
+                </div>
+            </div>
+            <div class="single-head">
+                <div class="row">
 
-    <!-- Start How Works Area -->
-    <section class="how-works section pt-0 mt-4" style="background-color: #fff;">
+                    {% for item in other_products %}
+                        <div class="col-lg-2 ">
+                            <div class="single-grid">
+                                <div class="image"><a href="{% url 'productview' item.category.slug item.slug %}"
+                                                      class="thumbnail"><img
+                                        src="{{ item.product_image.url }}" alt="#"></a></div>
+                                <div class="content">
+                                    <div class="top-content">
+                                        <a class="a-home-item-tag"
+                                           href="{% url 'collectionsview' item.category.slug %}"><span
+                                                class="home-item-tag"> {{ item.category }} </span></a>
+
+                                        {% for collection in collections %}
+                                            {% if item.style_way == collection.style_sign %}
+                                                <a href="{% url 'stylecollections' collection.slug %}"><span
+                                                        class="home-item-tag text-uppercase">{{ collection.name }}</span></a>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        <h3 class="title"><a
+                                                href="{% url 'productview' item.category.slug item.slug %}"> {{ item.name }} </a>
+                                        </h3>
+                                        <p> "{{ item.small_description }}" </p>
+                                    </div>
+                                    <div class="bottom-content">
+                                        <a class="a-home-item-tag"
+                                           href="{% url 'productview' item.category.slug item.slug %}"><p>Mehr erfahren
+                                            ></p></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!--Creations-->
+    <section class="how-works section" style="background-color: #fff;">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Create custom furniture</h2>
-                        <p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
-                            Ipsum available, but the majority have suffered alteration in some form.</p>
+                        <h2>Generate your furniture</h2>
                     </div>
+                    <p class="text-center" style="font-size: 18px;">Mit Stolz präsentiert MIAGGIO Ihnen die Möglichkeit,
+                        Ihre ganz persönliche Vision in Form eines Möbelstücks zum Leben zu erwecken. Lassen Sie Ihrer
+                        Kreativität freien Lauf und entdecken Sie die grenzenlosen Möglichkeiten, die unsere innovative
+                        Lösung bietet. Verabschieden Sie sich von der Vorstellung des Gewöhnlichen und tauchen Sie ein
+                        in eine Welt, in der Ihre Träume und Ideen Wirklichkeit werden.<br><br><br><br>
+                    <h3 class=" text-center"
+                        style="
+                       padding: 5px 20px; border-radius: 4px;">
+                        "Creation" - vollkommen einzigartig und individuell, wie noch nie zuvor gesehen
+                    </h3>
+                    </p>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                 </div>
             </div>
+
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-12">
-                    <!-- Start Single Work -->
-                    <div class="single-work wow fadeInUp" data-wow-delay=".2s">
-                        <span class="serial">01</span>
-                        <h3>Create Account</h3>
-                    </div>
-                    <!-- End Single Work -->
+
+                <div class="col-lg-4 ">
+                    {% if request.user.is_authenticated %}
+
+                        <div class="single-work"><span class="serial">01</span>
+                            <h3>Erstelle einen Account</h3></div>
+
+                    {% else %}
+                        <a href="{% url 'register' %}" style="display: block">
+                            <div class="single-work"><span class="serial">01</span>
+                                <h3>Erstelle einen Account</h3></div>
+                        </a>
+                    {% endif %}
                 </div>
-                <div class="col-lg-4 col-md-4 col-12">
-                    <!-- Start Single Work -->
-                    <div class="single-work wow fadeInUp" data-wow-delay=".4s">
-                        <span class="serial">02</span>
-                        <h3>Generate Furniture</h3>
-                    </div>
-                    <!-- End Single Work -->
+
+                <div class="col-lg-4 ">
+                    <a href="{% url 'generatecustomfurniture' %}" style="display: block">
+                        <div class="single-work"><span class="serial">02</span>
+                            <h3>Generiere ein Möbelstück</h3></div>
+                    </a>
                 </div>
-                <div class="col-lg-4 col-md-4 col-12">
-                    <!-- Start Single Work -->
-                    <div class="single-work wow fadeInUp" data-wow-delay=".6s">
-                        <span class="serial">03</span>
-                        <h3>Buy Your Item</h3>
-                    </div>
-                    <!-- End Single Work -->
+
+                <div class="col-lg-4 ">
+                    <div class="single-work"><span class="serial">03</span>
+                        <h3>Bestellen</h3></div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- End How Works Area -->
+    <!--Creations-->
 
     <!-- Start Achievement Area -->
     <section class="our-achievement section">
@@ -350,52 +427,25 @@
                 <div class="col">
                     <div class="single-achievement wow fadeInUp" data-wow-delay=".2s">
                         <h3 class="counter"><span id="secondo1" class="countup" cup-end="1250">100</span>+</h3>
-                        <p>Models</p>
+                        <p>Products</p>
                     </div>
                 </div>
                 <div class="col">
                     <div class="single-achievement wow fadeInUp" data-wow-delay=".4s">
-                        <h3 class="counter"><span id="secondo2" class="countup" cup-end="350">20</span>+</h3>
-                        <p>Customs</p>
+                        <h3 class="counter"><span id="secondo2" class="countup" cup-end="350">1.000</span>+</h3>
+                        <p>Customers</p>
                     </div>
                 </div>
                 <div class="col">
                     <div class="single-achievement wow fadeInUp" data-wow-delay=".6s">
-                        <h3 class="counter"><span id="secondo3" class="countup" cup-end="2500">10</span>+</h3>
-                        <p>Members</p>
+                        <h3 class="counter"><span id="secondo3" class="countup" cup-end="2500">30</span>+</h3>
+                        <p>Employees</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- End Achievement Area -->
-
-    <!--Newsletter-->
-    <div class="newsletter section">
-        <div class="container">
-            <div class="inner-content">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 ">
-                        <div class="title">
-                            <h2>Newsletter</h2>
-                            <p>We don't send spam so don't worry.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 ">
-                        <div class="form">
-                            <form action="#" method="get" target="_blank" class="newsletter-form">
-                                <input name="EMAIL" placeholder="Your email address" type="email">
-                                <div class="button">
-                                    <button class="btn">Subscribe<span class="dir-part"></span></button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Newsletter-->
 
     <!--Footer-->
     <footer class="footer">
@@ -406,9 +456,9 @@
                         <div class="single-footer f-link">
                             <h3>Locations</h3>
                             <ul>
-                                <li><a href="#">Oelde</a></li>
-                                <li><a href="#">Beckum</a></li>
-                                <li><a href="#">Ahlen</a></li>
+                                <li style="color: #f0f0f0">Oelde</li>
+                                <li style="color: #f0f0f0">Beckum</li>
+                                <li style="color: #f0f0f0">Ahlen</li>
                             </ul>
                         </div>
                     </div>
@@ -416,10 +466,15 @@
                         <div class="single-footer f-link">
                             <h3>Quick Links</h3>
                             <ul>
-                                <li><a href="../../../../static/about-us.html">About Us</a></li>
-                                <li><a href="../../../../static/login.html">Login</a></li>
-                                <li><a href="../../../../static/register.html">Signup</a></li>
-                                <li><a href="../../../../static/faq.html">FAQ</a></li>
+                                {% if request.user.is_authenticated %}
+                                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                                    <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                                    <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                    <li><a href="{% url 'loginpage' %}">Login</a></li>
+                                    <li><a href="{% url 'register' %}">Signup</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -444,9 +499,9 @@
                         <div class="col-12">
                             <div class="content">
                                 <ul class="footer-bottom-links">
-                                    <li><a href="../../../../static/agb.html">AGB</a></li>
-                                    <li><a href="../../../../static/datenschutz.html">Datenschutzrichtlinie</a></li>
-                                    <li><a href="../../../../static/impressum.html">Impressum</a></li>
+                                    <li><a href="{% url 'agb' %}">AGB</a></li>
+                                    <li><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a></li>
+                                    <li><a href="{% url 'impressum' %}">Impressum</a></li>
                                 </ul>
                             </div>
                         </div>

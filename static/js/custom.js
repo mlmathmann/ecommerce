@@ -93,7 +93,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                 alertify.success(response.status)
-                $('.cartdata').load(location.href + " .cartdata");
+                $('.cartdatacard').load(location.href + " .cartdatacard");
             }
         });
     });
@@ -114,9 +114,7 @@ $(document).ready(function () {
             dataType: "",
             success: function (response) {
                 alertify.success(response.status)
-
             }
-
         });
     });
 
@@ -135,7 +133,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                 alertify.success(response.status)
-                $('.wishlistdata').load(location.href + " .wishlistdata");
+                $('.wishlistdatacard').load(location.href + " .wishlistdatacard");
             }
         });
     });
