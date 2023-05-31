@@ -265,6 +265,10 @@
             border-color: #5830E0 !important;
         }
 
+        .accordion-item {
+            border: none;
+        }
+
     </style>
 </head>
 <body>
@@ -284,13 +288,16 @@
 {% block scripts %}
 
     {% comment %} Alerting via Alertify JS {% endcomment %}
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.5/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        alertify.set('notifier', 'position', 'top-right');
-        {% for msg in messages %}
-            alertify.success('{{ msg }}');
-        {% endfor %}
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1000,
+            width: '275px',
+        })
     </script>
 
 {% endblock %}

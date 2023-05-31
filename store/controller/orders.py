@@ -1,8 +1,5 @@
 import json
-
-from django.http import JsonResponse
-from django.shortcuts import redirect, render
-from django.contrib import messages
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from store.models import Order, OrderItem, Profile, GeneratedItem, Creation
 from store.views import get_navbar_context

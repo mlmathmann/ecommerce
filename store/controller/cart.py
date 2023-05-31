@@ -1,6 +1,5 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from store.models import Product, Cart
 from store.views import get_navbar_context
@@ -13,7 +12,7 @@ def addtocart(request):
             product_check = Product.objects.get(id=prod_id)
             if product_check:
                 if Cart.objects.filter(user=request.user.id, product_id=prod_id):
-                    return JsonResponse({'status': "This product is already in your cart"})
+                    return JsonResponse({'status': "Product already in cart"})
                 else:
                     prod_qty = int(request.POST.get('product_qty'))
                     if product_check.quantity >= prod_qty:

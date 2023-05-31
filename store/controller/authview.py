@@ -1,6 +1,6 @@
+import sweetify
 from django.shortcuts import redirect, render
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout, views
+from django.contrib.auth import authenticate, login, logout
 from store.forms import CustomUserForm, User, CustomUserChangeForm, CustomPasswordChangeForm, ProfilePictureChangeForm
 from django.contrib.auth.decorators import login_required
 from store.models import Profile
@@ -15,7 +15,7 @@ def register(request):
         form = CustomUserForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Registration succsessful! Please log in to continue!")
+            sweetify.toast(request, "Registration succsessful! Please log in to continue!", width='275px')
             return redirect('/login')
     context = {'form': form, 'categories': nav_context.get('categories'),
                'profile_picture': nav_context.get('profile_picture'),
@@ -27,7 +27,7 @@ def register(request):
 def loginpage(request):
     nav_context = get_navbar_context(request)
     if request.user.is_authenticated:
-        messages.warning(request, "You are already logged in!")
+        sweetify.toast(request, "You are already logged in!", "info", width='275px')
         return redirect("/")
     else:
         if request.method == "POST":
@@ -38,10 +38,10 @@ def loginpage(request):
 
             if user is not None:
                 login(request, user)
-                messages.success(request, "Login successful!")
+                sweetify.toast(request, "Login successful!", width='275px')
                 return redirect("/")
             else:
-                messages.error(request, "Invalid Username or Password!")
+                sweetify.toast(request, "Invalid username or password!", "error", width='275px')
                 return redirect('/login')
         context = {'categories': nav_context.get('categories'),
                    'profile_picture': nav_context.get('profile_picture'),
@@ -53,7 +53,7 @@ def loginpage(request):
 def logoutpage(request):
     if request.user.is_authenticated:
         logout(request)
-        messages.success(request, "Logout successful!")
+        sweetify.toast(request, "Logout successful!", "success", width='275px')
     return redirect("/")
 
 
@@ -79,7 +79,7 @@ def updateprofile(request):
         profile_obj = Profile.objects.filter(user=request.user)
 
         if not profile_obj:
-            messages.success(request, "Customer data changed successfully!")
+            sweetify.toast(request, "Customer data changed successfully!", "success", width='275px')
             return details(request, request.user)
 
         if request.POST.get('phone') != '':
@@ -125,9 +125,9 @@ def updateprofile(request):
                     profile_changes = True
 
         if profile_changes == True:
-            messages.success(request, "Profile updated successfully!")
+            sweetify.toast(request, "Profile updated successfully!", "success", width='275px')
             return details(request, request.user)
-        messages.success(request, "Your profile is already up-to-date!")
+        sweetify.toast(request, "Profile is already up-to-date!", "info", width='275px')
         return details(request, request.user)
 
 
@@ -149,9 +149,6 @@ def updateuser(request):
         profile_user.country = ''
         profile_user.save()
 
-    profile_user = Profile.objects.filter(user=request.user).first()
-    print("profileuser1")
-
     if not Profile.objects.filter(user=request.user):
         profile_user = Profile()
         profile_user.user = request.user
@@ -166,7 +163,7 @@ def updateuser(request):
         profile_user.save()
 
     profile_user = Profile.objects.filter(user=request.user).first()
-    print("profileuser2", profile_user)
+
     user_form = CustomUserChangeForm(None, instance=current_user)
     profile_form = ProfilePictureChangeForm(None, request.FILES or None, instance=profile_user)
     if request.method == "POST":
@@ -175,12 +172,12 @@ def updateuser(request):
         if request.FILES:
             if profile_form.is_valid():
                 profile_form.save()
-                messages.success(request, "Profilepicture changed successfully!")
+                sweetify.toast(request, "Picture changed successfully!", "success", width='275px')
                 return redirect("profile", request.user)
         else:
             if request.POST.get('username') == current_user.get_username() and request.POST.get(
                     'email') == current_user.__getattribute__('email'):
-                messages.success(request, "No changes detected!")
+                sweetify.toast(request, "No changes detected!", "info", width='275px')
                 return render(request, "store/updateuser.html", {'user_form': user_form, 'profile_form': profile_form,
                                                                  'category': nav_context.get('categories'),
                                                                  'profile_picture': nav_context.get('profile_picture'),
@@ -188,7 +185,7 @@ def updateuser(request):
             if user_form.is_valid() and profile_form.is_valid():
                 user_form.save()
                 profile_form.save()
-                messages.success(request, "User Info changed successfully!")
+                sweetify.toast(request, "User Info changed successfully!", "success", width='275px')
                 return redirect("profile", request.POST.get('username'))
     return render(request, "store/updateuser.html",
                   {'user_form': user_form, 'profile_form': profile_form, 'categories': nav_context.get('categories'),
@@ -199,18 +196,18 @@ def updateuser(request):
 @login_required(login_url='loginpage')
 def updatepassword(request):
     nav_context = get_navbar_context(request)
-    current_user = User.objects.get(id=request.user.id)
     form = CustomPasswordChangeForm(request.user)
     if request.method == "POST":
         form = CustomPasswordChangeForm(data=request.POST, user=request.user)
         if form.is_valid():
             form.save()
-            messages.success(request, "Password changed successfully!")
+            sweetify.toast(request, "Password changed successfully!", "success", width='275px')
             return profile(request, request.user)
         else:
+            msg = ''
             for error in form.error_messages:
-                msg = form.error_messages.get(f'{error}')
-                messages.warning(request, f"{msg}")
+                msg += form.error_messages.get(f'{error}') + "\n\n"
+            sweetify.toast(request, f"{msg}", "error", persistent="Close", width='275px')
             return render(request, "store/updatepassword.html",
                           {'form': form, 'categories': nav_context.get('categories'),
                            'profile_picture': nav_context.get('profile_picture'),
@@ -225,7 +222,7 @@ def deleteprofilepicture(request):
     current_profile = Profile.objects.get(user__id=request.user.id)
     current_profile.profile_picture = None
     current_profile.save()
-    messages.success(request, "Profilepicture removed successfully!")
+    sweetify.toast(request, "Picture removed successfully!", "success", width='275px')
     return redirect("profile", request.user)
 
 
@@ -233,5 +230,5 @@ def deleteprofilepicture(request):
 def deleteuser(request):
     current_user = User.objects.get(id=request.user.id)
     current_user.delete()
-    messages.success(request, "Account deleted successfully!")
+    sweetify.toast(request, "Account deleted successfully!", "success", width='275px')
     return redirect("home")

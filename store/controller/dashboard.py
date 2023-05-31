@@ -189,6 +189,7 @@ def details(request, user):
                'user_lname': user_lname,
                'categories': nav_context.get('categories'),
                'profile_picture': nav_context.get('profile_picture'),
+               'collections': nav_context.get('collections'),
                'user_phone': user_phone,
                'user_street': user_street,
                'user_house_number': user_house_number,

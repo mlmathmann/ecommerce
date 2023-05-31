@@ -1,5 +1,5 @@
+import sweetify
 from django.shortcuts import redirect, render
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from store.models import Cart, Order, OrderItem, Product, Profile
@@ -179,8 +179,8 @@ def placeorder(request):
 
         payMode = request.POST.get('payment_mode')
         if payMode == "Paid with PayPal":
-            return JsonResponse({'status': "Your order has been placed successfully"})
+            return JsonResponse({'status': "Vielen Dank für Ihren Kauf!"})
         else:
-            messages.success(request, "Your order has been placed successfully")
+            sweetify.toast(request, "Vielen Dank für Ihren Kauf!", width='275px')
 
     return redirect('/')

@@ -1,6 +1,5 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from store.models import Product, Cart, Wishlist
 from store.views import get_navbar_context
@@ -36,7 +35,6 @@ def deletewishlistitem(request):
     if request.method == 'POST':
         if request.user.is_authenticated:
             prod_id = int(request.POST.get('product_id'))
-
             if Wishlist.objects.filter(user=request.user, product_id=prod_id):
                 wishlistitem = Wishlist.objects.get(product_id=prod_id)
                 wishlistitem.delete()
@@ -47,5 +45,4 @@ def deletewishlistitem(request):
                 return JsonResponse({'status': "Product not found in wishlist"})
         else:
             return JsonResponse({'status': "Login to continue"})
-
     return redirect('/')

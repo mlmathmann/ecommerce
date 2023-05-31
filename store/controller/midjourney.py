@@ -1,12 +1,7 @@
-import time
-
 from django.shortcuts import redirect, render
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout, views
-from store.forms import CustomUserForm, User, CustomUserChangeForm, CustomPasswordChangeForm, ProfilePictureChangeForm
+from store.forms import User
 from django.contrib.auth.decorators import login_required
 from store.models import GeneratedItem, Creation
-from .dashboard import details, profile
 from store.views import get_navbar_context
 import random
 import sweetify

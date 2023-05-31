@@ -30,7 +30,7 @@ urlpatterns = [
                   path('myprofile/<str:user>/details', dashboard.details, name="details"),
 
                   path('subscribe-to-newsletter', newsletter.subscribe, name="subscribenewsletter"),
-                  path('unsubscribe-to-newsletter', newsletter.unsubscribe, name="unsubscribenewsletter"),
+                  path('unsubscribe-from-newsletter', newsletter.unsubscribe, name="unsubscribenewsletter"),
 
                   path('add-to-cart', cart.addtocart, name="addtocart"),
                   path('cart', cart.viewcart, name="cart"),

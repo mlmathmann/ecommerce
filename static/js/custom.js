@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     $('.increment-btn').click(function (e) {
         e.preventDefault();
 
@@ -13,8 +12,11 @@ $(document).ready(function () {
             value++;
             $(this).closest('.product_data').find('.qty-input').val(value);
         } else {
-            alertify.error("Not more products in stock")
-
+            Toast.fire({
+                icon: 'warning',
+                title: 'No more products in stock!',
+                showConfirmButton: false,
+            })
         }
     });
 
@@ -47,8 +49,20 @@ $(document).ready(function () {
             },
             dataType: "",
             success: function (response) {
-                alertify.success(response.status)
-
+                if (response.status === "Login to continue") {
+                    Toast.fire({
+                    icon: 'info',
+                    title: response.status,
+                    showConfirmButton: false,
+                })
+                }
+                else {
+                    Toast.fire({
+                        icon: 'success',
+                        title: response.status,
+                        showConfirmButton: false,
+                    })
+                }
             }
 
         });
@@ -92,7 +106,7 @@ $(document).ready(function () {
 
             },
             success: function (response) {
-                alertify.success(response.status)
+                // alertify.success(response.status)
                 $('.cartdatacard').load(location.href + " .cartdatacard");
             }
         });
@@ -113,7 +127,20 @@ $(document).ready(function () {
             },
             dataType: "",
             success: function (response) {
-                alertify.success(response.status)
+                if (response.status === "Login to continue") {
+                    Toast.fire({
+                    icon: 'info',
+                    title: response.status,
+                    showConfirmButton: false,
+                })
+                }
+                else {
+                    Toast.fire({
+                        icon: 'success',
+                        title: response.status,
+                        showConfirmButton: false,
+                    })
+                }
             }
         });
     });
@@ -132,7 +159,7 @@ $(document).ready(function () {
 
             },
             success: function (response) {
-                alertify.success(response.status)
+                // alertify.success(response.status)
                 $('.wishlistdatacard').load(location.href + " .wishlistdatacard");
             }
         });
@@ -156,7 +183,7 @@ $(document).ready(function () {
                 'filter': filter,
             },
             success: function (response) {
-                alertify.success(response.status)
+                // alertify.success(response.status)
                 $('.prod-row').load(location.href + ' .prod-row');
                 // $('.prod-row').load(location.href);
                 // window.location.reload();
@@ -176,7 +203,11 @@ $(document).ready(function () {
             },
             dataType: "",
             success: function (response) {
-                alertify.success(response.status)
+                Toast.fire({
+                    icon: 'success',
+                    title: response.status,
+                    showConfirmButton: false,
+                })
 
             }
 

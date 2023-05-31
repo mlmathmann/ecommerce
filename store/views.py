@@ -1,12 +1,9 @@
+import sweetify
 from django.shortcuts import redirect, render
-from django.contrib import messages
 from django.contrib.auth.views import PasswordChangeView
-from django.contrib.auth.forms import PasswordChangeForm
 from .models import *
 from django.urls import reverse_lazy
 from .forms import CustomPasswordChangeForm
-from django.contrib.auth.models import AnonymousUser
-from static.assets.images import hero
 
 # Create your views here.
 #
@@ -80,7 +77,7 @@ def collectionsview(request, slug):
                    'collections': nav_context.get('collections'), 'price_filter': price_filter}
         return render(request, 'store/products/index.html', context)
     else:
-        messages.warning(request, "No such category found")
+        sweetify.toast(request, "No such category found!", "error")
         return redirect('collections')
 
 
@@ -107,10 +104,13 @@ def productview(request, cate_slug, prod_slug):
                        'profile_picture': nav_context.get('profile_picture'), 'product_style': product_style,
                        'collections': nav_context.get('collections'), 'other_products': other_products}
         else:
-            messages.error(request, "No such product found")
+            sweetify.toast(request, "No such product found!", "error")
             return redirect('collections')
     else:
-        messages.error(request, "No such category found")
+        sweetify.toast(request, "No such category found!", "error")
+        context = {'categories': nav_context.get('categories'),
+                   'profile_picture': nav_context.get('profile_picture'),
+                   'collections': nav_context.get('collections'),}
     return render(request, "store/products/view.html", context)
 
 
