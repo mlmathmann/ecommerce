@@ -28,7 +28,7 @@ def generatecustomfurniture(request):
             gen_item = gen_items.first()
 
     print(gen_item)
-    return render(request, "store/midjourney.html", {'category': nav_context.get('categories'),
+    return render(request, "store/midjourney.html", {'categories': nav_context.get('categories'),
                                                      'nav_context': nav_context,
                                                      'profile_picture': nav_context.get('profile_picture'),
                                                      'collections': nav_context.get('collections'),

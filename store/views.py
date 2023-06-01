@@ -92,7 +92,7 @@ def productview(request, cate_slug, prod_slug):
             if product_style:
                 for style in product_style:
                     product_style = style.get('style_way')
-                    other_products = Product.objects.filter(style_way=product_style).exclude(slug=prod_slug)
+                    other_products = Product.objects.filter(style_way=product_style).exclude(slug=prod_slug)[:6]
                     for choice in Product.StyleChoices.choices:
                         if product_style == choice[0]:
                             product_style = choice[1]
