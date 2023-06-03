@@ -5,6 +5,7 @@ from store.models import Product, Cart
 from store.views import get_navbar_context
 
 
+# adds a product that is available (in stock) to the users cart
 def addtocart(request):
     if request.method == 'POST':
         if request.user.is_authenticated:
@@ -27,6 +28,7 @@ def addtocart(request):
     return redirect('/')
 
 
+# displays the users cart with all the added products and some basic information to each item
 @login_required(login_url='loginpage')
 def viewcart(request):
     nav_context = get_navbar_context(request)
@@ -36,6 +38,7 @@ def viewcart(request):
     return render(request, 'store/cart.html', context)
 
 
+# displays and saves the cart when the quantity of products are changed
 def updatecart(request):
     if request.method == 'POST':
         prod_id = int(request.POST.get('product_id'))
@@ -48,6 +51,7 @@ def updatecart(request):
     return redirect('/')
 
 
+# removes a product from the cart of a user
 def deletecartitem(request):
     if request.method == 'POST':
         prod_id = int(request.POST.get('product_id'))

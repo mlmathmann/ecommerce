@@ -5,6 +5,7 @@ from store.models import Product, Cart, Wishlist
 from store.views import get_navbar_context
 
 
+# displays the users wishlist with all the products in it
 @login_required(login_url='loginpage')
 def index(request):
     nav_context = get_navbar_context(request)
@@ -13,6 +14,7 @@ def index(request):
     return render(request, 'store/wishlist.html', context)
 
 
+# adds a product to a wishlist, weather the product is in stock or not is irrelevant here
 def addtowishlist(request):
     if request.method == 'POST':
         if request.user.is_authenticated:
@@ -31,6 +33,7 @@ def addtowishlist(request):
     return redirect('/')
 
 
+# removes a product from the users wishlist
 def deletewishlistitem(request):
     if request.method == 'POST':
         if request.user.is_authenticated:

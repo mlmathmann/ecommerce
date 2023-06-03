@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="../../../static/assets/css/midjourney.css">
     </head>
 
-    <body onbeforeunload="return a()">
+    <body onbeforeunload="return reloadPage()">
 
     <!--header-->
     <header class="header navbar-area">
@@ -51,7 +51,7 @@
                                                     <li class="mega-menu-title">Categories</li>
                                                     {% for item in categories %}
                                                         <li class="nav-item"><a
-                                                                href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
+                                                                href="{% url 'categoriesview' item.slug %}">{{ item.name }}</a>
                                                         </li>
                                                     {% endfor %}
                                                 </ul>
@@ -200,7 +200,7 @@
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-12 mt-5">
-                        <div class="section-title"><h2>Vier Versionen deiner Kreation</h2></div>
+                        <div class="section-title"><h2>Vier Versionen Ihrer Kreation</h2></div>
                         <p class="text-center" style="font-size: 20px;">Wählen Sie aus
                             den vier generierten Versionen Ihren Favoriten, geben Sie, falls erwünscht, konkrete Maße
                             für die Anfertigung an, und schicken Sie Ihre Anfrage mit einem einfachen Knopfdruck ab.</p>
@@ -504,8 +504,8 @@
                     const categoryDropdownName = categoryDropdown.options[categoryDropdown.selectedIndex].text;
                     const categoryButtonName = selectedCategoryButton ? selectedCategoryButton.innerText : "";
                     const subcategoryButtonName = this.innerText;
-                    const value = "Ein " + categoryDropdownName + " im " + categoryButtonName + " Stil aus einem " + subcategoryButtonName + " Material.";
-                    inputField.value = value.toLowerCase();
+                    const value = "A " + categoryDropdownName + " " + categoryButtonName + " Stil aus " + subcategoryButtonName + " .";
+                    inputField.value = value;
                     creation(subcategoryButtonName)
 
                 });
@@ -554,7 +554,7 @@
             }
         }
 
-        function a() {
+        function reloadPage() {
             var end = 'ye';
             var token = $('input[name=csrfmiddlewaretoken]').val()
             $.ajax({

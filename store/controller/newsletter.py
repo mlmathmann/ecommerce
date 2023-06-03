@@ -3,6 +3,7 @@ from store.models import Product, Profile, User
 import sweetify
 
 
+# subscribes the user to the newsletter
 def subscribe(request):
     if request.method == 'POST':
         if str(request.user) == 'AnonymousUser':
@@ -23,6 +24,7 @@ def subscribe(request):
     return redirect("/")
 
 
+# unsubscribes the user from the newsletter
 def unsubscribe(request):
     profile_user = Profile.objects.filter(user=request.user).first()
 

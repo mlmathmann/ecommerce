@@ -5,11 +5,11 @@ from django.contrib.auth.models import User
 from store.models import Cart, Order, OrderItem, Product, Profile
 from store.views import get_navbar_context
 from django.http import JsonResponse
-
-
 import random
 
 
+# general checkout page, displays the users profile info such as address and name if given, lists the products in the cart
+# with the total price
 @login_required(login_url='loginpage')
 def index(request):
     nav_context = get_navbar_context(request)
@@ -58,6 +58,8 @@ def index(request):
     return render(request, 'store/checkout.html', context)
 
 
+# places the customers order, gets the entered address and payment information as well as the products and their quantity,
+# removes the quantity from the stock
 @login_required(login_url='loginpage')
 def placeorder(request):
     if request.method == 'POST':

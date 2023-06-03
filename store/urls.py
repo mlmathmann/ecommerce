@@ -7,14 +7,20 @@ from django.conf import settings
 from django.conf.urls.static import static
 import midjourneyapi.search as search
 
+# the routing and different paths for the pages are listed here and combined with their associated functions,
+# e. g. the first path is the homepage, is called using the name "home" as href in the html document and
+# is displayed using the render that is returned in the views.home function that gets called when the given
+# html element with the href is selected
 urlpatterns = [
                   path('', views.home, name="home"),
-                  path('categories/<str:slug>', views.collectionsview, name="collectionsview"),
+                  path('categories/<str:slug>', views.categoriesview, name="categoriesview"),
                   path('categories/<str:cate_slug>/<str:prod_slug>', views.productview, name="productview"),
 
                   path('collections/<str:style>', views.stylecollections, name="stylecollections"),
                   path('collections/<str:style>/products', views.stylecollectionsproducts,
                        name="stylecollectionsproducts"),
+                  path('collections/<str:style_slug>/<str:prod_slug>', views.styleproductview,
+                       name="styleproductview"),
 
                   path('register/', authview.register, name="register"),
                   path('login/', authview.loginpage, name="loginpage"),

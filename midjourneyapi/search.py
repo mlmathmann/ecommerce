@@ -92,14 +92,14 @@ def find_image_in_folder(prompt):
     time.sleep(5)
     print("60 sek sind over")
     print(prompt)
-    full_image_name = "johnjohn_" + prompt.replace(" ", "_").strip()
+    full_image_name = "Babo-Lena_" + prompt.replace(" ", "_").strip()
 
     print(full_image_name)
     print(prompt)
 
     file_path = "static/uploads"
 
-    full_image_name = "johnjohn_" + prompt.replace(" ", "_").strip()
+    full_image_name = "Babo-Lena_" + prompt.replace(" ", "_").strip()
 
     while True:
 

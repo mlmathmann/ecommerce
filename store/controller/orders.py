@@ -5,6 +5,7 @@ from store.models import Order, OrderItem, Profile, GeneratedItem, Creation
 from store.views import get_navbar_context
 
 
+# displays a overview page where the user can see all their 'general' orders
 @login_required(login_url='loginpage')
 def orders_index(request):
     nav_context = get_navbar_context(request)
@@ -19,6 +20,7 @@ def orders_index(request):
     return render(request, 'store/orders/myordersview.html', context)
 
 
+# displays all the details such as the products, price etc. for one selected order on the details page
 def orders_view(request, order):
     nav_context = get_navbar_context(request)
     order = Order.objects.filter(tracking_no=order).first()
@@ -43,6 +45,7 @@ def orders_view(request, order):
     return render(request, 'store/orders/myordersdetails.html', context)
 
 
+# displays a overview for all the customers creations (requested generated products)
 def furniture_index(request):
     nav_context = get_navbar_context(request)
     creations = Creation.objects.filter(user=request.user).order_by('-created_at')
@@ -57,6 +60,7 @@ def furniture_index(request):
     return render(request, 'store/orders/myfurniture.html', context)
 
 
+# displays the details for a selected creation
 def furniture_view(request, creation_tracking_no):
     nav_context = get_navbar_context(request)
     creation = Creation.objects.filter(tracking_no=creation_tracking_no).first()
@@ -66,13 +70,6 @@ def furniture_view(request, creation_tracking_no):
     object = promp_json.get('objekt')
     material = promp_json.get('material')
     creation_prompt = f'A {style} {object} made out of {material}'
-
-    version = creation.version
-    # object-position: 0% 0%; - 1
-    # object-position: 100% 0%; - 2
-    # object-position: 0% 100%; - 3
-    # object-position: 100% 100%; - 4
-
 
     context = {'creation': creation, 'categories': nav_context.get('categories'),
                'profile_picture': nav_context.get('profile_picture'), 'collections': nav_context.get('collections'),

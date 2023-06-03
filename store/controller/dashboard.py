@@ -5,6 +5,7 @@ from store.forms import *
 from store.views import get_navbar_context
 
 
+# displays a profile overview
 @login_required(login_url='loginpage')
 def profile(request, user):
     nav_context = get_navbar_context(request)
@@ -114,6 +115,7 @@ def profile(request, user):
     return render(request, "store/profile.html", context)
 
 
+# displays the profile's address data and first and last name of the recipient
 @login_required(login_url='loginpage')
 def details(request, user):
     nav_context = get_navbar_context(request)

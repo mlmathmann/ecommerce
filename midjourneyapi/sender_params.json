@@ -1,8 +1,11 @@
-{"channelid": "1111661228482367570",
-  "authorization": "MTA2MzM5OTQwNTQyNTgwMzI5NA.GRmcid.ut5qVew9vLhvJ7wGBDXHN8TDKuvqxL3kNEJ5q4",
+{
+  "channelid": "1101063562480336979",
+  "authorization": "Nzc1NDczODcwNjU1MzI0MTgw.GUmEzd.SaKd6JKfcTktD5Q0mM-JXPOUzXK38OfkO_unOI",
   "application_id": "936929561302675456",
-  "guild_id": "1098153110037344266",
-  "session_id": "e87864a0c5c1cf084bb204de0beb403b",
+  "guild_id": "1101063562480336976",
+"session_id": "842d38d947c764b9f668b8eabfb3ecb5",
   "version": "1077969938624553050",
   "id": "938956540159881230",
-  "flags": "--v 5"}
+  "flags": "--v 5"
+}
+

@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 User._meta.get_field('email')._unique = True
 
 
+# form for the registration of a user
 class CustomUserForm(UserCreationForm):
     username = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control my-2', 'placeholder': 'Enter Username'}))
@@ -16,12 +17,12 @@ class CustomUserForm(UserCreationForm):
     password2 = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control my-2', 'placeholder': 'Enter Password again'}))
 
-
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
 
+# form for applying changes to the customers user data
 class CustomUserChangeForm(UserChangeForm):
     password = None
     username = forms.CharField(
@@ -34,6 +35,7 @@ class CustomUserChangeForm(UserChangeForm):
         fields = ['username', 'email']
 
 
+# form for changing the password associated with a user
 class CustomPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(label="Altes Passwort",
                                    widget=forms.PasswordInput(
@@ -49,11 +51,7 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         fields = ['old_password', 'new_password1', 'new_password2']
 
 
-class ProductStyleFilterForm(forms.Form):
-    # name = forms.CharField()
-    name = forms.ChoiceField(choices=Product.StyleChoices.choices)
-
-
+# form for changing the profile picture associted with a user's profile
 class ProfilePictureChangeForm(forms.ModelForm):
     profile_picture = forms.ImageField(label="Profile picture")
 

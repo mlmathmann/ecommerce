@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from store.views import get_navbar_context
 
 
+# displays the about us page
 def about_us(request):
     nav_context = get_navbar_context(request)
     context = {'category': nav_context.get('categories'),
@@ -10,6 +11,7 @@ def about_us(request):
     return render(request, "store/essentials/about-us.html", context)
 
 
+# displays the agb page
 def agb(request):
     nav_context = get_navbar_context(request)
     context = {'category': nav_context.get('categories'),
@@ -18,6 +20,7 @@ def agb(request):
     return render(request, "store/essentials/agb.html", context)
 
 
+# displays the datenschutzrichtlinien page
 def datenschutz(request):
     nav_context = get_navbar_context(request)
     context = {'category': nav_context.get('categories'),
@@ -26,6 +29,7 @@ def datenschutz(request):
     return render(request, "store/essentials/datenschutz.html", context)
 
 
+# displays the faq page
 def faq(request):
     nav_context = get_navbar_context(request)
     context = {'category': nav_context.get('categories'),
@@ -34,6 +38,7 @@ def faq(request):
     return render(request, "store/essentials/faq.html", context)
 
 
+# displays the impressum page
 def impressum(request):
     nav_context = get_navbar_context(request)
     context = {'category': nav_context.get('categories'),

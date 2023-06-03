@@ -50,7 +50,7 @@
                                                     <li class="mega-menu-title">Categories</li>
                                                     {% for item in categories %}
                                                         <li class="nav-item"><a
-                                                                href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
+                                                                href="{% url 'categoriesview' item.slug %}">{{ item.name }}</a>
                                                         </li>
                                                     {% endfor %}
                                                 </ul>
@@ -331,7 +331,7 @@
                                 <div class="content">
                                     <div class="top-content">
                                         <a class="a-home-item-tag"
-                                           href="{% url 'collectionsview' item.category.slug %}"><span
+                                           href="{% url 'categoriesview' item.category.slug %}"><span
                                                 class="home-item-tag"> {{ item.category }} </span></a>
 
                                         {% for collection in collections %}

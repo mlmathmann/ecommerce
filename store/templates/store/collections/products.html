@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="../../../../static/assets/css/bootstrap.min.css"/>
     </head>
 
-    <body onbeforeunload="return reset()">
+    <body onbeforeunload="return resetPage()">
     <!--header-->
     <header class="header navbar-area">
         <div class="container">
@@ -49,7 +49,7 @@
                                                     <li class="mega-menu-title">Categories</li>
                                                     {% for item in categories %}
                                                         <li class="nav-item"><a
-                                                                href="{% url 'collectionsview' item.slug %}">{{ item.name }}</a>
+                                                                href="{% url 'categoriesview' item.slug %}">{{ item.name }}</a>
                                                         </li>
                                                     {% endfor %}
                                                 </ul>
@@ -192,54 +192,54 @@
 
 
     <!--Items-->
-    <section class="items-grid" id="uhate"><br><br>
+    <section class="items-grid" id="collection-products-section"><br><br>
         <div class="container">
             {% csrf_token %}
 
             <div class="button text-center mensch">
                 <input id="style_slug" type="hidden" value="{{ style_name }}">
-                <button type="button" class="btn filter-btn" value="" onclick="bitchass(this.value)">Alles</button>
+                <button type="button" class="btn filter-btn" value="" onclick="categorySelect(this.value)">Alles</button>
                 <button type="button" class="btn filter-btn btn-dark btn-lg"
                         {% if category == 'stuehle' %}style="background-color: #1a1e21" {% endif %} value="stuehle"
-                        onclick="bitchass(this.value)">
+                        onclick="categorySelect(this.value)">
                     Stühle
                 </button>
                 <button type="button" class="btn filter-btn btn-dark btn-lg"
                         {% if category == 'tische' %}style="background-color: #1a1e21" {% endif %} value="tische"
-                        onclick="bitchass(this.value)">
+                        onclick="categorySelect(this.value)">
                     Tische
                 </button>
                 <button type="button" class="btn filter-btn btn-dark btn-lg"
                         {% if category == 'beistelltische' %}style="background-color: #1a1e21" {% endif %}
-                        value="beistelltische" onclick="bitchass(this.value)">
+                        value="beistelltische" onclick="categorySelect(this.value)">
                     Beistelltische
                 </button>
                 <button type="button" class="btn filter-btn btn-dark btn-lg"
                         {% if category == 'sessel' %}style="background-color: #1a1e21" {% endif %} value="sessel"
-                        onclick="bitchass(this.value)">
+                        onclick="categorySelect(this.value)">
                     Sessel
                 </button>
                 <button type="button" class="btn filter-btn btn-dark btn-lg"
                         {% if category == 'kunstobjekte' %}style="background-color: #1a1e21" {% endif %}
-                        value="kunstobjekte" onclick="bitchass(this.value)">
+                        value="kunstobjekte" onclick="categorySelect(this.value)">
                     Kunstobjekte
                 </button>
             </div>
             <div class="button text-center mt-2 price-filter-select">
                 <input id="categor_slug" type="hidden" value="{{ category.slug }}">
-                <button type="button" class="btn filter-btn" value="" onclick="priceselect(this.value)"
+                <button type="button" class="btn filter-btn" value="" onclick="priceSelect(this.value)"
                         style="height: 52px; width: 52px; background-image: url(../../../../static/assets/images/imageedit_29_4812862319.png); background-size: cover; background-position: center;">
                 </button>
                 <button type="button" class="btn filter-btn btn-dark btn-lg"
                         {% if price_filter == 'price desc' %}style="background-color: #1a1e21" {% endif %}
                         value="price desc"
-                        onclick="priceselect(this.value)">
+                        onclick="priceSelect(this.value)">
                     Höchster Preis
                 </button>
                 <button type="button" class="btn filter-btn btn-dark btn-lg"
                         {% if price_filter == 'price asc' %}style="background-color: #1a1e21" {% endif %}
                         value="price asc"
-                        onclick="priceselect(this.value)">
+                        onclick="priceSelect(this.value)">
                     Niedrigster Preis
                 </button>
             </div>
@@ -255,13 +255,13 @@
                     {% for item in products %}
                         <div class="col-lg-3 ">
                             <div class="single-grid">
-                                <div class="image"><a href="{% url 'productview' item.category.slug item.slug %}"
+                                <div class="image"><a href="{% url 'styleproductview' style_name item.slug %}"
                                                       class="thumbnail"><img
                                         src="{{ item.product_image.url }}" alt="#"></a></div>
                                 <div class="content">
                                     <div class="top-content">
                                         <a class="a-home-item-tag"
-                                           href="{% url 'collectionsview' item.category.slug %}"><span
+                                           href="{% url 'categoriesview' item.category.slug %}"><span
                                                 class="home-item-tag"> {{ item.category }} </span></a>
 
                                         {% for collection in collections %}
@@ -272,13 +272,13 @@
                                         {% endfor %}
 
                                         <h3 class="title"><a
-                                                href="{% url 'productview' item.category.slug item.slug %}"> {{ item.name }} </a>
+                                                href="{% url 'styleproductview' item.category.slug item.slug %}"> {{ item.name }} </a>
                                         </h3>
                                         <p> "{{ item.small_description }}" </p>
                                     </div>
                                     <div class="bottom-content">
                                         <a class="a-home-item-tag"
-                                           href="{% url 'productview' item.category.slug item.slug %}"><p>Mehr erfahren
+                                           href="{% url 'styleproductview' item.category.slug item.slug %}"><p>Mehr erfahren
                                             ></p></a>
                                     </div>
                                 </div>
@@ -368,9 +368,8 @@
     <!--JS-->
 
     <script>
-        function bitchass(filter_value) {
+        function categorySelect(filter_value) {
             console.log(filter_value);
-            //console.log(this.find('categor_slug'));
             var style_slug = $('#style_slug').val();
             console.log(style_slug);
             var token = $('input[name=csrfmiddlewaretoken]').val()
@@ -384,14 +383,12 @@
 
                 },
                 success: function (response) {
-                    // alertify.success("YESSS");
-                    $('#uhate').load(document.URL + ' #uhate');
-                    //window.location.reload()
+                    $('#collection-products-section').load(document.URL + ' #collection-products-section');
                 }
             });
         }
 
-        function priceselect(filter_value) {
+        function priceSelect(filter_value) {
             console.log(filter_value);
             var style_slug = $('#style_slug').val();
             console.log(style_slug);
@@ -406,17 +403,13 @@
 
                 },
                 success: function (response) {
-                    // alertify.success("YESSS");
-                    $('#uhate').load(document.URL + ' #uhate');
-                    //window.location.reload()
+                    $('#collection-products-section').load(document.URL + ' #collection-products-section');
                 }
             });
         }
 
-        function reset() {
-            //console.log(this.find('categor_slug'));
-            var end = 'yeet';
-            console.log(end)
+        function resetPage() {
+            var end = 'true';
             var style_slug = $('#style_slug').val();
             var token = $('input[name=csrfmiddlewaretoken]').val()
             $.ajax({

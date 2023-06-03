@@ -10,12 +10,12 @@ import sweetify
 gen_comp = ''
 
 
+# displays the creation (custom furniture generation) page
 @login_required(login_url='loginpage')
 def generatecustomfurniture(request):
     nav_context = get_navbar_context(request)
     gen_item = None
     global gen_comp
-    print("global", gen_comp)
 
     if request.method == 'POST' and request.POST.get('end') == 'ye':
         gen_comp = ''
@@ -27,7 +27,6 @@ def generatecustomfurniture(request):
             gen_items = GeneratedItem.objects.filter(user=request.user).order_by('-created_at')
             gen_item = gen_items.first()
 
-    print(gen_item)
     return render(request, "store/midjourney.html", {'categories': nav_context.get('categories'),
                                                      'nav_context': nav_context,
                                                      'profile_picture': nav_context.get('profile_picture'),
@@ -35,6 +34,8 @@ def generatecustomfurniture(request):
                                                      'gen_item': gen_item})
 
 
+# displays the creation after it was generated and lets the user choose one of four versions and send the request
+# to our design team and bring it into production
 @login_required(login_url='loginpage')
 def requestfurniture(request):
     if request.method == 'POST':
@@ -55,13 +56,12 @@ def requestfurniture(request):
     return render(request, "store/midjourney.html")
 
 
+# displays the creations page after the request of the generated product was canceled
 @login_required(login_url='loginpage')
 def cancelcustomfurniture(request):
     global gen_comp
     if gen_comp == 'true':
         users_gen_item = GeneratedItem.objects.filter(user=request.user).order_by('-created_at').first()
         users_gen_item.delete()
-        print("deleted")
-    print("nothing")
 
     return redirect('generatecustomfurniture')

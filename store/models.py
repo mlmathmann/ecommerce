@@ -4,7 +4,9 @@ import os
 from django.contrib.auth.forms import User
 
 
-# Create your models here.
+# Create your models here. The table structure for the database is defined here.
+
+# sets the file path of each uploaded image to the uploads directory
 def get_file_path(request, filename):
     original_filename = filename
     nowTime = datetime.datetime.now().strftime('%Y%m%d%H:%M:%S')
@@ -12,6 +14,7 @@ def get_file_path(request, filename):
     return os.path.join('uploads/', filename)
 
 
+# sets the file path of each creation image to the uploads/generated directory
 def generated_file_path(request, filename):
     return os.path.join('uploads/generated/', filename)
 
