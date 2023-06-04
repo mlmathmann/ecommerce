@@ -87,12 +87,15 @@ def profile(request, user):
     else:
         user_newsletter_subscription = ''
 
-    user_time = Profile.objects.filter(user=request.user).values('created_at')
+    print(User.objects.filter(id=request.user.id).values('date_joined'))
+    user_time = User.objects.filter(id=request.user.id).values('date_joined')
     if user_time:
         for time in user_time:
-            user_time = time.get('created_at')
+            user_time = time.get('date_joined')
     else:
         user_time = ''
+
+    billing_address_obj = BillingAddress.objects.filter(profile__user=request.user).first()
 
     context = {'user': user,
                'user_fname': user_fname,
@@ -111,7 +114,8 @@ def profile(request, user):
                'user_time': user_time,
                'user_obj': user_obj,
                'profile': profile,
-               'user_newsletter_subscription': user_newsletter_subscription}
+               'user_newsletter_subscription': user_newsletter_subscription,
+               'billing_address_obj': billing_address_obj}
     return render(request, "store/profile.html", context)
 
 
@@ -186,6 +190,11 @@ def details(request, user):
     else:
         user_country = ''
 
+    if BillingAddress.objects.filter(profile__user=request.user):
+        billing_address = BillingAddress.objects.filter(profile__user=request.user).first()
+    else:
+        billing_address = ''
+
     context = {'user': user,
                'user_fname': user_fname,
                'user_lname': user_lname,
@@ -199,5 +208,6 @@ def details(request, user):
                'user_postal_code': user_postal_code,
                'user_city': user_city,
                'user_country': user_country,
-               'profile_exists': profile_exists}
+               'profile_exists': profile_exists,
+               'billing_address': billing_address}
     return render(request, "store/details.html", context)

@@ -76,7 +76,8 @@
 
                                             <li class="nav-item"><a href="{% url 'about-us' %}">About
                                                 Us</a></li>
-                                            <li class="nav-item"><a href="{% url 'generatecustomfurniture' %}">Creation</a>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'generatecustomfurniture' %}">Creation</a>
                                             </li>
                                             <li class="nav-item"><a href="{% url 'faq' %}">FAQ</a></li>
 
@@ -89,7 +90,8 @@
                                            aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
                                             <li class="nav-item"><a href="{% url 'agb' %}">AGB</a></li>
-                                            <li class="nav-item"><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
                                             </li>
                                             <li class="nav-item"><a href="{% url 'impressum' %}">Impressum</a>
                                             </li>
@@ -251,15 +253,27 @@
                                         <p>PLZ: {{ user_postal_code }}</p><br>
                                         <p>Ort: {{ user_city }}</p><br>
                                         <p>Land: {{ user_country }}</p><br>
+                                        {% if billing_address_obj == None %}
+                                            <div class="mt-4 form-check">
+                                                <input type="checkbox" checked disabled class="form-check-input" id="same-address">
+                                                <label class="form-check-label" for="same-address">Lieferadresse
+                                                    entspricht
+                                                    der
+                                                    Rechnungsadresse</label>
+                                            </div>
+                                            {% else %}
+                                            <p>Zusätzliche Rechnungsadresse angegeben.</p><br>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <hr>
                         <p>Hinweis: Stimmt dies nicht mit Ihren Angaben überein?
-                            <a href="{% url 'details' request.user %}" class="btn btn-sm miaggio-btn-success">Daten ändern</a>
+                            <a href="{% url 'details' request.user %}" class="btn btn-sm miaggio-btn-success">Daten
+                                ändern</a>
                         </p>
-                    <br>
+                        <br>
                         {% if user_newsletter_subscription == True %}
                             <p>Wollen Sie sich vom Newsletter abmelden?
                                 <a href="{% url 'unsubscribenewsletter' %}" class="btn btn-sm miaggio-btn-success">Unsubscribe</a>

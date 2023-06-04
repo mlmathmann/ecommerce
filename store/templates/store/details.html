@@ -77,7 +77,8 @@
 
                                             <li class="nav-item"><a href="{% url 'about-us' %}">About
                                                 Us</a></li>
-                                            <li class="nav-item"><a href="{% url 'generatecustomfurniture' %}">Creation</a>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'generatecustomfurniture' %}">Creation</a>
                                             </li>
                                             <li class="nav-item"><a href="{% url 'faq' %}">FAQ</a></li>
 
@@ -90,7 +91,8 @@
                                            aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
                                             <li class="nav-item"><a href="{% url 'agb' %}">AGB</a></li>
-                                            <li class="nav-item"><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
                                             </li>
                                             <li class="nav-item"><a href="{% url 'impressum' %}">Impressum</a>
                                             </li>
@@ -227,19 +229,19 @@
                     <form action="{% url 'updateprofile' %}" method="POST" class="mb-4">
                         {% csrf_token %}
                         <div class="mb-4">
-                            <h5 class="mb-2">Customer Information</h5>
+                            <h5 class="mb-2">Lieferadresse</h5>
                         </div>
                         <div class="row mb-5 g-5">
                             <div class="col-md-6">
                                 <div class="">
-                                    <label class="form-label" for="first_name">First name</label>
+                                    <label class="form-label" for="first_name">Vorname</label>
                                     <input type="text" class="form-control" id="first_name"
                                            value="{{ user_fname }}" name="fname">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="">
-                                    <label class="form-label" for="last_name">Last name</label>
+                                    <label class="form-label" for="last_name">Nachname</label>
                                     <input type="text" class="form-control" id="last_name"
                                            value="{{ user_lname }}" name="lname">
                                 </div>
@@ -268,12 +270,14 @@
                                                value="{{ user_house_number }}" name="house_number">
                                     </div>
                                 </div>
-                                <div class="row mb-5 g-5">
+                                <div class="row g-5 mt-0">
                                     <div class="col-md-14">
                                         <div class="">
-                                            <label class="form-label" for="address_info">Address Info</label>
-                                            <input type="text" class="form-control" id="address_info"
-                                                   value="{{ user_address_info }}" name="address_info">
+                                            <label for="address2" class="form-label">Adress-Info <span
+                                                    class="text-muted">(Optional)</span></label>
+                                            <textarea type="text" class="form-control" name="address_info"
+                                                      value="{{ user_address_info }}"
+                                                      placeholder="Hier zusätzliche Adressinformationen eingeben (optional)">{{ user_address_info }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -282,6 +286,13 @@
                                         <label class="form-label" for="city">Stadt</label>
                                         <input type="text" class="form-control" id="city" value="{{ user_city }}"
                                                name="city">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="">
+                                        <label class="form-label" for="zip">PLZ</label>
+                                        <input type="text" class="form-control" id="zip"
+                                               value="{{ user_postal_code }}" name="postal_code">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -302,22 +313,104 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+
+                                {% if billing_address != '' %}
                                     <div class="">
-                                        <label class="form-label" for="zip">PLZ</label>
-                                        <input type="text" class="form-control" id="zip"
-                                               value="{{ user_postal_code }}" name="postal_code">
+                                        <h5 class="pt-0 pb-0">Rechnungsadresse</h5>
                                     </div>
-                                </div>
-                                </div>
+                                    <div class="row mt-0 pt-0 g-5">
+                                        <div class="col-md-6">
+                                            <div class="">
+                                                <label class="form-label" for="first_name">Vorname</label>
+                                                <input type="text" class="form-control" id="first_name"
+                                                       value="{{ billing_address.fname }}" name="bill_fname">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="">
+                                                <label class="form-label" for="last_name">Nachname</label>
+                                                <input type="text" class="form-control" id="last_name"
+                                                       value="{{ billing_address.lname }}" name="bill_lname">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-0 pt-0 g-5">
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <label class="form-label" for="phone_number">Telefonnummer</label>
+                                            <input type="tel" class="form-control profile-input" id="phone_number"
+                                                   value="{{ billing_address.phone }}" name="bill_phone">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="">
+                                            <label class="form-label" for="straße">Straße</label>
+                                            <input type="text" class="form-control" id="straße"
+                                                   value="{{ billing_address.street }}"
+                                                   name="bill_street">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="">
+                                            <label class="form-label" for="hausnummer">Hausnummer</label>
+                                            <input type="text" class="form-control" id="hausnummer"
+                                                   value="{{ billing_address.house_number }}" name="bill_house_number">
+                                        </div>
+                                    </div>
+                                    <div class="row g-5 mt-0">
+                                        <div class="col-md-14">
+                                            <div class="">
+                                                <label for="address2" class="form-label">Adress-Info <span
+                                                        class="text-muted">(Optional)</span></label>
+                                                <textarea type="text" class="form-control" name="bill_address_info"
+                                                          value="{{ billing_address.address_info }}"
+                                                          placeholder="Hier zusätzliche Adressinformationen eingeben (optional)">{{ billing_address.address_info }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <label class="form-label" for="city">Stadt</label>
+                                            <input type="text" class="form-control" id="city" value="{{ billing_address.city }}"
+                                                   name="bill_city">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="">
+                                            <label class="form-label" for="zip">PLZ</label>
+                                            <input type="text" class="form-control" id="zip"
+                                                   value="{{ billing_address.postal_code }}" name="bill_postal_code">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="">
+                                            <label class="form-label" for="country">Land</label>
+                                            <select class="form-select" id="country" name="bill_country"
+                                                    aria-label="Default select example">
+                                                <option {% if billing_address.country == '' %}selected{% endif %}></option>
+                                                <option {% if billing_address.country == 'germany' %}selected{% endif %}
+                                                        value="germany">Deutschland
+                                                </option>
+                                                <option {% if billing_address.country == 'austria' %}selected{% endif %}
+                                                        value="austria">Österreich
+                                                </option>
+                                                <option {% if billing_address.country == 'switzerland' %}selected{% endif %}
+                                                        value="switzerland">Schweiz
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             {% endif %}
-                        <br>
-                        <div class="text-center">
-                            <a href="{% url 'profile' request.user %}">
-                                <button type="button" class="btn btn-sm btn-neutral me-2">Cancel</button>
-                            </a>
-                            <button type="submit" class="btn btn-sm miaggio-btn-success save-btn" id="save-btn">Save</button>
-                        </div>
+                            </div>
+                            <br>
+                            <div class="text-center">
+                                <a href="{% url 'profile' request.user %}">
+                                    <button type="button" class="btn btn-sm btn-neutral me-2">Cancel</button>
+                                </a>
+                                <button type="submit" class="btn btn-sm miaggio-btn-success save-btn" id="save-btn">Save
+                                </button>
+                            </div>
                     </form>
                 </div>
             </div>

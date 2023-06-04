@@ -78,6 +78,8 @@ def index(request):
 # removes the quantity from the stock
 @login_required(login_url='loginpage')
 def placeorder(request):
+    print(request.POST)
+
     if request.method == 'POST':
 
         currentuser = User.objects.filter(id=request.user.id).first()
@@ -110,7 +112,7 @@ def placeorder(request):
             userprofile.country = request.POST.get('country')
             userprofile.save()
 
-            if request.POST.get('bill_fname') != '':
+            if request.POST.get('check_box') != 'true':
                 billing_address = BillingAddress()
                 billing_address.profile = userprofile
                 billing_address.fname = request.POST.get('bill_fname')
@@ -165,6 +167,21 @@ def placeorder(request):
             if request.POST.get('check_box') == 'true' and BillingAddress.objects.filter(profile__user=request.user):
                 billing_address_obj = BillingAddress.objects.filter(profile__user=request.user).first()
                 billing_address_obj.delete()
+
+            elif request.POST.get('check_box') == '' and BillingAddress.objects.filter(profile__user=request.user).first() is None:
+                billing_address = BillingAddress()
+                billing_address.profile = profile_obj.first()
+                billing_address.fname = request.POST.get('bill_fname')
+                billing_address.lname = request.POST.get('bill_lname')
+                billing_address.email = request.POST.get('bill_email')
+                billing_address.phone = request.POST.get('bill_phone')
+                billing_address.street = request.POST.get('bill_street')
+                billing_address.house_number = request.POST.get('bill_house_number')
+                billing_address.address_info = request.POST.get('bill_address_info')
+                billing_address.postal_code = request.POST.get('bill_postal_code')
+                billing_address.city = request.POST.get('bill_city')
+                billing_address.country = request.POST.get('bill_country')
+                billing_address.save()
             else:
                 billing_address_obj = BillingAddress.objects.filter(profile__user=request.user)
                 if request.POST.get('bill_fname') != '':

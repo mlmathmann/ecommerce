@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from store.forms import CustomUserForm, User, CustomUserChangeForm, CustomPasswordChangeForm, ProfilePictureChangeForm
 from django.contrib.auth.decorators import login_required
-from store.models import Profile
+from store.models import Profile, BillingAddress
 from .dashboard import details, profile
 from store.views import get_navbar_context
 
@@ -123,6 +123,63 @@ def updateprofile(request):
                 if request.POST.get('country') != element.get('country'):
                     profile_obj.update(country=request.POST.get('country'))
                     profile_changes = True
+
+        if BillingAddress.objects.filter(profile__user=request.user):
+            billing_address = BillingAddress.objects.filter(profile__user=request.user)
+            if request.POST.get('bill_fname') != '':
+                for element in billing_address.values('fname'):
+                    if request.POST.get('bill_fname') != element.get('fname'):
+                        billing_address.update(fname=request.POST.get('bill_fname'))
+                        profile_changes = True
+                        print("fname")
+
+            if request.POST.get('bill_lname') != '':
+                for element in billing_address.values('lname'):
+                    if request.POST.get('bill_lname') != element.get('lname'):
+                        billing_address.update(lname=request.POST.get('bill_lname'))
+                        profile_changes = True
+
+            if request.POST.get('bill_phone') != '':
+                for element in billing_address.values('phone'):
+                    if request.POST.get('bill_phone') != element.get('phone'):
+                        billing_address.update(phone=request.POST.get('bill_phone'))
+                        profile_changes = True
+
+            if request.POST.get('bill_street') != '':
+                for element in billing_address.values('street'):
+                    if request.POST.get('bill_street') != element.get('street'):
+                        billing_address.update(street=request.POST.get('bill_street'))
+                        profile_changes = True
+
+            if request.POST.get('bill_house_number') != '':
+                for element in billing_address.values('house_number'):
+                    if request.POST.get('bill_house_number') != element.get('house_number'):
+                        billing_address.update(house_number=request.POST.get('bill_house_number'))
+                        profile_changes = True
+
+            if request.POST.get('bill_address_info') != '':
+                for element in billing_address.values('address_info'):
+                    if request.POST.get('bill_address_info') != element.get('address_info'):
+                        billing_address.update(address_info=request.POST.get('bill_address_info'))
+                        profile_changes = True
+
+            if request.POST.get('bill_postal_code') != '':
+                for element in billing_address.values('postal_code'):
+                    if request.POST.get('bill_postal_code') != element.get('postal_code'):
+                        billing_address.update(postal_code=request.POST.get('bill_postal_code'))
+                        profile_changes = True
+
+            if request.POST.get('bill_city') != '':
+                for element in billing_address.values('city'):
+                    if request.POST.get('bill_city') != element.get('city'):
+                        billing_address.update(city=request.POST.get('bill_city'))
+                        profile_changes = True
+
+            if request.POST.get('bill_country') != '':
+                for element in billing_address.values('country'):
+                    if request.POST.get('bill_country') != element.get('country'):
+                        billing_address.update(country=request.POST.get('bill_country'))
+                        profile_changes = True
 
         if profile_changes == True:
             sweetify.toast(request, "Profile updated successfully!", "success", width='275px')
