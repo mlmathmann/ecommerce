@@ -76,7 +76,8 @@
 
                                             <li class="nav-item"><a href="{% url 'about-us' %}">About
                                                 Us</a></li>
-                                            <li class="nav-item"><a href="{% url 'generatecustomfurniture' %}">Creation</a>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'generatecustomfurniture' %}">Creation</a>
                                             </li>
                                             <li class="nav-item"><a href="{% url 'faq' %}">FAQ</a></li>
 
@@ -89,7 +90,8 @@
                                            aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
                                             <li class="nav-item"><a href="{% url 'agb' %}">AGB</a></li>
-                                            <li class="nav-item"><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
                                             </li>
                                             <li class="nav-item"><a href="{% url 'impressum' %}">Impressum</a>
                                             </li>
@@ -206,24 +208,24 @@
 
             <div class="row g-5">
                 <div class="col-md-6 col-lg-6">
-                    <h4 class="mb-3">Billing address</h4>
+                    <h4 class="mb-3">Lieferadresse</h4>
                     <div class="row g-3">
                         <div class="col-sm-6">
-                            <label for="firstName" class="form-label">First name</label>
-                            <input type="text" disabled value="{{ request.user.first_name }}"
+                            <label for="firstName" class="form-label">Vorname</label>
+                            <input type="text" disabled value="{{ order.fname }}"
                                    class="form-control" name="fname" placeholder="Enter First name">
                         </div>
 
                         <div class="col-sm-6">
-                            <label for="lastName" class="form-label">Last name</label>
-                            <input type="text" disabled value="{{ request.user.last_name }}"
+                            <label for="lastName" class="form-label">Nachname</label>
+                            <input type="text" disabled value="{{ order.lname }}"
                                    class="form-control" name="lname" placeholder="Enter Last name">
 
                         </div>
 
                         <div class="col-6">
                             <label for="email" class="form-label">Email</label>
-                            <input type="text" disabled value="{{ request.user.email }}" class="form-control"
+                            <input type="text" disabled value="{{ order.email }}" class="form-control"
                                    name="email" id="email" placeholder="Enter Email Address">
                             <div class="invalid-feedback">
                                 Please enter your email address.
@@ -231,8 +233,8 @@
                         </div>
 
                         <div class="col-6">
-                            <label for="phone" class="form-label">Phone</label>
-                            <input type="text" disabled value="{{ userprofile.phone }}" class="form-control"
+                            <label for="phone" class="form-label">Telefonnummer</label>
+                            <input type="text" disabled value="{{ order.phone }}" class="form-control"
                                    name="phone" id="phone" placeholder="Enter Phone Number">
                             <div class="invalid-feedback">
                                 Please enter your phone number.
@@ -241,7 +243,7 @@
 
                         <div class="col-6">
                             <label for="address" class="form-label">Straße</label>
-                            <input type="text" disabled value="{{ userprofile.street }}" class="form-control"
+                            <input type="text" disabled value="{{ order.street }}" class="form-control"
                                    name="street" placeholder="Enter Street">
                             <div class="invalid-feedback">
                                 Please enter your shipping address.
@@ -250,7 +252,7 @@
 
                         <div class="col-6">
                             <label for="address" class="form-label">Hausnummer</label>
-                            <input type="text" disabled value="{{ userprofile.house_number }}"
+                            <input type="text" disabled value="{{ order.house_number }}"
                                    class="form-control" name="house_number" placeholder="Enter House Number">
                             <div class="invalid-feedback">
                                 Please enter your shipping address.
@@ -258,15 +260,15 @@
                         </div>
 
                         <div class="col-12">
-                            <label for="address2" class="form-label">Address Info<span
+                            <label for="address2" class="form-label">Adress-Info<span
                                     class="text-muted">(Optional)</span></label>
                             <textarea type="text" class="form-control" disabled name="address_info"
-                                      placeholder="Enter additional address info (optional)">{{ userprofile.address_info }}</textarea>
+                                      placeholder="Enter additional address info (optional)">{{ order.address_info }}</textarea>
                         </div>
 
                         <div class="col-md-4">
                             <label for="zip" class="form-label">Stadt</label>
-                            <input type="text" disabled value="{{ userprofile.city }}" class="form-control"
+                            <input type="text" disabled value="{{ order.city }}" class="form-control"
                                    name="city" placeholder="Enter City">
                             <div class="invalid-feedback">
                                 Zip code required.
@@ -275,7 +277,7 @@
 
                         <div class="col-md-4">
                             <label for="zip" class="form-label">PLZ</label>
-                            <input type="text" disabled value="{{ userprofile.postal_code }}"
+                            <input type="text" disabled value="{{ order.postal_code }}"
                                    class="form-control" name="postal_code" placeholder="Enter Postal Code">
                             <div class="invalid-feedback">
                                 Zip code required.
@@ -283,17 +285,17 @@
                         </div>
 
                         <div class="col-md-5">
-                            <label for="country" class="form-label">Country</label>
+                            <label for="country" class="form-label">Land</label>
                             <select class="form-select" disabled id="country" name="country"
                                     aria-label="Default select example">
-                                <option {% if user_country == '' %}selected{% endif %}></option>
-                                <option {% if user_country == 'germany' %}selected{% endif %}
+                                <option {% if order.country == '' %}selected{% endif %}></option>
+                                <option {% if order.country == 'germany' %}selected{% endif %}
                                         value="germany">Deutschland
                                 </option>
-                                <option {% if user_country == 'austria' %}selected{% endif %}
+                                <option {% if order.country == 'austria' %}selected{% endif %}
                                         value="austria">Österreich
                                 </option>
-                                <option {% if user_country == 'switzerland' %}selected{% endif %}
+                                <option {% if order.country == 'switzerland' %}selected{% endif %}
                                         value="switzerland">Schweiz
                                 </option>
                             </select>
@@ -301,6 +303,119 @@
                                 Please select a valid country.
                             </div>
                         </div>
+                        {% if order.bill_address_dif %}
+
+                            <h4 class="mt-5 mb-1">Rechnungsadresse</h4>
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <label for="firstName" class="form-label">Vorname</label>
+                                    <input type="text" disabled value="{{ order.bill_fname }}"
+                                           class="form-control" name="fname" placeholder="Enter First name">
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="lastName" class="form-label">Nachname</label>
+                                    <input type="text" disabled value="{{ order.bill_lname }}"
+                                           class="form-control" name="lname" placeholder="Enter Last name">
+
+                                </div>
+
+                                <div class="col-6">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="text" disabled value="{{ order.bill_email }}"
+                                           class="form-control"
+                                           name="email" id="email" placeholder="Enter Email Address">
+                                    <div class="invalid-feedback">
+                                        Please enter your email address.
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <label for="phone" class="form-label">Telefonnummer</label>
+                                    <input type="text" disabled value="{{ order.bill_phone }}"
+                                           class="form-control"
+                                           name="phone" id="phone" placeholder="Enter Phone Number">
+                                    <div class="invalid-feedback">
+                                        Please enter your phone number.
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <label for="address" class="form-label">Straße</label>
+                                    <input type="text" disabled value="{{ order.bill_street }}"
+                                           class="form-control"
+                                           name="street" placeholder="Enter Street">
+                                    <div class="invalid-feedback">
+                                        Please enter your shipping address.
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <label for="address" class="form-label">Hausnummer</label>
+                                    <input type="text" disabled value="{{ order.bill_house_number }}"
+                                           class="form-control" name="house_number"
+                                           placeholder="Enter House Number">
+                                    <div class="invalid-feedback">
+                                        Please enter your shipping address.
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="address2" class="form-label">Adress-Info<span
+                                            class="text-muted">(Optional)</span></label>
+                                    <textarea type="text" class="form-control" disabled name="address_info"
+                                              placeholder="Enter additional address info (optional)">{{ order.bill_address_info }}</textarea>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="zip" class="form-label">Stadt</label>
+                                    <input type="text" disabled value="{{ order.bill_city }}"
+                                           class="form-control"
+                                           name="city" placeholder="Enter City">
+                                    <div class="invalid-feedback">
+                                        Zip code required.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="zip" class="form-label">PLZ</label>
+                                    <input type="text" disabled value="{{ order.bill_postal_code }}"
+                                           class="form-control" name="postal_code"
+                                           placeholder="Enter Postal Code">
+                                    <div class="invalid-feedback">
+                                        Zip code required.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label for="country" class="form-label">Land</label>
+                                    <select class="form-select" disabled id="country" name="country"
+                                            aria-label="Default select example">
+                                        <option {% if order.bill_country == '' %}selected{% endif %}></option>
+                                        <option {% if order.bill_country == 'germany' %}selected{% endif %}
+                                                value="germany">Deutschland
+                                        </option>
+                                        <option {% if order.bill_country == 'austria' %}selected{% endif %}
+                                                value="austria">Österreich
+                                        </option>
+                                        <option {% if order.bill_country == 'switzerland' %}selected{% endif %}
+                                                value="switzerland">Schweiz
+                                        </option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please select a valid country.
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="mt-5 form-check">
+                                <input type="checkbox" checked disabled class="form-check-input" id="same-address"
+                                       onclick="openBillingAddressSection()">
+                                <label class="form-check-label" for="same-address">Lieferadresse entspricht der
+                                    Rechnungsadresse</label>
+                            </div>
+                        {% endif %}
+
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6 order-md-last">

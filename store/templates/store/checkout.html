@@ -76,7 +76,8 @@
 
                                             <li class="nav-item"><a href="{% url 'about-us' %}">About
                                                 Us</a></li>
-                                            <li class="nav-item"><a href="{% url 'generatecustomfurniture' %}">Creation</a>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'generatecustomfurniture' %}">Creation</a>
                                             </li>
                                             <li class="nav-item"><a href="{% url 'faq' %}">FAQ</a></li>
 
@@ -89,7 +90,8 @@
                                            aria-label="Toggle navigation">AGB</a>
                                         <ul class="sub-menu collapse" id="submenu-1-5">
                                             <li class="nav-item"><a href="{% url 'agb' %}">AGB</a></li>
-                                            <li class="nav-item"><a href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
+                                            <li class="nav-item"><a
+                                                    href="{% url 'datenschutz' %}">Datenschutzrichtlinie</a>
                                             </li>
                                             <li class="nav-item"><a href="{% url 'impressum' %}">Impressum</a>
                                             </li>
@@ -254,16 +256,16 @@
                                     </div>
                                 </div>
                             {% else %}
-                                Nothing to pay for you poor ass bitch
+                                Nothing to pay for
                             {% endif %}
                         </div>
                     </div>
                     <div class="col-md-7 col-lg-8">
-                        <h4 class="mb-3">Billing address</h4>
+                        <h4 class="mb-3">Lieferadresse</h4>
 
                         <div class="row g-3">
                             <div class="col-sm-6">
-                                <label for="firstName" class="form-label">First name</label>
+                                <label for="firstName" class="form-label">Vorname</label>
                                 <input type="text" required value="{{ request.user.first_name }}"
                                        class="form-control" name="fname" placeholder="Enter First name">
                                 <div class="invalid-feedback">
@@ -272,7 +274,7 @@
                             </div>
 
                             <div class="col-sm-6">
-                                <label for="lastName" class="form-label">Last name</label>
+                                <label for="lastName" class="form-label">Nachname</label>
                                 <input type="text" required value="{{ request.user.last_name }}"
                                        class="form-control" name="lname" placeholder="Enter Last name">
                                 <div class="invalid-feedback">
@@ -290,7 +292,7 @@
                             </div>
 
                             <div class="col-6">
-                                <label for="phone" class="form-label">Phone</label>
+                                <label for="phone" class="form-label">Telefonnummer</label>
                                 <input type="text" required value="{{ userprofile.phone }}" class="form-control"
                                        name="phone" id="phone" placeholder="Enter Phone Number">
                                 <div class="invalid-feedback">
@@ -317,7 +319,7 @@
                             </div>
 
                             <div class="col-12">
-                                <label for="address2" class="form-label">Address Info<span
+                                <label for="address2" class="form-label">Adress-Info <span
                                         class="text-muted">(Optional)</span></label>
                                 <textarea type="text" class="form-control" name="address_info"
                                           placeholder="Enter additional address info (optional)">{{ userprofile.address_info }}</textarea>
@@ -342,7 +344,7 @@
                             </div>
 
                             <div class="col-md-5">
-                                <label for="country" class="form-label">Country</label>
+                                <label for="country" class="form-label">Land</label>
                                 <select class="form-select" id="country" name="country"
                                         aria-label="Default select example">
                                     <option {% if user_country == '' %}selected{% endif %}></option>
@@ -363,7 +365,129 @@
                         </div>
                     </div>
                 </div>
+                <div class="mt-5 form-check">
+                    <input type="checkbox"
+                            {% if billing_country == '' %}
+                           checked
+                            {% endif %}
+                           class="form-check-input" id="same-address"
+                           onclick="openBillingAddressSection()">
+                    <label class="form-check-label" for="same-address">Lieferadresse entspricht der
+                        Rechnungsadresse</label>
+                </div>
+
                 <hr class="my-4">
+                <div style="
+                        {% if billing_country != '' %}
+                            display: block
+                        {% else %}
+                            display: none
+                        {% endif %}"
+
+                     id="billing-address-section" class="col-md-7 col-lg-8">
+                    <h4 class="mb-3">Rechnungsadresse</h4>
+
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label for="firstName" class="form-label">Vorname</label>
+                            <input type="text" required value="{{ billing_address.fname }}"
+                                   class="form-control" name="bill_fname" placeholder="Hier Vorname eingeben">
+                            <div class="invalid-feedback">
+                                Valid first name is required.
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="lastName" class="form-label">Nachname</label>
+                            <input type="text" required value="{{ billing_address.lname }}"
+                                   class="form-control" name="bill_lname" placeholder="Hier Nachname eingeben">
+                            <div class="invalid-feedback">
+                                Valid last name is required.
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" required value="{{ billing_address.email }}" class="form-control"
+                                   name="bill_email" id="email" placeholder="Hier Email eingeben">
+                            <div class="invalid-feedback">
+                                Please enter your email address.
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="phone" class="form-label">Telefonnummer</label>
+                            <input type="text" required value="{{ billing_address.phone }}" class="form-control"
+                                   name="bill_phone" id="phone" placeholder="Hier Telefonnummer eingeben">
+                            <div class="invalid-feedback">
+                                Please enter your phone number.
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="address" class="form-label">Straße</label>
+                            <input type="text" required value="{{ billing_address.street }}" class="form-control"
+                                   name="bill_street" placeholder="Hier Straße eingeben">
+                            <div class="invalid-feedback">
+                                Please enter your shipping address.
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="address" class="form-label">Hausnummer</label>
+                            <input type="text" required value="{{ billing_address.house_number }}"
+                                   class="form-control" name="bill_house_number" placeholder="Hier Hausnummer eingeben">
+                            <div class="invalid-feedback">
+                                Please enter your shipping address.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="address2" class="form-label">Adress-Info <span
+                                    class="text-muted">(Optional)</span></label>
+                            <textarea type="text" class="form-control" name="bill_address_info"
+                                      placeholder="Hier zusätzliche Adressinformationen eingeben (optional)">{{ billing_address.address_info }}</textarea>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="zip" class="form-label">Stadt</label>
+                            <input type="text" required value="{{ billing_address.city }}" class="form-control"
+                                   name="bill_city" placeholder="Hier Stadt eingeben">
+                            <div class="invalid-feedback">
+                                Zip code required.
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="zip" class="form-label">PLZ</label>
+                            <input type="text" required value="{{ billing_address.postal_code }}"
+                                   class="form-control" name="bill_postal_code" placeholder="Hier Postleitzahl eingeben">
+                            <div class="invalid-feedback">
+                                Zip code required.
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <label for="country" class="form-label">Land</label>
+                            <select class="form-select" id="country" name="bill_country"
+                                    aria-label="Default select example">
+                                <option {% if billing_country == '' %}selected{% endif %}></option>
+                                <option {% if billing_country == 'germany' %}selected{% endif %}
+                                        value="germany">Deutschland
+                                </option>
+                                <option {% if billing_country == 'austria' %}selected{% endif %}
+                                        value="austria">Österreich
+                                </option>
+                                <option {% if billing_country == 'switzerland' %}selected{% endif %}
+                                        value="switzerland">Schweiz
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a valid country.
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <br>
                 <br>
                 <br>
@@ -464,12 +588,35 @@
                 var city = $("[name='city']").val();
                 var country = $("[name='country']").val();
                 var token = $('input[name=csrfmiddlewaretoken]').val();
+                var checkBox = document.getElementById('same-address');
 
-                if (fname == "" || lname == "" || email == "" || phone == "" || street == "" || house_number == "" || postal_code == "" || city == "" || country == "" || token == "") {
-                    Swal.fire("Warnung!", "Alle erforderlichen Felder müssen ausgefüllt sein!", "error");
-                    return false;
+                if (checkBox.checked == true) {
+
+                    if (fname == "" || lname == "" || email == "" || phone == "" || street == "" || house_number == "" || postal_code == "" || city == "" || country == "" || token == "") {
+                        Swal.fire("Warnung!", "Alle erforderlichen Felder müssen ausgefüllt sein!", "error");
+                        return false;
+                    } else {
+                        return true;
+                    }
                 } else {
-                    return true;
+                    var bill_fname = $("[name='bill_fname']").val();
+                    var bill_lname = $("[name='bill_lname']").val();
+                    var bill_email = $("[name='bill_email']").val();
+                    var bill_phone = $("[name='bill_phone']").val();
+                    var bill_street = $("[name='bill_street']").val();
+                    var bill_address_info = $("[name='bill_address_info']").val();
+                    var bill_house_number = $("[name='bill_house_number']").val();
+                    var bill_postal_code = $("[name='bill_postal_code']").val();
+                    var bill_city = $("[name='bill_city']").val();
+                    var bill_country = $("[name='bill_country']").val();
+                    var token = $('input[name=csrfmiddlewaretoken]').val();
+
+                    if (bill_fname == "" || bill_lname == "" || bill_email == "" || bill_phone == "" || bill_street == "" || bill_house_number == "" || bill_postal_code == "" || bill_city == "" || bill_country == "" || token == "") {
+                        Swal.fire("Warnung!", "Alle erforderlichen Felder müssen ausgefüllt sein!", "error");
+                        return false;
+                    } else {
+                        return true;
+                    }
                 }
             },
 
@@ -500,6 +647,24 @@
                     var postal_code = $("[name='postal_code']").val();
                     var city = $("[name='city']").val();
                     var country = $("[name='country']").val();
+
+                    var bill_fname = $("[name='bill_fname']").val();
+                    var bill_lname = $("[name='bill_lname']").val();
+                    var bill_email = $("[name='bill_email']").val();
+                    var bill_phone = $("[name='bill_phone']").val();
+                    var bill_street = $("[name='bill_street']").val();
+                    var bill_address_info = $("[name='bill_address_info']").val();
+                    var bill_house_number = $("[name='bill_house_number']").val();
+                    var bill_postal_code = $("[name='bill_postal_code']").val();
+                    var bill_city = $("[name='bill_city']").val();
+                    var bill_country = $("[name='bill_country']").val();
+
+                    var checkBox = document.getElementById('same-address');
+                    var check_box = ''
+                    if (checkBox.checked == true) {
+                        check_box = 'true'
+                    }
+
                     var total_price = $("[name='total_price']").val();
                     var token = $('input[name=csrfmiddlewaretoken]').val();
 
@@ -514,6 +679,17 @@
                         "postal_code": postal_code,
                         "city": city,
                         "country": country,
+                        "bill_fname": bill_fname,
+                        "bill_lname": bill_lname,
+                        "bill_email": bill_email,
+                        "bill_phone": bill_phone,
+                        "bill_street": bill_street,
+                        "bill_house_number": bill_house_number,
+                        "bill_address_info": bill_address_info,
+                        "bill_postal_code": bill_postal_code,
+                        "bill_city": bill_city,
+                        "bill_country": bill_country,
+                        "check_box": check_box,
                         "total_price": total_price,
                         "payment_mode": "Paid with PayPal",
                         "payment_id": orderData.id,
@@ -533,6 +709,19 @@
                 });
             }
         }).render('#paypal-button-container');
+    </script>
+    <script>
+        function openBillingAddressSection() {
+            var billing_address_section = document.getElementById('billing-address-section')
+            var checkBox = document.getElementById('same-address')
+
+            if (checkBox.checked == true) {
+                billing_address_section.style.display = "none";
+            } else {
+                billing_address_section.style.display = "block";
+            }
+
+        }
     </script>
 {% endblock %}
 {% load sweetify %}

@@ -2,7 +2,7 @@ import sweetify
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from store.models import Cart, Order, OrderItem, Product, Profile
+from store.models import Cart, Order, OrderItem, Product, Profile, BillingAddress
 from store.views import get_navbar_context
 from django.http import JsonResponse
 import random
@@ -34,6 +34,8 @@ def index(request):
 
     userprofile = Profile.objects.filter(user=request.user).first()
 
+    billing_address = BillingAddress.objects.filter(profile__user=request.user).first()
+
     user_country = Profile.objects.filter(user=request.user).values('country')
 
     if user_country:
@@ -45,12 +47,26 @@ def index(request):
     else:
         user_country = ''
 
+    billing_country = BillingAddress.objects.filter(profile__user=request.user).values('country')
+
+    if billing_country:
+        for country in billing_country:
+            billing_country = country.get('country')
+            for choice in Order.CountryChoices.choices:
+                if billing_country == choice[0]:
+                    billing_country = choice[1].lower()
+
+    else:
+        billing_country = ''
+
     context = {'cartitems': cartitems,
                'cart_item_count': cart_item_count,
                'total_price': new_total_price,
                'total_price_calc': total_price,
                'userprofile': userprofile,
                'user_country': user_country,
+               'billing_address': billing_address,
+               'billing_country': billing_country,
                'categories': nav_context.get('categories'),
                'profile_picture': nav_context.get('profile_picture'),
                'collections': nav_context.get('collections')
@@ -93,6 +109,22 @@ def placeorder(request):
             userprofile.city = request.POST.get('city')
             userprofile.country = request.POST.get('country')
             userprofile.save()
+
+            if request.POST.get('bill_fname') != '':
+                billing_address = BillingAddress()
+                billing_address.profile = userprofile
+                billing_address.fname = request.POST.get('bill_fname')
+                billing_address.lname = request.POST.get('bill_lname')
+                billing_address.email = request.POST.get('bill_email')
+                billing_address.phone = request.POST.get('bill_phone')
+                billing_address.street = request.POST.get('bill_street')
+                billing_address.house_number = request.POST.get('bill_house_number')
+                billing_address.address_info = request.POST.get('bill_address_info')
+                billing_address.postal_code = request.POST.get('bill_postal_code')
+                billing_address.city = request.POST.get('bill_city')
+                billing_address.country = request.POST.get('bill_country')
+                billing_address.save()
+
         else:
             profile_obj = Profile.objects.filter(user=request.user)
             if request.POST.get('phone') != '':
@@ -130,6 +162,61 @@ def placeorder(request):
                     if request.POST.get('country') != element.get('country'):
                         profile_obj.update(country=request.POST.get('country'))
 
+            if request.POST.get('check_box') == 'true' and BillingAddress.objects.filter(profile__user=request.user):
+                billing_address_obj = BillingAddress.objects.filter(profile__user=request.user).first()
+                billing_address_obj.delete()
+            else:
+                billing_address_obj = BillingAddress.objects.filter(profile__user=request.user)
+                if request.POST.get('bill_fname') != '':
+                    for element in billing_address_obj.values('fname'):
+                        if request.POST.get('bill_fname') != element.get('fname'):
+                            billing_address_obj.update(fname=request.POST.get('bill_fname'))
+
+                if request.POST.get('bill_lname') != '':
+                    for element in billing_address_obj.values('lname'):
+                        if request.POST.get('bill_lname') != element.get('lname'):
+                            billing_address_obj.update(lname=request.POST.get('bill_lname'))
+
+                if request.POST.get('bill_email') != '':
+                    for element in billing_address_obj.values('email'):
+                        if request.POST.get('bill_email') != element.get('email'):
+                            billing_address_obj.update(email=request.POST.get('bill_email'))
+
+                if request.POST.get('bill_phone') != '':
+                    for element in billing_address_obj.values('phone'):
+                        if request.POST.get('bill_phone') != element.get('phone'):
+                            billing_address_obj.update(phone=request.POST.get('bill_phone'))
+
+                if request.POST.get('bill_street') != '':
+                    for element in billing_address_obj.values('street'):
+                        if request.POST.get('bill_street') != element.get('street'):
+                            billing_address_obj.update(street=request.POST.get('bill_street'))
+
+                if request.POST.get('bill_house_number') != '':
+                    for element in billing_address_obj.values('house_number'):
+                        if request.POST.get('bill_house_number') != element.get('house_number'):
+                            billing_address_obj.update(house_number=request.POST.get('bill_house_number'))
+
+                if request.POST.get('bill_address_info') != '':
+                    for element in billing_address_obj.values('address_info'):
+                        if request.POST.get('bill_address_info') != element.get('address_info'):
+                            billing_address_obj.update(address_info=request.POST.get('bill_address_info'))
+
+                if request.POST.get('bill_postal_code') != '':
+                    for element in billing_address_obj.values('postal_code'):
+                        if request.POST.get('bill_postal_code') != element.get('postal_code'):
+                            billing_address_obj.update(postal_code=request.POST.get('bill_postal_code'))
+
+                if request.POST.get('bill_city') != '':
+                    for element in billing_address_obj.values('city'):
+                        if request.POST.get('bill_city') != element.get('city'):
+                            billing_address_obj.update(city=request.POST.get('bill_city'))
+
+                if request.POST.get('bill_country') != '':
+                    for element in billing_address_obj.values('country'):
+                        if request.POST.get('bill_country') != element.get('country'):
+                            billing_address_obj.update(country=request.POST.get('bill_country'))
+
         neworder = Order()
         neworder.user = request.user
         neworder.fname = request.POST.get('fname')
@@ -142,6 +229,19 @@ def placeorder(request):
         neworder.postal_code = request.POST.get('postal_code')
         neworder.city = request.POST.get('city')
         neworder.country = request.POST.get('country')
+
+        if request.POST.get('check_box') != 'true':
+            neworder.bill_address_dif = True
+            neworder.bill_fname = request.POST.get('bill_fname')
+            neworder.bill_lname = request.POST.get('bill_lname')
+            neworder.bill_email = request.POST.get('bill_email')
+            neworder.bill_phone = request.POST.get('bill_phone')
+            neworder.bill_street = request.POST.get('bill_street')
+            neworder.bill_house_number = request.POST.get('bill_house_number')
+            neworder.bill_address_info = request.POST.get('bill_address_info')
+            neworder.bill_postal_code = request.POST.get('bill_postal_code')
+            neworder.bill_city = request.POST.get('bill_city')
+            neworder.bill_country = request.POST.get('bill_country')
 
         # neworder.total_price = request.POST.get('total_price_calc')
 

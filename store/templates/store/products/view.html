@@ -233,6 +233,8 @@
                                                         <hr>
                                                         <p class="mt-4 mb-2"
                                                            style="font-family: Lato, sans-serif; color: #888888">{{ products.description }}</p>
+                                                        <p class="mt-5 mb-2"
+                                                           style="font-family: Lato, sans-serif; color: #888888">Maße: {{ products.measurements }}</p>
                                                         <br>
                                                         <label class="fw-bold">
                                                             {{ products.selling_price | floatformat:2 }}€</label>
@@ -269,7 +271,8 @@
                                                                         <button class="input-group-text decrement-btn">
                                                                             -
                                                                         </button>
-                                                                        <input type="text" name="quantity" readonly style="background-color: transparent"
+                                                                        <input type="text" name="quantity" readonly
+                                                                               style="background-color: transparent"
                                                                                class="form-control qty-input text-center"
                                                                                value="1">
                                                                         <button class="input-group-text increment-btn">

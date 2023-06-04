@@ -25,23 +25,9 @@ def orders_view(request, order):
     nav_context = get_navbar_context(request)
     order = Order.objects.filter(tracking_no=order).first()
     order_items = OrderItem.objects.filter(order=order)
-    userprofile = Profile.objects.filter(user=request.user).first()
-
-    user_country = Profile.objects.filter(user=request.user).values('country')
-
-    if user_country:
-        for country in user_country:
-            user_country = country.get('country')
-            for choice in Order.CountryChoices.choices:
-                if user_country == choice[1].lower():
-                    user_country = choice[1].lower()
-    else:
-        user_country = ''
-
 
     context = {'order': order, 'order_items': order_items,'categories': nav_context.get('categories'),
-               'profile_picture': nav_context.get('profile_picture'), 'collections': nav_context.get('collections'),
-               'userprofile': userprofile, 'user_country': user_country}
+               'profile_picture': nav_context.get('profile_picture'), 'collections': nav_context.get('collections')}
     return render(request, 'store/orders/myordersdetails.html', context)
 
 
