@@ -7,6 +7,13 @@ from .forms import CustomPasswordChangeForm
 
 # Create your views here.
 
+
+def page_not_found(request, exception):
+    response = render(request, "404.html", {})
+    response.status_code = 404
+    return response
+
+
 # this function provies the users profile picture, newsletter, categories and collections for the navbar on each page
 def get_navbar_context(request):
     user_newsletter_subscription = False
@@ -84,7 +91,7 @@ def categoriesview(request, slug):
         return redirect('collections')
 
 
-# displays the selected product of the category, e. g. chair
+# displays the selected product of the category, e. g. red chair
 def productview(request, cate_slug, prod_slug):
     nav_context = get_navbar_context(request)
     if Category.objects.filter(slug=cate_slug, status=0):

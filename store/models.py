@@ -50,12 +50,10 @@ class Product(models.Model):
         FUTURISTIC = 'F'
         BRUTALISTIC = 'B'
         SIMPLISTIC = 'S'
-    style_way = models.CharField(max_length=1, choices=StyleChoices.choices, default='S')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
     slug = models.CharField(max_length=150, null=False, blank=False)
     name = models.CharField(max_length=150, null=False, blank=False)
     product_image = models.ImageField(upload_to=get_file_path, null=True, blank=True)
-    measurements = models.CharField(max_length=40, null=False, blank=False, default='10000 x 10000 x 10000 cm')
     small_description = models.CharField(max_length=250, null=False, blank=False)
     quantity = models.IntegerField(null=False, blank=False)
     description = models.TextField(max_length=1000, null=False, blank=False)
@@ -63,6 +61,11 @@ class Product(models.Model):
     status = models.BooleanField(default=False, help_text="0=default, 1=Hidden")
     trending = models.BooleanField(default=False, help_text="0=default, 1=Trending")
     created_at = models.DateTimeField(auto_now_add=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    style_way = models.CharField(max_length=1, choices=StyleChoices.choices, default='S')
+    measurements = models.CharField(max_length=40, null=False, blank=False, default='10000 x 10000 x 10000 cm')
+
+
 
     def __str__(self):
         return self.name
@@ -191,7 +194,7 @@ class OrderItem(models.Model):
 class GeneratedItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=generated_file_path, null=False, blank=False)
-    prompt = models.CharField(max_length=150, null=False)
+    prompt = models.CharField(max_length=150, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
 

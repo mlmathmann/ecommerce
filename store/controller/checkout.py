@@ -78,8 +78,6 @@ def index(request):
 # removes the quantity from the stock
 @login_required(login_url='loginpage')
 def placeorder(request):
-    print(request.POST)
-
     if request.method == 'POST':
 
         currentuser = User.objects.filter(id=request.user.id).first()

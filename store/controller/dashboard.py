@@ -87,7 +87,6 @@ def profile(request, user):
     else:
         user_newsletter_subscription = ''
 
-    print(User.objects.filter(id=request.user.id).values('date_joined'))
     user_time = User.objects.filter(id=request.user.id).values('date_joined')
     if user_time:
         for time in user_time:

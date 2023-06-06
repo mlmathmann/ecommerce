@@ -131,7 +131,7 @@ def updateprofile(request):
                     if request.POST.get('bill_fname') != element.get('fname'):
                         billing_address.update(fname=request.POST.get('bill_fname'))
                         profile_changes = True
-                        print("fname")
+
 
             if request.POST.get('bill_lname') != '':
                 for element in billing_address.values('lname'):

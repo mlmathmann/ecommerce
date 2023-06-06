@@ -504,7 +504,7 @@
                     const categoryDropdownName = categoryDropdown.options[categoryDropdown.selectedIndex].text;
                     const categoryButtonName = selectedCategoryButton ? selectedCategoryButton.innerText : "";
                     const subcategoryButtonName = this.innerText;
-                    const value = "Ein " + categoryDropdownName + " " + categoryButtonName + " Stil aus " + subcategoryButtonName + " .";
+                    const value = "Ein " + categoryButtonName + " " +  categoryDropdownName+ " aus " + subcategoryButtonName + " .";
                     inputField.value = value;
                     creation(subcategoryButtonName)
 
@@ -516,7 +516,7 @@
         function creation(subcategoryButtonName) {
             creation.test = function test() {
                 console.log(data)
-                Swal.fire("Genration started!", 'Dieser Prozess kann bis zu 2 Minuten dauern, bitte verlassen Sie die Seite nicht!', "success").then(
+                Swal.fire("Generation started!", 'Dieser Prozess kann bis zu 2 Minuten dauern, bitte verlassen Sie die Seite nicht!', "success").then(
                     $.ajax({
                         method: "POST",
                         url: "/create",
